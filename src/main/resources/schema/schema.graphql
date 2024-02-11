@@ -1,0 +1,5 @@
+# Create schema over time
+type User {
+    id: ID!
+    phoneNumber: String!
+}
