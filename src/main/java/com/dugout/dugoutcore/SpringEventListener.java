@@ -1,4 +1,4 @@
-package com.example.dugoutcore;
+package com.dugout.dugoutcore;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;

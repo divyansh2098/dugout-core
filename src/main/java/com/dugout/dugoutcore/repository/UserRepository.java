@@ -1,6 +1,6 @@
-package com.example.dugoutcore.repository;
+package com.dugout.dugoutcore.repository;
 
-import com.example.dugoutcore.model.User;
+import com.dugout.dugoutcore.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

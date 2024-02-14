@@ -1,4 +1,4 @@
-package com.example.dugoutcore.dto;
+package com.dugout.dugoutcore.dto;
 
 import lombok.Data;
 
