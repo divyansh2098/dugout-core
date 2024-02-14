@@ -1,4 +1,4 @@
-package com.example.dugoutcore;
+package com.dugout.dugoutcore;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

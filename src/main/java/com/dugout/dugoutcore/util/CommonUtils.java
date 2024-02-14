@@ -1,4 +1,4 @@
-package com.example.dugoutcore.util;
+package com.dugout.dugoutcore.util;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;

@@ -1,4 +1,4 @@
-package com.example.dugoutcore.model;
+package com.dugout.dugoutcore.models;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

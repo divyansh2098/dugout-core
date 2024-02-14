@@ -1,4 +1,4 @@
-package com.example.dugoutcore.config;
+package com.dugout.dugoutcore.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

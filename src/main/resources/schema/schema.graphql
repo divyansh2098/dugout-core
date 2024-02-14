@@ -1,5 +1,91 @@
-# Create schema over time
-type User {
+type UserPlayer {
     id: ID!
+    firstName: String!
+    lastName: String!
+    email: String
+    phone: String
+    gender: Gender
+    dateOfBirth: String
+    country: String
+    city: String,
+    specialization: Specialization
+    battingStyle: BattingStyle
+    bowlingStyle: BowlingStyle
+    createdOn: String
+    updatedOn: String
+}
+
+type SendOtpResponse {
+    phoneNumber: String
+    message: String
+    isSuccess: Boolean
+}
+
+type VerifyOtpResponse {
+    isSuccess: Boolean
+    message: String
+    authToken: String
+}
+
+input UserPlayerInput {
+    firstName: String!
+    lastName: String!
+    email: String
+    phone: String
+    gender: Gender
+    dateOfBirth: String
+    country: String
+    city: String,
+    specialization: Specialization
+    battingStyle: BattingStyle
+    bowlingStyle: BowlingStyle
+    createdOn: String
+    updatedOn: String
+}
+
+input SendOtpRequest {
     phoneNumber: String!
+}
+
+input VerifyOtpRequest {
+    otp: String
+    phoneNumber: String
+}
+
+enum Gender {
+    MALE,
+    FEMALE,
+    OTHER
+}
+
+enum Specialization {
+    TOP_ORDER_BATSMAN
+    MIDDLE_ORDER_BATSMAN
+    FAST_BOWLER
+    SPIN_BOWLER
+}
+
+enum BattingStyle {
+    LEFT
+    RIGHT
+}
+
+enum BowlingStyle {
+    RIGHT_FAST
+    RIGHT_MEDIUM
+    LEFT_FAST
+    LEFT_MEDIUM
+    RIGHT_SPI N
+    LEFT_SPIN
+}
+
+type Query {
+    getPlayerById(id: ID!): UserPlayer
+    verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
+}
+
+type Mutation {
+    createPlayer(player: UserPlayerInput!): UserPlayer
+    generateOtp(request: SendOtpRequest!): SendOtpResponse
+    updatePlayer(player: UserPlayerInput!): UserPlayer
 }

@@ -1,4 +1,4 @@
-package com.example.dugoutcore;
+package com.dugout.dugoutcore;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
