@@ -41,10 +41,10 @@ public class UserDao {
     return convertToDto(createdUser);
   }
 
-  public UserDTO getUser(Long id) {
+  public UserDTO getUser(Long id) throws DugoutDataFetchingException {
     User user = userRepository.findById(id).orElse(null);
     if (ObjectUtils.isEmpty(user)) {
-      return null;
+      throw new DugoutDataFetchingException(DugoutError.builder().message("Player not found").build());
     }
     return convertToDto(user);
   }

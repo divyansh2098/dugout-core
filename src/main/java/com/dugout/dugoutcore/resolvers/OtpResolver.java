@@ -6,6 +6,7 @@ import com.dugout.dugoutcore.dto.VerifyOtpRequest;
 import com.dugout.dugoutcore.dto.VerifyOtpResponse;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
+import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +25,7 @@ public class OtpResolver {
         .build();
   }
 
+  @DgsQuery
   public VerifyOtpResponse verifyOtp(@InputArgument VerifyOtpRequest request) {
     if (request.getOtp() != "999999") {
       return VerifyOtpResponse.builder().message("Verification Failed").isSuccess(false).build();

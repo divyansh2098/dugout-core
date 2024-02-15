@@ -13,11 +13,7 @@ import java.util.Date;
 @Table(name = "`user`")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+public class User extends BaseModel {
 
     @Column(name = "firstname")
     String firstName;
@@ -51,12 +47,4 @@ public class User {
 
     @Column(name = "bowling_style")
     String bowlingStyle;
-
-    @Column(name = "created_on")
-    @CreationTimestamp
-    Date createdOn;
-
-    @Column(name = "updated_on")
-    @UpdateTimestamp
-    Date updatedOn;
 }

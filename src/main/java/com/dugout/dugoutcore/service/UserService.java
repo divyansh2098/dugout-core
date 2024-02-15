@@ -2,6 +2,7 @@ package com.dugout.dugoutcore.service;
 
 import com.dugout.dugoutcore.dao.UserDao;
 import com.dugout.dugoutcore.dto.UserDTO;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class UserService {
   @Autowired
   UserDao userDao;
 
-  public UserDTO getUser(Long id) {
+  public UserDTO getUser(Long id) throws DugoutDataFetchingException {
     return userDao.getUser(id);
   }
 

@@ -2,6 +2,7 @@ type UserPlayer {
     id: ID!
     firstName: String!
     lastName: String!
+    username: String
     email: String
     phone: String
     gender: Gender
@@ -28,8 +29,10 @@ type VerifyOtpResponse {
 }
 
 input UserPlayerInput {
+    id: ID
     firstName: String!
     lastName: String!
+    username: String
     email: String
     phone: String
     gender: Gender

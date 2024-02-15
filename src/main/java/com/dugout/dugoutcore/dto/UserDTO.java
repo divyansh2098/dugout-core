@@ -20,4 +20,8 @@ public class UserDTO {
     String bowlingStyle;
     Date createdOn;
     Date updatedOn;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

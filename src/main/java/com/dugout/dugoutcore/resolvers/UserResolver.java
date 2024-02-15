@@ -1,6 +1,7 @@
 package com.dugout.dugoutcore.resolvers;
 
 import com.dugout.dugoutcore.dto.UserDTO;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.UserService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
@@ -21,8 +22,9 @@ public class UserResolver {
   }
 
   @DgsQuery
-  public UserDTO getPlayerById(@InputArgument Long id) {
-    return userService.getUser(id);
+  public UserDTO getPlayerById(@InputArgument Long id) throws DugoutDataFetchingException {
+    UserDTO dto = userService.getUser(id);
+    return dto;
   }
 
   @DgsMutation
