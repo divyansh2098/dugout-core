@@ -23,8 +23,7 @@ public class UserResolver {
 
   @DgsQuery
   public UserDTO getPlayerById(@InputArgument Long id) throws DugoutDataFetchingException {
-    UserDTO dto = userService.getUser(id);
-    return dto;
+    return userService.getUser(id);
   }
 
   @DgsMutation

@@ -1,7 +1,9 @@
+scalar Long
+
 type UserPlayer {
-    id: ID!
-    firstName: String!
-    lastName: String!
+    id: ID
+    firstName: String
+    lastName: String
     username: String
     email: String
     phone: String
@@ -29,7 +31,7 @@ type VerifyOtpResponse {
 }
 
 input UserPlayerInput {
-    id: ID
+    id: Long!
     firstName: String!
     lastName: String!
     username: String
