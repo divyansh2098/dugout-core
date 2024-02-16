@@ -2,12 +2,16 @@ package com.dugout.dugoutcore.exceptions;
 
 import com.dugout.dugoutcore.pojo.DugoutError;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 @Data
 public class DugoutDataFetchingException extends Exception {
-  DugoutError errors;
+  DugoutError error;
 
-  public DugoutDataFetchingException(DugoutError errors) {
-    this.errors = errors;
+  HttpStatus status;
+
+  public DugoutDataFetchingException(DugoutError errors, HttpStatus status) {
+    this.error = errors;
+    this.status = status;
   }
 }
