@@ -11,6 +11,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,21 +42,23 @@ public class UserDao {
     return convertToDto(createdUser);
   }
 
-  public UserDTO getUser(Long id) {
+  public UserDTO getUser(Long id) throws DugoutDataFetchingException {
     User user = userRepository.findById(id).orElse(null);
     if (ObjectUtils.isEmpty(user)) {
-      return null;
+      throw new DugoutDataFetchingException(
+          DugoutError.builder().message("Message").build(), HttpStatus.BAD_REQUEST);
     }
     return convertToDto(user);
   }
 
   public UserDTO updateUser(UserDTO userDTO) throws DugoutDataFetchingException {
-    Optional<User> user = userRepository.findById(userDTO.getId());
+    Optional<User> user = userRepository.findById(Long.valueOf(userDTO.getId()));
     if (user.isEmpty()) {
       throw new DugoutDataFetchingException(
           DugoutError.builder()
               .message(String.format("User with id: %s not found", userDTO.getId()))
-              .build());
+              .build(),
+          HttpStatus.BAD_REQUEST);
     }
     User existingUser = user.get();
     userDTO.setCreatedOn(existingUser.getCreatedOn());

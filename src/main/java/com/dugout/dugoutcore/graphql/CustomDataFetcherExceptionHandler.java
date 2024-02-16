@@ -18,14 +18,16 @@ public class CustomDataFetcherExceptionHandler implements DataFetcherExceptionHa
   @SneakyThrows
   public CompletableFuture<DataFetcherExceptionHandlerResult> handleException(
       DataFetcherExceptionHandlerParameters handlerParameters) {
-    if (handlerParameters.getException() instanceof DugoutDataFetchingException) {
+    if (handlerParameters.getException().getCause() instanceof DugoutDataFetchingException) {
       DugoutDataFetchingException dugoutDataFetchingException =
-          (DugoutDataFetchingException) handlerParameters.getException();
+          (DugoutDataFetchingException) handlerParameters.getException().getCause();
       Map<String, Object> errorMap = new HashMap<>();
-      errorMap.put(handlerParameters.getPath().toString(), dugoutDataFetchingException.getErrors());
+      errorMap.put(handlerParameters.getPath().toString(), dugoutDataFetchingException.getError());
+      Map<String, Object> extensions = new HashMap<>();
+      extensions.put("errorType", dugoutDataFetchingException.getStatus());
       GraphQLError graphQLError =
-          TypedGraphQLError.newInternalErrorBuilder()
-              .message(dugoutDataFetchingException.getMessage())
+          TypedGraphQLError.newBadRequestBuilder()
+              .message(dugoutDataFetchingException.getError().getMessage())
               .debugInfo(errorMap)
               .path(handlerParameters.getPath())
               .build();
