@@ -2,6 +2,7 @@ package com.dugout.dugoutcore.service;
 
 import com.dugout.dugoutcore.dao.UserSessionDao;
 import com.dugout.dugoutcore.dto.*;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ import java.util.UUID;
 public class UserSessionService {
     final UserSessionDao userSessionDao;
     final UserService userService;
+
+    public UserSessionDTO authenticateRequest(String authToken) throws DugoutDataFetchingException {
+        return userSessionDao.getUserSessionByAuthToken(authToken);
+    }
 
     public SendOtpResponse generateOtp(SendOtpRequest request) {
         log.info("Generate Otp Request: {}", request);
