@@ -7,6 +7,8 @@ create table "user_session"(
     device_ip VARCHAR(255) NULL,
     device_os VARCHAR(255) NULL,
     device_os_version VARCHAR(255) NULL,
+    user_agent VARCHAR(255) NULL,
+    app_version VARCHAR(255) NULL,
     created_on timestamp default current_timestamp,
     updated_on timestamp default current_timestamp
 );

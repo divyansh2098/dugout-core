@@ -33,4 +33,10 @@ public class UserSession extends BaseModel {
 
     @Column(name = "device_os_version")
     String deviceOsVersion;
+
+    @Column(name = "user_agent")
+    String userAgent;
+
+    @Column(name = "app_version")
+    String appVersion;
 }

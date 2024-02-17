@@ -11,4 +11,6 @@ public class VerifyOtpResponse {
   Boolean isSuccess;
   String message;
   String authToken;
+  UserDTO user;
+  Boolean isNewUser;
 }

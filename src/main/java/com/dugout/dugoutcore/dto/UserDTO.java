@@ -8,6 +8,7 @@ public class UserDTO {
     Long id;
     String firstName;
     String lastName;
+    String userName;
     String email;
     String phone;
     String gender;
@@ -19,8 +20,4 @@ public class UserDTO {
     String bowlingStyle;
     Date createdOn;
     Date updatedOn;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

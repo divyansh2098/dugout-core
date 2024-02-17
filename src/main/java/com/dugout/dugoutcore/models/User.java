@@ -21,6 +21,9 @@ public class User extends BaseModel {
     @Column(name = "lastname")
     String lastName;
 
+    @Column(name = "username")
+    String userName;
+
     @Column(name = "email")
     String email;
 
