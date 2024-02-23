@@ -5,7 +5,6 @@ import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.models.User;
 import com.dugout.dugoutcore.pojo.DugoutError;
 import com.dugout.dugoutcore.repository.UserRepository;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -21,18 +20,14 @@ public class UserDao {
   @NonNull UserRepository userRepository;
 
   private UserDTO convertToDto(User user) {
-    log.info("convertToDto::User " + user.toString());
     UserDTO userDto = new UserDTO();
     BeanUtils.copyProperties(user, userDto);
-    log.info("convertToDto::UserDTO " + userDto.toString());
     return userDto;
   }
 
   private User convertToEntity(UserDTO userDto) {
-    log.info("convertToEntity::UserDTO " + userDto.toString());
     User user = new User();
     BeanUtils.copyProperties(userDto, user);
-    log.info("convertToEntity::User: {}", user);
     return user;
   }
 
@@ -46,21 +41,35 @@ public class UserDao {
     User user = userRepository.findById(id).orElse(null);
     if (ObjectUtils.isEmpty(user)) {
       throw new DugoutDataFetchingException(
-          DugoutError.builder().message("Message").build(), HttpStatus.BAD_REQUEST);
+              DugoutError.builder()
+                      .message(String.format("User with id: %s not found", id))
+                      .build(),
+              HttpStatus.BAD_REQUEST);
+    }
+    return convertToDto(user);
+  }
+
+  public UserDTO getUserByPhoneNumber(String phoneNumber) throws DugoutDataFetchingException {
+    User user = userRepository.findByPhone(phoneNumber).orElse(null);
+    if (ObjectUtils.isEmpty(user)) {
+      throw new DugoutDataFetchingException(
+              DugoutError.builder()
+                      .message(String.format("User with phoneNumber: %s not found", phoneNumber))
+                      .build(),
+              HttpStatus.BAD_REQUEST);
     }
     return convertToDto(user);
   }
 
   public UserDTO updateUser(UserDTO userDTO) throws DugoutDataFetchingException {
-    Optional<User> user = userRepository.findById(Long.valueOf(userDTO.getId()));
-    if (user.isEmpty()) {
+    User existingUser = userRepository.findById(userDTO.getId()).orElse(null);
+    if (ObjectUtils.isEmpty(existingUser)) {
       throw new DugoutDataFetchingException(
           DugoutError.builder()
               .message(String.format("User with id: %s not found", userDTO.getId()))
               .build(),
           HttpStatus.BAD_REQUEST);
     }
-    User existingUser = user.get();
     userDTO.setCreatedOn(existingUser.getCreatedOn());
     User createdUser = userRepository.save(convertToEntity(userDTO));
     return convertToDto(createdUser);

@@ -4,6 +4,7 @@ type UserPlayer {
     id: ID
     firstName: String
     lastName: String
+    userName: String
     email: String
     phone: String
     gender: Gender
@@ -27,12 +28,15 @@ type VerifyOtpResponse {
     isSuccess: Boolean
     message: String
     authToken: String
+    user: UserPlayer
+    isNewUser: Boolean
 }
 
 input UserPlayerInput {
-    id: Long!
-    firstName: String!
-    lastName: String!
+    id: Long
+    firstName: String
+    lastName: String
+    userName: String
     email: String
     phone: String
     gender: Gender
@@ -53,6 +57,13 @@ input SendOtpRequest {
 input VerifyOtpRequest {
     otp: String
     phoneNumber: String
+    deviceId: String
+    deviceModel: String
+    deviceIp: String
+    deviceOs: String
+    deviceOsVersion: String
+    userAgent: String
+    appVersion: String
 }
 
 enum Gender {
