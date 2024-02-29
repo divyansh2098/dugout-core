@@ -12,5 +12,22 @@ create table "match" (
   meta json NULL,
   winner INTEGER references "team" (id) NULL,
   team1_score json NULL,
-  team2_score json NULL
-)
+  team2_score json NULL,
+  created_on timestamp default CURRENT_TIMESTAMP,
+  updated_on timestamp default CURRENT_TIMESTAMP
+);
+
+CREATE OR REPLACE FUNCTION upd_timestamp() RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    NEW.updated_on = CURRENT_TIMESTAMP;
+RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER match_upd_timestamp
+    BEFORE UPDATE
+    ON "match"
+    FOR EACH ROW
+    EXECUTE PROCEDURE upd_timestamp();
