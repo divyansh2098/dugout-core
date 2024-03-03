@@ -7,15 +7,6 @@ create table squad_player (
   updated_on timestamp default CURRENT_TIMESTAMP
 );
 
-CREATE OR REPLACE FUNCTION upd_timestamp() RETURNS TRIGGER
-LANGUAGE plpgsql
-AS $$
-BEGIN
-    NEW.updated_on = CURRENT_TIMESTAMP;
-RETURN NEW;
-END;
-$$;
-
 CREATE TRIGGER team_upd_timestamp
     BEFORE UPDATE
     ON "squad_player"
