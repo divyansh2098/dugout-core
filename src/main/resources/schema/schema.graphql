@@ -32,6 +32,13 @@ type VerifyOtpResponse {
     isNewUser: Boolean
 }
 
+type Tournament {
+    name: String,
+    city: String,
+    status: TournamentStatus,
+    country: String
+}
+
 input UserPlayerInput {
     id: Long
     firstName: String
@@ -66,6 +73,13 @@ input VerifyOtpRequest {
     appVersion: String
 }
 
+input TournamentInput {
+    name: String,
+    city: String,
+    country: String
+    status: TournamentStatus
+}
+
 enum Gender {
     MALE,
     FEMALE,
@@ -89,8 +103,14 @@ enum BowlingStyle {
     RIGHT_MEDIUM
     LEFT_FAST
     LEFT_MEDIUM
-    RIGHT_SPI N
+    RIGHT_SPIN
     LEFT_SPIN
+}
+
+enum TournamentStatus {
+    UPCOMING,
+    IN_PROGRESS,
+    COMPLETED
 }
 
 type Query {
@@ -101,5 +121,6 @@ type Query {
 type Mutation {
     createPlayer(player: UserPlayerInput!): UserPlayer
     generateOtp(request: SendOtpRequest!): SendOtpResponse
-    updatePlayer(player: UserPlayerInput!): UserPlayer
+    updatePlayer(player: UserPlayerInput!): UserPlayer,
+    createTournament(tournament: TournamentInput!): Tournament
 }
