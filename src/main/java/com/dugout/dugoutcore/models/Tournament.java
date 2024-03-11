@@ -17,6 +17,9 @@ public class Tournament extends BaseModel {
   String country;
 
   @OneToMany(mappedBy = "tournament")
+  List<Match> matches;
+
+  @OneToMany(mappedBy = "tournament")
   List<TournamentTeam> tournamentTeams;
 
   @Enumerated(EnumType.STRING)

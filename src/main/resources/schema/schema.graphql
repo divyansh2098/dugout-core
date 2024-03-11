@@ -24,6 +24,19 @@ type SendOtpResponse {
     isSuccess: Boolean
 }
 
+type Match {
+    name: String,
+    overs: String,
+    city: String,
+    country: String,
+    tournamentId: Long,
+    team1Id: Long,
+    team2Id: Long,
+    status: MatchStatus,
+    groundId: Long
+    tossWinnerId: Long
+}
+
 type VerifyOtpResponse {
     isSuccess: Boolean
     message: String
@@ -80,6 +93,19 @@ input TournamentInput {
     status: TournamentStatus
 }
 
+input MatchInput {
+    name: String,
+    overs: String,
+    city: String,
+    country: String,
+    tournamentId: Long,
+    team1Id: Long,
+    team2Id: Long,
+    status: MatchStatus,
+    groundId: Long
+    tossWinnerId: Long
+}
+
 enum Gender {
     MALE,
     FEMALE,
@@ -113,6 +139,12 @@ enum TournamentStatus {
     COMPLETED
 }
 
+enum MatchStatus {
+    UPCOMING,
+    IN_PROGRESS,
+    COMPLETED
+}
+
 type Query {
     getPlayerById(id: ID!): UserPlayer
     verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
@@ -123,4 +155,5 @@ type Mutation {
     generateOtp(request: SendOtpRequest!): SendOtpResponse
     updatePlayer(player: UserPlayerInput!): UserPlayer,
     createTournament(tournament: TournamentInput!): Tournament
+    createMatch
 }
