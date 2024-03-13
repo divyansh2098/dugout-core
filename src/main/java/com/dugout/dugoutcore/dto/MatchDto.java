@@ -1,8 +1,10 @@
 package com.dugout.dugoutcore.dto;
 
 import com.dugout.dugoutcore.pojo.enums.MatchStatus;
+import lombok.Data;
 
-public class MatchResponseDto {
+@Data
+public class MatchDto {
   String name;
   String city;
   String country;
@@ -11,6 +13,6 @@ public class MatchResponseDto {
   TournamentDto tournament;
   TeamDto team1;
   TeamDto team2;
-  GroundDto groundId;
-  MatchStatus matchStatus;
+  GroundDto ground;
+  MatchStatus status;
 }

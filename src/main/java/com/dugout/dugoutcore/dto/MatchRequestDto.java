@@ -14,5 +14,5 @@ public class MatchRequestDto {
   Long team1Id;
   Long team2Id;
   Long groundId;
-  MatchStatus matchStatus;
+  MatchStatus status;
 }

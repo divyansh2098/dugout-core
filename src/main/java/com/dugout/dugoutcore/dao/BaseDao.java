@@ -1,8 +1,10 @@
 package com.dugout.dugoutcore.dao;
 
-import org.springframework.beans.BeanUtils;
+import lombok.SneakyThrows;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class BaseDao<E, T, R extends JpaRepository<E, Long>> {
@@ -17,15 +19,17 @@ public class BaseDao<E, T, R extends JpaRepository<E, Long>> {
     this.dtoSupplier = dtoSupplier;
   }
 
+  @SneakyThrows
   protected E convertToEntity(T dto) {
     E entity = this.entitySupplier.get();
-    BeanUtils.copyProperties(dto, entity);
+    BeanUtils.copyProperties(entity, dto);
     return entity;
   }
 
+  @SneakyThrows
   protected T convertToDto(E entity) {
     T dto = dtoSupplier.get();
-    BeanUtils.copyProperties(entity, dto);
+    BeanUtils.copyProperties(dto, entity);
     return dto;
   }
 
@@ -33,5 +37,10 @@ public class BaseDao<E, T, R extends JpaRepository<E, Long>> {
     E entity = convertToEntity(dto);
     E savedEntity = repository.save(entity);
     return convertToDto(savedEntity);
+  }
+
+  public T getById(Long id) {
+    Optional<E> entity = repository.findById(id);
+    return entity.map(this::convertToDto).orElse(null);
   }
 }

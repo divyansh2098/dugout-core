@@ -1,159 +1,188 @@
 scalar Long
 
 type UserPlayer {
-    id: ID
-    firstName: String
-    lastName: String
-    userName: String
-    email: String
-    phone: String
-    gender: Gender
-    dateOfBirth: String
-    country: String
-    city: String,
-    specialization: Specialization
-    battingStyle: BattingStyle
-    bowlingStyle: BowlingStyle
-    createdOn: String
-    updatedOn: String
+  id: ID
+  firstName: String
+  lastName: String
+  userName: String
+  email: String
+  phone: String
+  gender: Gender
+  dateOfBirth: String
+  country: String
+  city: String,
+  specialization: Specialization
+  battingStyle: BattingStyle
+  bowlingStyle: BowlingStyle
+  createdOn: String
+  updatedOn: String
 }
 
 type SendOtpResponse {
-    phoneNumber: String
-    message: String
-    isSuccess: Boolean
+  phoneNumber: String
+  message: String
+  isSuccess: Boolean
+}
+
+type Team {
+  id: ID!,
+  name: String
+  createdOn: String,
+  updatedOn: String
 }
 
 type Match {
-    name: String,
-    overs: String,
-    city: String,
-    country: String,
-    tournamentId: Long,
-    team1Id: Long,
-    team2Id: Long,
-    status: MatchStatus,
-    groundId: Long
-    tossWinnerId: Long
+  name: String,
+  overs: Int,
+  city: String,
+  country: String,
+  tournament: Tournament,
+  team1: Team,
+  team2: Team,
+  status: MatchStatus,
+  groundId: Long
+  tossWinnerId: Long
 }
 
 type VerifyOtpResponse {
-    isSuccess: Boolean
-    message: String
-    authToken: String
-    user: UserPlayer
-    isNewUser: Boolean
+  isSuccess: Boolean
+  message: String
+  authToken: String
+  user: UserPlayer
+  isNewUser: Boolean
 }
 
 type Tournament {
-    name: String,
-    city: String,
-    status: TournamentStatus,
-    country: String
+  name: String,
+  city: String,
+  status: TournamentStatus,
+  country: String
+}
+
+type Ground {
+  name: String,
+  lat: String,
+  lon: String,
+  address: String
+  createdOn: String,
+  updatedOn: String
 }
 
 input UserPlayerInput {
-    id: Long
-    firstName: String
-    lastName: String
-    userName: String
-    email: String
-    phone: String
-    gender: Gender
-    dateOfBirth: String
-    country: String
-    city: String,
-    specialization: Specialization
-    battingStyle: BattingStyle
-    bowlingStyle: BowlingStyle
-    createdOn: String
-    updatedOn: String
+  id: Long
+  firstName: String
+  lastName: String
+  userName: String
+  email: String
+  phone: String
+  gender: Gender
+  dateOfBirth: String
+  country: String
+  city: String,
+  specialization: Specialization
+  battingStyle: BattingStyle
+  bowlingStyle: BowlingStyle
+  createdOn: String
+  updatedOn: String
 }
 
 input SendOtpRequest {
-    phoneNumber: String!
+  phoneNumber: String!
 }
 
 input VerifyOtpRequest {
-    otp: String
-    phoneNumber: String
-    deviceId: String
-    deviceModel: String
-    deviceIp: String
-    deviceOs: String
-    deviceOsVersion: String
-    userAgent: String
-    appVersion: String
+  otp: String
+  phoneNumber: String
+  deviceId: String
+  deviceModel: String
+  deviceIp: String
+  deviceOs: String
+  deviceOsVersion: String
+  userAgent: String
+  appVersion: String
 }
 
 input TournamentInput {
-    name: String,
-    city: String,
-    country: String
-    status: TournamentStatus
+  name: String,
+  city: String,
+  country: String
+  status: TournamentStatus
 }
 
 input MatchInput {
-    name: String,
-    overs: String,
-    city: String,
-    country: String,
-    tournamentId: Long,
-    team1Id: Long,
-    team2Id: Long,
-    status: MatchStatus,
-    groundId: Long
-    tossWinnerId: Long
+  name: String!,
+  overs: Int!,
+  city: String,
+  country: String,
+  tournamentId: Long,
+  team1Id: Long!,
+  team2Id: Long!,
+  status: MatchStatus = UPCOMING,
+  groundId: Long!
+  tossWinnerId: Long
+}
+
+input TeamInput {
+  name: String
+}
+
+input GroundInput {
+  name: String,
+  lat: String,
+  lon: String,
+  address: String!
 }
 
 enum Gender {
-    MALE,
-    FEMALE,
-    OTHER
+  MALE,
+  FEMALE,
+  OTHER
 }
 
 enum Specialization {
-    TOP_ORDER_BATSMAN
-    MIDDLE_ORDER_BATSMAN
-    FAST_BOWLER
-    SPIN_BOWLER
+  TOP_ORDER_BATSMAN
+  MIDDLE_ORDER_BATSMAN
+  FAST_BOWLER
+  SPIN_BOWLER
 }
 
 enum BattingStyle {
-    LEFT
-    RIGHT
+  LEFT
+  RIGHT
 }
 
 enum BowlingStyle {
-    RIGHT_FAST
-    RIGHT_MEDIUM
-    LEFT_FAST
-    LEFT_MEDIUM
-    RIGHT_SPIN
-    LEFT_SPIN
+  RIGHT_FAST
+  RIGHT_MEDIUM
+  LEFT_FAST
+  LEFT_MEDIUM
+  RIGHT_SPIN
+  LEFT_SPIN
 }
 
 enum TournamentStatus {
-    UPCOMING,
-    IN_PROGRESS,
-    COMPLETED
+  UPCOMING,
+  IN_PROGRESS,
+  COMPLETED
 }
 
 enum MatchStatus {
-    UPCOMING,
-    IN_PROGRESS,
-    COMPLETED
+  UPCOMING,
+  IN_PROGRESS,
+  COMPLETED
 }
 
 type Query {
-    getPlayerById(id: ID!): UserPlayer
-    verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
+  getPlayerById(id: ID!): UserPlayer
+  verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
 }
 
 type Mutation {
-    createPlayer(player: UserPlayerInput!): UserPlayer
-    generateOtp(request: SendOtpRequest!): SendOtpResponse
-    updatePlayer(player: UserPlayerInput!): UserPlayer,
-    createTournament(tournament: TournamentInput!): Tournament
-    createMatch
+  createPlayer(player: UserPlayerInput!): UserPlayer
+  generateOtp(request: SendOtpRequest!): SendOtpResponse
+  updatePlayer(player: UserPlayerInput!): UserPlayer,
+  createTournament(tournament: TournamentInput!): Tournament
+  createMatch(match: MatchInput!): Match
+  createTeam(team: TeamInput): Team
+  createGround(ground: GroundInput): Ground
 }
