@@ -11,6 +11,6 @@ public class TeamDao extends BaseDao<Team, TeamDto, TeamRepository> {
 
   @Autowired
   TeamDao(TeamRepository teamRepository) {
-    super(teamRepository, Team::new, TeamDto::new);
+    super(teamRepository, Team.class, TeamDto.class);
   }
 }

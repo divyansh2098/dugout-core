@@ -1,36 +1,33 @@
 package com.dugout.dugoutcore.dao;
 
-import lombok.SneakyThrows;
-import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
-import java.util.function.Supplier;
+import lombok.SneakyThrows;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public class BaseDao<E, T, R extends JpaRepository<E, Long>> {
 
   R repository;
-  Supplier<E> entitySupplier;
-  Supplier<T> dtoSupplier;
+  ModelMapper mapper;
 
-  BaseDao(R repository, Supplier<E> entitySupplier, Supplier<T> dtoSupplier) {
+  Class<T> dtoClass;
+  Class<E> entityClass;
+
+  BaseDao(R repository, Class<E> entityClass, Class<T> dtoClass) {
     this.repository = repository;
-    this.entitySupplier = entitySupplier;
-    this.dtoSupplier = dtoSupplier;
+    this.mapper = new ModelMapper();
+    this.entityClass = entityClass;
+    this.dtoClass = dtoClass;
   }
 
   @SneakyThrows
   protected E convertToEntity(T dto) {
-    E entity = this.entitySupplier.get();
-    BeanUtils.copyProperties(entity, dto);
-    return entity;
+    return mapper.map(dto, entityClass);
   }
 
   @SneakyThrows
   protected T convertToDto(E entity) {
-    T dto = dtoSupplier.get();
-    BeanUtils.copyProperties(dto, entity);
-    return dto;
+    return mapper.map(entity, dtoClass);
   }
 
   public T create(T dto) {

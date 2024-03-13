@@ -17,7 +17,7 @@ public class Match extends BaseModel {
   String country;
 
   @Column(name = "toss_win")
-  Long tossWin;
+  Long tossWinnerId;
 
   @ManyToOne
   @JoinColumn(name = "tournament_id")

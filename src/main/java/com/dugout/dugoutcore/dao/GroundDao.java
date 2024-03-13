@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class GroundDao extends BaseDao<Ground, GroundDto, GroundRepository> {
   @Autowired
   GroundDao(GroundRepository groundRepository) {
-    super(groundRepository, Ground::new, GroundDto::new);
+    super(groundRepository, Ground.class, GroundDto.class);
   }
 }

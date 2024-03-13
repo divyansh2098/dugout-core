@@ -14,4 +14,8 @@ public class GroundService {
   public GroundDto createGround(GroundDto groundDto) {
     return groundDao.create(groundDto);
   }
+
+  public GroundDto getGroundById(Long id) {
+    return groundDao.getById(id);
+  }
 }

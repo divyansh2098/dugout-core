@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class TournamentDto {
+  Long id;
   String name;
   String city;
   String country;
