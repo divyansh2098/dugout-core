@@ -15,7 +15,7 @@ public class BaseDao<E, T, R extends JpaRepository<E, Long>> {
 
   BaseDao(R repository, Class<E> entityClass, Class<T> dtoClass) {
     this.repository = repository;
-    this.mapper = new ModelMapper();
+    this.mapper = new ModelMapper(); // TODO -> Make this singleton
     this.entityClass = entityClass;
     this.dtoClass = dtoClass;
   }
