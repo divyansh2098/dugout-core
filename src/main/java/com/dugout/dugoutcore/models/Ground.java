@@ -8,6 +8,7 @@ import lombok.Data;
 @Table(name = "ground")
 @Data
 public class Ground extends BaseModel {
+  String name;
   String lat; // Change to point data type
   String lon;
   String address;

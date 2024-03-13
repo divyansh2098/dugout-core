@@ -1,7 +1,8 @@
 create table "match" (
   id SERIAL PRIMARY KEY,
-  toss_win INTEGER references "team" (id) NOT NULL,
-  toss_decision VARCHAR (15) NOT NULL,
+  toss_win INTEGER references "team" (id) NULL,
+  toss_decision VARCHAR (15) NULL,
+  tournament_id INTEGER references "tournament" (id) NULL,
   name VARCHAR(255) NULL,
   ground_id INTEGER references "ground" (id) NULL,
   team1_id INTEGER references "team" (id) NULL,

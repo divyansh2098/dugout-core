@@ -16,6 +16,13 @@ public class Match extends BaseModel {
   String city;
   String country;
 
+  @Column(name = "toss_win")
+  Long tossWin;
+
+  @ManyToOne
+  @JoinColumn(name = "tournament_id")
+  Tournament tournament;
+
   @ManyToOne
   @JoinColumn(name = "team1_id")
   Team team1;
@@ -25,7 +32,7 @@ public class Match extends BaseModel {
   Team team2;
 
   Date matchDate;
-  
+
   @OneToMany(mappedBy = "match")
   Set<Innings> innings;
 

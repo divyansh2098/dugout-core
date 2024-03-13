@@ -2,6 +2,6 @@ package com.dugout.dugoutcore.pojo.enums;
 
 public enum MatchStatus {
   UPCOMING,
-  LIVE,
+  IN_PROGRESS,
   COMPLETED
 }

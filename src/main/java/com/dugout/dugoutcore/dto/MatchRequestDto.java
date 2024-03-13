@@ -4,15 +4,15 @@ import com.dugout.dugoutcore.pojo.enums.MatchStatus;
 import lombok.Data;
 
 @Data
-public class MatchDto {
+public class MatchRequestDto {
   String name;
   String city;
   String country;
   Integer overs;
   Long tossWinnerId;
-  TournamentDto tournament;
-  TeamDto team1;
-  TeamDto team2;
-  GroundDto ground;
+  Long tournamentId;
+  Long team1Id;
+  Long team2Id;
+  Long groundId;
   MatchStatus status;
 }
