@@ -1,4 +1,4 @@
 package com.dugout.dugoutcore.dto;
 
-public interface BaseBallProcessRequest {
+public class BaseBallProcessRequest {
 }

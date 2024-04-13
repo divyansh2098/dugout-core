@@ -48,6 +48,11 @@ public class BallProcessingService implements BaseBallService {
     }
 
     @Override
+    public BallDto processRun(BaseBallProcessRequest request) {
+        return null;
+    }
+
+    @Override
     public BallDto processLegBye(BaseBallProcessRequest request) {
         return null;
     }
@@ -154,6 +159,11 @@ public class BallProcessingService implements BaseBallService {
 
     @Override
     public BallDto unprocessSixRuns(BaseBallProcessRequest request) {
+        return null;
+    }
+
+    @Override
+    public BallDto unprocessRun(BaseBallProcessRequest request) {
         return null;
     }
 

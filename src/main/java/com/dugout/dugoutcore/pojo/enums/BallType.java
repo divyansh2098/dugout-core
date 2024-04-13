@@ -8,6 +8,7 @@ public enum BallType {
     WIDE_BYE,
     FOUR,
     SIX,
+    RUN,
     LEG_BYE,
     WICKET;
 }
