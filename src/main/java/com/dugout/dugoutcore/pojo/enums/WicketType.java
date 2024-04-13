@@ -1,0 +1,18 @@
+package com.dugout.dugoutcore.pojo.enums;
+
+public enum WicketType {
+    BOLD,
+    CATCH,
+    CAUGHT_AND_BOLD,
+    STUMP,
+    STUMP_AND_WIDE,
+    RUN_OUT,
+    RUN_OUT_AND_WIDE,
+    RUN_OUT_AND_NO_BALL,
+    TIMED_OUT,
+    OBSTRUCTING_THE_FIELD,
+    OBSTRUCTING_THE_FIELD_AND_WIDE,
+    OBSTRUCTING_THE_FIELD_AND_NO_BALL,
+    CAUGHT_BEHIND,
+    LEG_BY_WICKET
+}
