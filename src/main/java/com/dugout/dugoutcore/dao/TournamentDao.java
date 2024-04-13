@@ -11,6 +11,6 @@ public class TournamentDao extends BaseDao<Tournament, TournamentDto, Tournament
 
   @Autowired
   TournamentDao(TournamentRepository tournamentRepository) {
-    super(tournamentRepository, Tournament::new, TournamentDto::new);
+    super(tournamentRepository, Tournament.class, TournamentDto.class);
   }
 }

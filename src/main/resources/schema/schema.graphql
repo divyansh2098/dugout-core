@@ -40,7 +40,7 @@ type Match {
   team1: Team,
   team2: Team,
   status: MatchStatus,
-  groundId: Long
+  ground: Ground
   tossWinnerId: Long
 }
 
@@ -175,6 +175,7 @@ enum MatchStatus {
 type Query {
   getPlayerById(id: ID!): UserPlayer
   verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
+  getGroundById(id: ID!): Ground
 }
 
 type Mutation {

@@ -11,6 +11,6 @@ public class MatchDao extends BaseDao<Match, MatchDto, MatchRepository> {
 
   @Autowired
   MatchDao(MatchRepository matchRepository) {
-    super(matchRepository, Match::new, MatchDto::new);
+    super(matchRepository, Match.class, MatchDto.class);
   }
 }
