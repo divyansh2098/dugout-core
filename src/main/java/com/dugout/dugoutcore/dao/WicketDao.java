@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class WicketDao extends BaseDao<Wicket, WicketDto, WicketRepository> {
     WicketDao(WicketRepository wicketRepository) {
-        super(wicketRepository, Wicket::new, WicketDto::new);
+        super(wicketRepository, Wicket.class, WicketDto.class);
     }
 }
