@@ -3,6 +3,7 @@ package com.dugout.dugoutcore.service;
 import com.dugout.dugoutcore.dao.BallDao;
 import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BaseBallProcessRequest;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,24 @@ import org.springframework.stereotype.Service;
 public class BallProcessingService implements BaseBallService {
     private WicketService wicketService;
     private BallDao ballDao;
+    private InningService inningService;
+    private UserService userService;
 
     @Override
-    public BallDto processNoBall(BaseBallProcessRequest request) {
-        return null;
+    public BallDto processNoBall(BaseBallProcessRequest request) throws DugoutDataFetchingException {
+        BallDto ballDto = new BallDto();
+        ballDto.setBallNumber(request.getBallNo());
+        ballDto.setInnings(inningService.getInningById(request.getInningId()));
+        ballDto.setStriker(userService.getUser(request.getStrikerId()));
+        ballDto.setNonStriker(userService.getUser(request.getNonStrikerId()));
+        ballDto.setBowler(userService.getUser(request.getBowlerId()));
+        ballDto.setWicketKeeper(userService.getUser(request.getWicketkeeperId()));
+        ballDto.setIsValid(false);
+        ballDto.setRuns(1l);
+        ballDto.setType(request.getBallType());
+        ballDto.setBatsmanRuns(0l);
+        // ballDto.setIsFreeHit(); // TODO: discuss how to fill this
+        return ballDao.create(ballDto);
     }
 
     @Override

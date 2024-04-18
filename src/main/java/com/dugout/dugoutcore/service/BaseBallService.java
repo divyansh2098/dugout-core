@@ -3,10 +3,11 @@ package com.dugout.dugoutcore.service;
 
 import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BaseBallProcessRequest;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 
 public interface BaseBallService {
 
-    BallDto processNoBall(BaseBallProcessRequest request);
+    BallDto processNoBall(BaseBallProcessRequest request) throws DugoutDataFetchingException;
     BallDto processNoBallLegBye(BaseBallProcessRequest request);
     BallDto processNoBallBye(BaseBallProcessRequest request);
     BallDto processWideBall(BaseBallProcessRequest request);
