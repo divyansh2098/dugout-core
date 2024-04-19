@@ -10,11 +10,11 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BallDto {
-    Innings innings;
-    User striker;
-    User nonStriker;
-    User bowler;
-    User wicketKeeper;
+    InningsDto innings;
+    UserDTO striker;
+    UserDTO nonStriker;
+    UserDTO bowler;
+    UserDTO wicketKeeper;
     Boolean isValid;
     Long runs;
     BallType type;
