@@ -73,7 +73,7 @@ public class BallProcessingService implements BaseBallService {
     }
 
     @Override
-    public BallDto processBold(BaseBallProcessRequest request) {
+    public BallDto processBowled(BaseBallProcessRequest request) {
         return null;
     }
 
@@ -83,7 +83,7 @@ public class BallProcessingService implements BaseBallService {
     }
 
     @Override
-    public BallDto processCaughtAndBold(BaseBallProcessRequest request) {
+    public BallDto processCaughtAndBowled(BaseBallProcessRequest request) {
         return null;
     }
 
@@ -188,7 +188,7 @@ public class BallProcessingService implements BaseBallService {
     }
 
     @Override
-    public BallDto unprocessBold(BaseBallProcessRequest request) {
+    public BallDto unprocessBowled(BaseBallProcessRequest request) {
         return null;
     }
 
@@ -198,7 +198,7 @@ public class BallProcessingService implements BaseBallService {
     }
 
     @Override
-    public BallDto unprocessCaughtAndBold(BaseBallProcessRequest request) {
+    public BallDto unprocessCaughtAndBowled(BaseBallProcessRequest request) {
         return null;
     }
 

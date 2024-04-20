@@ -16,9 +16,9 @@ public interface BaseBallService {
     BallDto processSixRuns(BaseBallProcessRequest request);
     BallDto processRun(BaseBallProcessRequest request);
     BallDto processLegBye(BaseBallProcessRequest request);
-    BallDto processBold(BaseBallProcessRequest request);
+    BallDto processBowled(BaseBallProcessRequest request);
     BallDto processCatch(BaseBallProcessRequest request);
-    BallDto processCaughtAndBold(BaseBallProcessRequest request);
+    BallDto processCaughtAndBowled(BaseBallProcessRequest request);
     BallDto processStump(BaseBallProcessRequest request);
     BallDto processStumpAndWide(BaseBallProcessRequest request);
     BallDto processRunOut(BaseBallProcessRequest request);
@@ -41,9 +41,9 @@ public interface BaseBallService {
     BallDto unprocessSixRuns(BaseBallProcessRequest request);
     BallDto unprocessRun(BaseBallProcessRequest request);
     BallDto unprocessLegBye(BaseBallProcessRequest request);
-    BallDto unprocessBold(BaseBallProcessRequest request);
+    BallDto unprocessBowled(BaseBallProcessRequest request);
     BallDto unprocessCatch(BaseBallProcessRequest request);
-    BallDto unprocessCaughtAndBold(BaseBallProcessRequest request);
+    BallDto unprocessCaughtAndBowled(BaseBallProcessRequest request);
     BallDto unprocessStump(BaseBallProcessRequest request);
     BallDto unprocessStumpAndWide(BaseBallProcessRequest request);
     BallDto unprocessRunOut(BaseBallProcessRequest request);

@@ -8,11 +8,8 @@ import java.util.Date;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class InningsDto extends BaseDto {
-  MatchDto matchDto;
-  TeamDto teamDto;
-  Integer inningNumber;
-  Date startTime;
-  Date endTime;
-  String scoreAgg;
+public class BaseDto {
+  Long id;
+  Date createdOn;
+  Date updatedOn;
 }
