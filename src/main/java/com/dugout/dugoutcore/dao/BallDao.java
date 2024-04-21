@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BallDao extends BaseDao<Ball, BallDto, BallRepository> {
 
-  BallDao(BallRepository ballRepository) {
-    super(ballRepository, Ball.class, BallDto.class);
-  }
+    BallDao(BallRepository ballRepository) {
+        super(ballRepository, Ball.class, BallDto.class);
+    }
 }
