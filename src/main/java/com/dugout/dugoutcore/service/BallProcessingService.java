@@ -2,6 +2,7 @@ package com.dugout.dugoutcore.service;
 
 import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
+import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 
 public interface BallProcessingService {
@@ -52,51 +53,51 @@ public interface BallProcessingService {
 
   BallDto processLegByWicket(BallProcessRequestDto request);
 
-  BallDto unprocessNoBall(BallProcessRequestDto request);
+  BallDto unprocessNoBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessNoBallLegBye(BallProcessRequestDto request);
+  BallDto unprocessNoBallLegBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessNoBallBye(BallProcessRequestDto request);
+  BallDto unprocessNoBallBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessWideBall(BallProcessRequestDto request);
+  BallDto unprocessWideBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessWideBallBye(BallProcessRequestDto request);
+  BallDto unprocessWideBallBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessFourRuns(BallProcessRequestDto request);
+  BallDto unprocessFourRuns(BallUnprocessRequestDto request);
 
-  BallDto unprocessSixRuns(BallProcessRequestDto request);
+  BallDto unprocessSixRuns(BallUnprocessRequestDto request);
 
-  BallDto unprocessRun(BallProcessRequestDto request);
+  BallDto unprocessRun(BallUnprocessRequestDto request);
 
-  BallDto unprocessLegBye(BallProcessRequestDto request);
+  BallDto unprocessLegBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessBowled(BallProcessRequestDto request);
+  BallDto unprocessBowled(BallUnprocessRequestDto request);
 
-  BallDto unprocessCatch(BallProcessRequestDto request);
+  BallDto unprocessCatch(BallUnprocessRequestDto request);
 
-  BallDto unprocessCaughtAndBowled(BallProcessRequestDto request);
+  BallDto unprocessCaughtAndBowled(BallUnprocessRequestDto request);
 
-  BallDto unprocessStump(BallProcessRequestDto request);
+  BallDto unprocessStump(BallUnprocessRequestDto request);
 
-  BallDto unprocessStumpAndWide(BallProcessRequestDto request);
+  BallDto unprocessStumpAndWide(BallUnprocessRequestDto request);
 
-  BallDto unprocessRunOut(BallProcessRequestDto request);
+  BallDto unprocessRunOut(BallUnprocessRequestDto request);
 
-  BallDto unprocessRunOutAndWide(BallProcessRequestDto request);
+  BallDto unprocessRunOutAndWide(BallUnprocessRequestDto request);
 
-  BallDto unprocessRunOutAndNoBall(BallProcessRequestDto request);
+  BallDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessWideTimedOutWicket(BallProcessRequestDto request);
+  BallDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request);
 
-  BallDto unprocessObstructingTheField(BallProcessRequestDto request);
+  BallDto unprocessObstructingTheField(BallUnprocessRequestDto request);
 
-  BallDto unprocessObstructingTheFieldAndWide(BallProcessRequestDto request);
+  BallDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request);
 
-  BallDto unprocessObstructingTheFieldAndNoBall(BallProcessRequestDto request);
+  BallDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessCaughtBehind(BallProcessRequestDto request);
+  BallDto unprocessCaughtBehind(BallUnprocessRequestDto request);
 
-  BallDto unprocessLegByWicket(BallProcessRequestDto request);
+  BallDto unprocessLegByWicket(BallUnprocessRequestDto request);
 
   /**
    * @param {BaseBallProcessRequest} request record Ball request
@@ -111,6 +112,14 @@ public interface BallProcessingService {
       case NO_BALL_LEG_BYE -> processNoBallLegBye(request);
       case NO_BALL_RUN_OUT -> processRunOutAndNoBall(request);
       case WIDE -> processWideBall(request);
+      default -> null;
+    };
+  }
+
+  default BallDto unprocessBall(BallUnprocessRequestDto requestDto)
+      throws DugoutDataFetchingException {
+    return switch (requestDto.getBallType()) {
+      case NO_BALL -> unprocessNoBall(requestDto);
       default -> null;
     };
   }

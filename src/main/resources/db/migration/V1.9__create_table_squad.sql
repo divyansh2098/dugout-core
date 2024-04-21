@@ -7,7 +7,7 @@ create table squad_player (
   updated_on timestamp default CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER team_upd_timestamp
+CREATE TRIGGER squad_player_upd_timestamp
     BEFORE UPDATE
     ON "squad_player"
     FOR EACH ROW

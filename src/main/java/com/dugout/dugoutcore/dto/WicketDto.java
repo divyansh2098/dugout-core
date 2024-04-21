@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Builder
-public class WicketDto {
+public class WicketDto extends BaseDto {
   InningsDto innings;
   BallDto ball;
   UserDTO outPlayer;

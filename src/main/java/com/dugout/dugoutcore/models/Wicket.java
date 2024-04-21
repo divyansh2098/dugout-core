@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table
+@Table(name = "wicket")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Wicket extends BaseModel{

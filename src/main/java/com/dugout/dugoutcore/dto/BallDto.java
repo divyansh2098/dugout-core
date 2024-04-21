@@ -7,11 +7,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @AllArgsConstructor
-public class BallDto {
+public class BallDto extends BaseDto {
   InningsDto innings;
   UserDTO striker;
   UserDTO nonStriker;
@@ -28,4 +30,6 @@ public class BallDto {
   Boolean isNextFreeHit;
   Boolean isOverComplete;
   WicketDto wicket;
+  Date deletedOn;
+  String deletedBy;
 }

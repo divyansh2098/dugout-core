@@ -9,7 +9,7 @@ create table "wicket" (
     updated_on timestamp default CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER match_upd_timestamp
+CREATE TRIGGER wicket_upd_timestamp
     BEFORE UPDATE
     ON "wicket"
     FOR EACH ROW

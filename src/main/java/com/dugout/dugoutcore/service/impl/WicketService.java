@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class WicketService {
 
-    @NonNull WicketDao wicketDao;
-    public WicketDto create(WicketDto wicketDto) {
-        return wicketDao.create(wicketDto);
-    }
+  @NonNull WicketDao wicketDao;
+
+  public WicketDto create(WicketDto wicketDto) {
+    return wicketDao.create(wicketDto);
+  }
 }

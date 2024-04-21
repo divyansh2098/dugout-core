@@ -6,8 +6,10 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
+
 @Entity
-@Table
+@Table(name = "ball")
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Ball extends BaseModel {
@@ -50,4 +52,10 @@ public class Ball extends BaseModel {
   Boolean isFreeHit;
 
   String comment;
+
+  @Column(name = "deleted_on")
+  Date deletedOn;
+
+  @Column(name = "deleted_by")
+  String deletedBy;
 }

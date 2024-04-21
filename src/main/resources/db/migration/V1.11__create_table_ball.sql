@@ -12,11 +12,13 @@ create table "ball" (
     batsman_run INTEGER NOT NULL,
     is_free_hit BOOLEAN DEFAULT FALSE,
     comment TEXT NULL,
+    deleted_on timestamp,
+    deleted_by VARCHAR(255),
     created_on timestamp default CURRENT_TIMESTAMP,
     updated_on timestamp default CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER match_upd_timestamp
+CREATE TRIGGER ball_upd_timestamp
     BEFORE UPDATE
     ON "ball"
     FOR EACH ROW

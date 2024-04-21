@@ -3,12 +3,15 @@ package com.dugout.dugoutcore.service.impl;
 import com.dugout.dugoutcore.dao.BallDao;
 import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
+import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
 import com.dugout.dugoutcore.dto.WicketDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.pojo.enums.WicketType;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 @AllArgsConstructor
@@ -234,117 +237,125 @@ public class BallProcessingServiceImpl implements BallProcessingService {
   }
 
   @Override
-  public BallDto unprocessNoBall(BallProcessRequestDto request) {
+  public BallDto unprocessNoBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessNoBallLegBye(BallProcessRequestDto request) {
+  public BallDto unprocessNoBallLegBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessNoBallBye(BallProcessRequestDto request) {
+  public BallDto unprocessNoBallBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessWideBall(BallProcessRequestDto request) {
+  public BallDto unprocessWideBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessWideBallBye(BallProcessRequestDto request) {
+  public BallDto unprocessWideBallBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessFourRuns(BallProcessRequestDto request) {
+  public BallDto unprocessFourRuns(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessSixRuns(BallProcessRequestDto request) {
+  public BallDto unprocessSixRuns(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRun(BallProcessRequestDto request) {
+  public BallDto unprocessRun(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessLegBye(BallProcessRequestDto request) {
+  public BallDto unprocessLegBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessBowled(BallProcessRequestDto request) {
+  public BallDto unprocessBowled(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessCatch(BallProcessRequestDto request) {
+  public BallDto unprocessCatch(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessCaughtAndBowled(BallProcessRequestDto request) {
+  public BallDto unprocessCaughtAndBowled(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessStump(BallProcessRequestDto request) {
+  public BallDto unprocessStump(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessStumpAndWide(BallProcessRequestDto request) {
+  public BallDto unprocessStumpAndWide(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRunOut(BallProcessRequestDto request) {
+  public BallDto unprocessRunOut(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRunOutAndWide(BallProcessRequestDto request) {
+  public BallDto unprocessRunOutAndWide(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRunOutAndNoBall(BallProcessRequestDto request) {
+  public BallDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessWideTimedOutWicket(BallProcessRequestDto request) {
+  public BallDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessObstructingTheField(BallProcessRequestDto request) {
+  public BallDto unprocessObstructingTheField(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessObstructingTheFieldAndWide(BallProcessRequestDto request) {
+  public BallDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessObstructingTheFieldAndNoBall(BallProcessRequestDto request) {
+  public BallDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessCaughtBehind(BallProcessRequestDto request) {
+  public BallDto unprocessCaughtBehind(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessLegByWicket(BallProcessRequestDto request) {
+  public BallDto unprocessLegByWicket(BallUnprocessRequestDto request) {
     return null;
+  }
+
+  @Override
+  public BallDto unprocessBall(BallUnprocessRequestDto requestDto) throws DugoutDataFetchingException {
+    BallDto existingBall = ballDao.getById(requestDto.getBallId());
+    existingBall.setDeletedOn(new Date());
+    existingBall.setDeletedBy(requestDto.getRequester());
+    return ballDao.update(existingBall);
   }
 }

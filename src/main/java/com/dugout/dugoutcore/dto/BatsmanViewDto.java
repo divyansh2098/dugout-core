@@ -1,0 +1,30 @@
+package com.dugout.dugoutcore.dto;
+
+import com.dugout.dugoutcore.models.Innings;
+import com.dugout.dugoutcore.models.User;
+import com.dugout.dugoutcore.pojo.enums.BatsmanViewBatsmanStatus;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
+
+import java.util.Date;
+
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@AllArgsConstructor
+public class BatsmanViewDto extends BaseDto {
+
+    Innings innings;
+    User player;
+    Long runs;
+    Long numBalls;
+    Integer fours;
+    Integer sixes;
+    BatsmanViewBatsmanStatus status;
+    Boolean isStriker;
+    Date startTime;
+    Date endTime;
+}

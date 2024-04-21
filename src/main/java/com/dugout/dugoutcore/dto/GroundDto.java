@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class GroundDto {
+public class GroundDto extends BaseDto{
   String name;
   Long id;
   String lat;

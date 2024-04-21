@@ -4,7 +4,7 @@ import com.dugout.dugoutcore.pojo.enums.MatchStatus;
 import lombok.Data;
 
 @Data
-public class MatchDto {
+public class MatchDto extends BaseDto{
   String name;
   String city;
   String country;

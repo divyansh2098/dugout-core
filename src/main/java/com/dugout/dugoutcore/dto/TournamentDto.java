@@ -4,7 +4,7 @@ import com.dugout.dugoutcore.pojo.enums.TournamentStatus;
 import lombok.Data;
 
 @Data
-public class TournamentDto {
+public class TournamentDto extends BaseDto {
   Long id;
   String name;
   String city;

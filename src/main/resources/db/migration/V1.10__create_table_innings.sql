@@ -15,7 +15,7 @@ create table "innings" (
   updated_on timestamp default CURRENT_TIMESTAMP
 );
 
-CREATE TRIGGER match_upd_timestamp
+CREATE TRIGGER innings_upd_timestamp
     BEFORE UPDATE
     ON "innings"
     FOR EACH ROW
