@@ -4,15 +4,13 @@ import com.dugout.dugoutcore.dto.SendOtpRequest;
 import com.dugout.dugoutcore.dto.SendOtpResponse;
 import com.dugout.dugoutcore.dto.VerifyOtpRequest;
 import com.dugout.dugoutcore.dto.VerifyOtpResponse;
-import com.dugout.dugoutcore.service.UserSessionService;
+import com.dugout.dugoutcore.service.impl.UserSessionService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.UUID;
 
 @DgsComponent
 @Slf4j
