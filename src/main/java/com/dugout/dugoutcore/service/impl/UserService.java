@@ -1,4 +1,4 @@
-package com.dugout.dugoutcore.service;
+package com.dugout.dugoutcore.service.impl;
 
 import com.dugout.dugoutcore.dao.UserDao;
 import com.dugout.dugoutcore.dto.UserDTO;

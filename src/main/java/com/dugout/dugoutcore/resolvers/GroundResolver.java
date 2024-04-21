@@ -1,7 +1,7 @@
 package com.dugout.dugoutcore.resolvers;
 
 import com.dugout.dugoutcore.dto.GroundDto;
-import com.dugout.dugoutcore.service.GroundService;
+import com.dugout.dugoutcore.service.impl.GroundService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;

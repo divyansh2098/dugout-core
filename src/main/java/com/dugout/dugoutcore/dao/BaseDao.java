@@ -3,31 +3,31 @@ package com.dugout.dugoutcore.dao;
 import java.util.Optional;
 import lombok.SneakyThrows;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public class BaseDao<E, T, R extends JpaRepository<E, Long>> {
 
   R repository;
-  ModelMapper mapper;
+  @Autowired ModelMapper modelMapper;
 
   Class<T> dtoClass;
   Class<E> entityClass;
 
   BaseDao(R repository, Class<E> entityClass, Class<T> dtoClass) {
     this.repository = repository;
-    this.mapper = new ModelMapper(); // TODO -> Make this singleton
     this.entityClass = entityClass;
     this.dtoClass = dtoClass;
   }
 
   @SneakyThrows
   protected E convertToEntity(T dto) {
-    return mapper.map(dto, entityClass);
+    return modelMapper.map(dto, entityClass);
   }
 
   @SneakyThrows
   protected T convertToDto(E entity) {
-    return mapper.map(entity, dtoClass);
+    return modelMapper.map(entity, dtoClass);
   }
 
   public T create(T dto) {

@@ -2,7 +2,7 @@ package com.dugout.dugoutcore.resolvers;
 
 import com.dugout.dugoutcore.dto.MatchRequestDto;
 import com.dugout.dugoutcore.dto.MatchDto;
-import com.dugout.dugoutcore.service.MatchService;
+import com.dugout.dugoutcore.service.impl.MatchService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;

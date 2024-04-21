@@ -62,7 +62,9 @@ type Tournament {
 type RecordBallResponse {
   strikerId: Long,
   nonStrikerId: Long,
-  success: Boolean
+  success: Boolean,
+  isNextFreeHit: Boolean
+  nextBallNumber: Boolean
 }
 
 type Ground {
@@ -99,12 +101,15 @@ input SendOtpRequest {
 input BallInput {
   ballType: BallType!
   wicketMeta: WicketInfo
-  striker: Long!
-  nonStriker: Long!
-  wicketKeeper: Long!
+  inningId: Long!
+  bowlerId: Long!
+  strikerId: Long!
+  nonStrikerId: Long!
+  wicketKeeperId: Long!
   runs: Int!
   ballNumber: Int!
   comment: String
+  isFreeHit: Boolean = false
 }
 
 input WicketInfo {
