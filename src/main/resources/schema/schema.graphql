@@ -59,6 +59,14 @@ type Tournament {
   country: String
 }
 
+type RecordBallResponse {
+  strikerId: Long,
+  nonStrikerId: Long,
+  success: Boolean,
+  isNextFreeHit: Boolean
+  nextBallNumber: Boolean
+}
+
 type Ground {
   name: String,
   lat: String,
@@ -88,6 +96,26 @@ input UserPlayerInput {
 
 input SendOtpRequest {
   phoneNumber: String!
+}
+
+input BallInput {
+  ballType: BallType!
+  wicketMeta: WicketInfo
+  inningId: Long!
+  bowlerId: Long!
+  strikerId: Long!
+  nonStrikerId: Long!
+  wicketKeeperId: Long!
+  runs: Int!
+  ballNumber: Int!
+  comment: String
+  isFreeHit: Boolean = false
+}
+
+input WicketInfo {
+  outPlayerId: Long!
+  wicketType: WicketType!
+  fielderId: Long
 }
 
 input VerifyOtpRequest {
@@ -172,6 +200,38 @@ enum MatchStatus {
   COMPLETED
 }
 
+enum BallType {
+  NO_BALL,
+  NO_BALL_SIX,
+  NO_BALL_FOUR,
+  NO_BALL_LEG_BYE,
+  NO_BALL_BYE,
+  WIDE,
+  WIDE_BYE,
+  FOUR,
+  SIX,
+  RUN,
+  LEG_BYE,
+  WICKET
+}
+
+enum WicketType {
+  BOWLED,
+  CATCH,
+  CAUGHT_AND_BOWLED,
+  STUMP,
+  STUMP_AND_WIDE,
+  RUN_OUT,
+  RUN_OUT_AND_WIDE,
+  RUN_OUT_AND_NO_BALL,
+  TIMED_OUT,
+  OBSTRUCTING_THE_FIELD,
+  OBSTRUCTING_THE_FIELD_AND_WIDE,
+  OBSTRUCTING_THE_FIELD_AND_NO_BALL,
+  CAUGHT_BEHIND,
+  LEG_BY_WICKET
+}
+
 type Query {
   getPlayerById(id: ID!): UserPlayer
   verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
@@ -186,4 +246,5 @@ type Mutation {
   createMatch(match: MatchInput!): Match
   createTeam(team: TeamInput): Team
   createGround(ground: GroundInput): Ground
+  recordBall(ball: BallInput): RecordBallResponse
 }

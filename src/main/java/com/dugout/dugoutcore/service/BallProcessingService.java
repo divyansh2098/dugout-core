@@ -1,244 +1,117 @@
 package com.dugout.dugoutcore.service;
 
-import com.dugout.dugoutcore.dao.BallDao;
 import com.dugout.dugoutcore.dto.BallDto;
-import com.dugout.dugoutcore.dto.BaseBallProcessRequest;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.dugout.dugoutcore.dto.BallProcessRequestDto;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 
-@Service
-@AllArgsConstructor
-public class BallProcessingService implements BaseBallService {
-    private WicketService wicketService;
-    private BallDao ballDao;
+public interface BallProcessingService {
 
-    @Override
-    public BallDto processNoBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-    @Override
-    public BallDto processNoBallLegBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processNoBallLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-    @Override
-    public BallDto processNoBallBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processNoBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-    @Override
-    public BallDto processWideBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-    @Override
-    public BallDto processWideBallBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processWideBallBye(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processFourRuns(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processFourRuns(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processSixRuns(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processSixRuns(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processRun(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processRun(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processLegBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processLegBye(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processBold(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processBowled(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processCatch(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processCatch(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processCaughtAndBold(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processCaughtAndBowled(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processStump(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processStump(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processStumpAndWide(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processStumpAndWide(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processRunOut(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processRunOut(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processRunOutAndWide(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processRunOutAndWide(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processRunOutAndNoBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processRunOutAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-    @Override
-    public BallDto processWideTimedOutWicket(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processWideTimedOutWicket(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processObstructingTheField(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processObstructingTheField(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processObstructingTheFieldAndWide(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processObstructingTheFieldAndNoBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processCaughtBehind(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processCaughtBehind(BallProcessRequestDto request);
 
-    @Override
-    public BallDto processLegByWicket(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto processLegByWicket(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessNoBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessNoBall(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessNoBallLegBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessNoBallLegBye(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessNoBallBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessNoBallBye(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessWideBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessWideBall(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessWideBallBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessWideBallBye(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessFourRuns(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessFourRuns(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessSixRuns(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessSixRuns(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessRun(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessRun(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessLegBye(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessLegBye(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessBold(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessBowled(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessCatch(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessCatch(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessCaughtAndBold(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessCaughtAndBowled(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessStump(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessStump(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessStumpAndWide(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessStumpAndWide(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessRunOut(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessRunOut(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessRunOutAndWide(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessRunOutAndWide(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessRunOutAndNoBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessRunOutAndNoBall(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessWideTimedOutWicket(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessWideTimedOutWicket(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessObstructingTheField(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessObstructingTheField(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessObstructingTheFieldAndWide(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessObstructingTheFieldAndWide(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessObstructingTheFieldAndNoBall(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessObstructingTheFieldAndNoBall(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessCaughtBehind(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessCaughtBehind(BallProcessRequestDto request);
 
-    @Override
-    public BallDto unprocessLegByWicket(BaseBallProcessRequest request) {
-        return null;
-    }
+  BallDto unprocessLegByWicket(BallProcessRequestDto request);
+
+  /**
+   * @param {BaseBallProcessRequest} request record Ball request
+   * @return {BallDto} ballDto recorded ball data
+   * @throws DugoutDataFetchingException Add cases here for each ball type calling the relevant
+   *     handler function here
+   */
+  default BallDto processBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+    return switch (request.getBallType()) {
+      case NO_BALL -> processNoBall(request);
+      case NO_BALL_BYE -> processNoBallBye(request);
+      case NO_BALL_LEG_BYE -> processNoBallLegBye(request);
+      case NO_BALL_RUN_OUT -> processRunOutAndNoBall(request);
+      case WIDE -> processWideBall(request);
+      default -> null;
+    };
+  }
 }

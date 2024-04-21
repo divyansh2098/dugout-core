@@ -2,7 +2,7 @@ package com.dugout.dugoutcore.resolvers;
 
 import com.dugout.dugoutcore.dto.UserDTO;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
-import com.dugout.dugoutcore.service.UserService;
+import com.dugout.dugoutcore.service.impl.UserService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.DgsQuery;

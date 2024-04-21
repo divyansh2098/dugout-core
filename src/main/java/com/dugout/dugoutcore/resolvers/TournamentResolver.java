@@ -1,7 +1,7 @@
 package com.dugout.dugoutcore.resolvers;
 
 import com.dugout.dugoutcore.dto.TournamentDto;
-import com.dugout.dugoutcore.service.TournamentService;
+import com.dugout.dugoutcore.service.impl.TournamentService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;
