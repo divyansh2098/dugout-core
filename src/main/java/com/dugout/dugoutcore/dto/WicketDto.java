@@ -15,5 +15,6 @@ public class WicketDto extends BaseDto {
   InningsDto innings;
   BallDto ball;
   UserDTO outPlayer;
+  UserDTO fielder;
   WicketType type;
 }

@@ -20,7 +20,7 @@ public class BallDto extends BaseDto {
   UserDTO bowler;
   UserDTO wicketKeeper;
   Boolean isValid;
-  Long runs;
+  Integer runs;
   BallType type;
   Integer ballNumber;
   Integer batsmanRuns;
