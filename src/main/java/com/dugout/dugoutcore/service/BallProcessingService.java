@@ -14,43 +14,29 @@ public interface BallProcessingService {
 
   BallDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processWideBallBye(BallProcessRequestDto request);
+  BallDto processWideBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processFourRuns(BallProcessRequestDto request);
+  BallDto processFourRuns(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processSixRuns(BallProcessRequestDto request);
+  BallDto processSixRuns(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processRun(BallProcessRequestDto request);
+  BallDto processRun(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processLegBye(BallProcessRequestDto request);
+  BallDto processLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processBowled(BallProcessRequestDto request);
+  BallDto processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processCatch(BallProcessRequestDto request);
+  BallDto processStumpAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processCaughtAndBowled(BallProcessRequestDto request);
+  BallDto processRunOut(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processStump(BallProcessRequestDto request);
-
-  BallDto processStumpAndWide(BallProcessRequestDto request);
-
-  BallDto processRunOut(BallProcessRequestDto request);
-
-  BallDto processRunOutAndWide(BallProcessRequestDto request);
+  BallDto processRunOutAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
   BallDto processRunOutAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processWideTimedOutWicket(BallProcessRequestDto request);
+  BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processObstructingTheField(BallProcessRequestDto request);
-
-  BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request);
-
-  BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request);
-
-  BallDto processCaughtBehind(BallProcessRequestDto request);
-
-  BallDto processLegByWicket(BallProcessRequestDto request);
+  BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
   BallDto unprocessNoBall(BallProcessRequestDto request);
 
@@ -111,6 +97,11 @@ public interface BallProcessingService {
       case NO_BALL_LEG_BYE -> processNoBallLegBye(request);
       case NO_BALL_RUN_OUT -> processRunOutAndNoBall(request);
       case WIDE -> processWideBall(request);
+      case WIDE_BYE -> processWideBallBye(request);
+      case FOUR -> processFourRuns(request);
+      case SIX -> processSixRuns(request);
+      case RUN -> processRun(request);
+      case LEG_BYE -> processLegBye(request);
       default -> null;
     };
   }

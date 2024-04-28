@@ -10,19 +10,23 @@ import lombok.experimental.FieldDefaults;
 @Table
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Wicket extends BaseModel{
-    @ManyToOne
-    @JoinColumn(name = "inning_id")
-    Innings innings;
+public class Wicket extends BaseModel {
+  @ManyToOne
+  @JoinColumn(name = "inning_id")
+  Innings innings;
 
-    @OneToOne
-    @JoinColumn(name = "ball_id")
-    Ball ball;
+  @OneToOne
+  @JoinColumn(name = "ball_id")
+  Ball ball;
 
-    @ManyToOne
-    @JoinColumn(name = "out_player_id")
-    User outPlayer;
+  @ManyToOne
+  @JoinColumn(name = "out_player_id")
+  User outPlayer;
 
-    @Enumerated(EnumType.STRING)
-    WicketType type;
+  @OneToOne
+  @Column(name = "fielder_id")
+  User fielder;
+
+  @Enumerated(EnumType.STRING)
+  WicketType type;
 }
