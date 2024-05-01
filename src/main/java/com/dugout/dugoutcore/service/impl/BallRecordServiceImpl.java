@@ -10,9 +10,11 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Slf4j
+@Service
 public class BallRecordServiceImpl implements BallRecordService {
   @NonNull ModelMapper modelMapper;
   @NonNull BallProcessingService ballProcessingService;

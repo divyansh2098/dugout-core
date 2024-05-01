@@ -19,7 +19,7 @@ public class UserService {
     if (id == null) {
       return null;
     }
-    return userDao.getUser(id);
+    return userDao.getById(id);
   }
 
   public UserDTO getUserByPhone(String phoneNumber) {
@@ -34,12 +34,12 @@ public class UserService {
 
   @Transactional
   public UserDTO createUser(UserDTO userDto) {
-    return userDao.createUser(userDto);
+    return userDao.create(userDto);
   }
 
   @Transactional
   @SneakyThrows
   public UserDTO updateUser(UserDTO userDto) {
-    return userDao.updateUser(userDto);
+    return userDao.update(userDto);
   }
 }

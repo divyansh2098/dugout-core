@@ -24,7 +24,7 @@ public class Wicket extends BaseModel {
   User outPlayer;
 
   @OneToOne
-  @Column(name = "fielder_id")
+  @JoinColumn(name = "fielder_id")
   User fielder;
 
   @Enumerated(EnumType.STRING)
