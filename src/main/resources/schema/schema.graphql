@@ -180,12 +180,8 @@ enum BattingStyle {
 }
 
 enum BowlingStyle {
-  RIGHT_FAST
-  RIGHT_MEDIUM
-  LEFT_FAST
-  LEFT_MEDIUM
-  RIGHT_SPIN
-  LEFT_SPIN
+  LEFT
+  RIGHT
 }
 
 enum TournamentStatus {
@@ -234,7 +230,6 @@ enum WicketType {
 
 type Query {
   getPlayerById(id: ID!): UserPlayer
-  verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
   getGroundById(id: ID!): Ground
 }
 
@@ -247,4 +242,5 @@ type Mutation {
   createTeam(team: TeamInput): Team
   createGround(ground: GroundInput): Ground
   recordBall(ball: BallInput): RecordBallResponse
+  verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
 }

@@ -7,7 +7,7 @@ import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.models.BatsmanView;
 import com.dugout.dugoutcore.service.BallProcessingService;
-import lombok.NonNull;
+import com.dugout.dugoutcore.util.BallProcessingUtils;
 import org.springframework.stereotype.Service;
 
 @Service
