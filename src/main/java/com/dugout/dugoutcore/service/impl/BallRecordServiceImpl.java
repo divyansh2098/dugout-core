@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BallRecordServiceImpl implements BallRecordService {
   @NonNull ModelMapper modelMapper;
-  @NonNull BallProcessingService ballProcessingService;
+  @NonNull BallProcessingServiceImpl ballProcessingService;
 
   @Override
   public RecordBallResponseDto recordBall(BallProcessRequestDto ballRequestDto)

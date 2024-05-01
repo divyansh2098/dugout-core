@@ -4,6 +4,7 @@ import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.RecordBallResponseDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallRecordService;
+import com.dugout.dugoutcore.service.impl.BallRecordServiceImpl;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
 import com.netflix.graphql.dgs.InputArgument;
@@ -13,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @DgsComponent
 @RequiredArgsConstructor
 public class BallResolver {
-  @NonNull BallRecordService ballRecordService;
+  @NonNull BallRecordServiceImpl ballRecordService;
 
   @DgsMutation
   public RecordBallResponseDto recordBall(

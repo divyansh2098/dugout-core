@@ -11,4 +11,8 @@ public class BatsmanViewDao extends BaseDao<BatsmanView, BatsmanViewDto, Batsman
     BatsmanViewDao(BatsmanViewRepository batsmanViewRepository) {
         super(batsmanViewRepository, BatsmanView.class, BatsmanViewDto.class);
     }
+
+    public BatsmanView getPlayerBatsmanViewForInningAndPlayer(Long inningId, Long playerId) {
+        return repository.findBatsmanViewByInningIdAndPlayerId(inningId, playerId);
+    }
 }
