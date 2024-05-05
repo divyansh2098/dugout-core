@@ -31,7 +31,7 @@ public class UserSessionService {
     }
 
     public VerifyOtpResponse verifyOtp(VerifyOtpRequest request) {
-        if (!request.getOtp().equals("999999")) {
+        if (!request.getOtp().equals("9999")) {
             return VerifyOtpResponse.builder().message("Verification Failed").isSuccess(false).build();
         }
         log.info("User Verified!! with phone number: {}", request.getPhoneNumber());
