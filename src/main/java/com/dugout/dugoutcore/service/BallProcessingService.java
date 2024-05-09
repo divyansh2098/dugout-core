@@ -35,9 +35,11 @@ public interface BallProcessingService {
 
   BallDto processRunOutAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request)
+      throws DugoutDataFetchingException;
 
-  BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request)
+      throws DugoutDataFetchingException;
 
   BallDto unprocessNoBall(BallUnprocessRequestDto request);
 

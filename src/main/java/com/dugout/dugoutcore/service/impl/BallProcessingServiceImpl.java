@@ -385,7 +385,8 @@ public class BallProcessingServiceImpl implements BallProcessingService {
   }
 
   @Override
-  public BallDto unprocessBall(BallUnprocessRequestDto requestDto) throws DugoutDataFetchingException {
+  public BallDto unprocessBall(BallUnprocessRequestDto requestDto)
+      throws DugoutDataFetchingException {
     BallDto existingBall = ballDao.getById(requestDto.getBallId());
     existingBall.setDeletedOn(new Date());
     existingBall.setDeletedBy(requestDto.getRequester());
