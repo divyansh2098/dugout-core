@@ -8,16 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/debug")
 @Slf4j
 public class DebugController {
 
-    @Autowired
-    UserService userService;
+  @Autowired UserService userService;
 
-    @GetMapping("/health")
-    public ResponseEntity<?> isHealthy(){
-        log.info("Hello World!!");
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+  @GetMapping("/health")
+  public ResponseEntity<?> isHealthy() {
+    log.info("Hello World!!");
+    return new ResponseEntity<String>("OK", HttpStatus.OK);
+  }
 }

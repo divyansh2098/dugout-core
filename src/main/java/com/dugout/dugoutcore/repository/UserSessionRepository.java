@@ -1,12 +1,12 @@
 package com.dugout.dugoutcore.repository;
 
 import com.dugout.dugoutcore.models.UserSession;
+import java.util.Date;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
 public interface UserSessionRepository extends JpaRepository<UserSession, Long> {
-    Optional<UserSession> findByUserId(Long userId);
+  Optional<UserSession> findByUserId(Long userId);
 
-    Optional<UserSession> findByAuthToken(String authToken);
+  UserSession findByAuthTokenAndExpiresOnGreaterThan(String authToken, Date currentDate);
 }
