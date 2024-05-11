@@ -20,6 +20,7 @@ public class BowlerViewDto extends BaseDto {
     Long numBalls;
     Integer fours;
     Integer sixes;
+    Integer extras;
     BowlerViewBowlerStatus status;
     Integer wickets;
 }
