@@ -1,209 +1,209 @@
 package com.dugout.dugoutcore.service.impl;
 
-import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
+import com.dugout.dugoutcore.dto.BowlerViewDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BowlerViewService implements BallProcessingService {
+public class BowlerViewService implements BallProcessingService<BowlerViewDto> {
   @Override
-  public BallDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public BallDto processNoBallLegBye(BallProcessRequestDto request)
+  public BowlerViewDto processNoBallLegBye(BallProcessRequestDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public BallDto processNoBallBye(BallProcessRequestDto request)
+  public BowlerViewDto processNoBallBye(BallProcessRequestDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public BallDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public BallDto processWideBallBye(BallProcessRequestDto request) {
+  public BowlerViewDto processWideBallBye(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processFourRuns(BallProcessRequestDto request) {
+  public BowlerViewDto processFourRuns(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processSixRuns(BallProcessRequestDto request) {
+  public BowlerViewDto processSixRuns(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processRun(BallProcessRequestDto request) {
+  public BowlerViewDto processRun(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processLegBye(BallProcessRequestDto request) {
+  public BowlerViewDto processLegBye(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public BallDto processStumpAndWide(BallProcessRequestDto request) {
+  public BowlerViewDto processStumpAndWide(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processRunOut(BallProcessRequestDto request) {
+  public BowlerViewDto processRunOut(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processRunOutAndWide(BallProcessRequestDto request) {
+  public BowlerViewDto processRunOutAndWide(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processRunOutAndNoBall(BallProcessRequestDto request)
+  public BowlerViewDto processRunOutAndNoBall(BallProcessRequestDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request) {
+  public BowlerViewDto processObstructingTheFieldAndWide(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) {
+  public BowlerViewDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessNoBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessNoBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessNoBallLegBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessNoBallLegBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessNoBallBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessNoBallBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessWideBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessWideBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessWideBallBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessWideBallBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessFourRuns(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessFourRuns(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessSixRuns(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessSixRuns(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRun(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRun(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessLegBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessLegBye(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessBowled(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessBowled(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessCatch(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessCatch(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessCaughtAndBowled(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessCaughtAndBowled(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessStump(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessStump(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessStumpAndWide(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessStumpAndWide(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRunOut(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRunOut(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRunOutAndWide(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRunOutAndWide(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessObstructingTheField(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessObstructingTheField(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessCaughtBehind(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessCaughtBehind(BallUnprocessRequestDto request) {
     return null;
   }
 
   @Override
-  public BallDto unprocessLegByWicket(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessLegByWicket(BallUnprocessRequestDto request) {
     return null;
   }
 }

@@ -1,89 +1,88 @@
 package com.dugout.dugoutcore.service;
 
-import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 
-public interface BallProcessingService {
+public interface BallProcessingService<T> {
 
-  BallDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processNoBallLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processNoBallLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processNoBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processNoBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processWideBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processWideBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processFourRuns(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processFourRuns(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processSixRuns(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processSixRuns(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processRun(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processRun(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processStumpAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processStumpAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processRunOut(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processRunOut(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processRunOutAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processRunOutAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processRunOutAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processRunOutAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processObstructingTheFieldAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processObstructingTheFieldAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
+  T processObstructingTheFieldAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException;
 
-  BallDto unprocessNoBall(BallUnprocessRequestDto request);
+  T unprocessNoBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessNoBallLegBye(BallUnprocessRequestDto request);
+  T unprocessNoBallLegBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessNoBallBye(BallUnprocessRequestDto request);
+  T unprocessNoBallBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessWideBall(BallUnprocessRequestDto request);
+  T unprocessWideBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessWideBallBye(BallUnprocessRequestDto request);
+  T unprocessWideBallBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessFourRuns(BallUnprocessRequestDto request);
+  T unprocessFourRuns(BallUnprocessRequestDto request);
 
-  BallDto unprocessSixRuns(BallUnprocessRequestDto request);
+  T unprocessSixRuns(BallUnprocessRequestDto request);
 
-  BallDto unprocessRun(BallUnprocessRequestDto request);
+  T unprocessRun(BallUnprocessRequestDto request);
 
-  BallDto unprocessLegBye(BallUnprocessRequestDto request);
+  T unprocessLegBye(BallUnprocessRequestDto request);
 
-  BallDto unprocessBowled(BallUnprocessRequestDto request);
+  T unprocessBowled(BallUnprocessRequestDto request);
 
-  BallDto unprocessCatch(BallUnprocessRequestDto request);
+  T unprocessCatch(BallUnprocessRequestDto request);
 
-  BallDto unprocessCaughtAndBowled(BallUnprocessRequestDto request);
+  T unprocessCaughtAndBowled(BallUnprocessRequestDto request);
 
-  BallDto unprocessStump(BallUnprocessRequestDto request);
+  T unprocessStump(BallUnprocessRequestDto request);
 
-  BallDto unprocessStumpAndWide(BallUnprocessRequestDto request);
+  T unprocessStumpAndWide(BallUnprocessRequestDto request);
 
-  BallDto unprocessRunOut(BallUnprocessRequestDto request);
+  T unprocessRunOut(BallUnprocessRequestDto request);
 
-  BallDto unprocessRunOutAndWide(BallUnprocessRequestDto request);
+  T unprocessRunOutAndWide(BallUnprocessRequestDto request);
 
-  BallDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request);
+  T unprocessRunOutAndNoBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request);
+  T unprocessWideTimedOutWicket(BallUnprocessRequestDto request);
 
-  BallDto unprocessObstructingTheField(BallUnprocessRequestDto request);
+  T unprocessObstructingTheField(BallUnprocessRequestDto request);
 
-  BallDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request);
+  T unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request);
 
-  BallDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request);
+  T unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request);
 
-  BallDto unprocessCaughtBehind(BallUnprocessRequestDto request);
+  T unprocessCaughtBehind(BallUnprocessRequestDto request);
 
-  BallDto unprocessLegByWicket(BallUnprocessRequestDto request);
+  T unprocessLegByWicket(BallUnprocessRequestDto request);
 
   /**
    * @param {BaseBallProcessRequest} request record Ball request
@@ -91,7 +90,7 @@ public interface BallProcessingService {
    * @throws DugoutDataFetchingException Add cases here for each ball type calling the relevant
    *     handler function here
    */
-  default BallDto processBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  default T processBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
     return switch (request.getBallType()) {
       case NO_BALL -> processNoBall(request);
       case NO_BALL_BYE -> processNoBallBye(request);
@@ -107,7 +106,7 @@ public interface BallProcessingService {
     };
   }
 
-  default BallDto unprocessBall(BallUnprocessRequestDto requestDto)
+  default T unprocessBall(BallUnprocessRequestDto requestDto)
       throws DugoutDataFetchingException {
     return switch (requestDto.getBallType()) {
       case NO_BALL -> unprocessNoBall(requestDto);
