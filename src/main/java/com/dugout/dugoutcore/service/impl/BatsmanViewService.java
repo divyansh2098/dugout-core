@@ -1,5 +1,8 @@
 package com.dugout.dugoutcore.service.impl;
 
+import static com.dugout.dugoutcore.ApplicationConstants.FOUR_RUNS;
+import static com.dugout.dugoutcore.ApplicationConstants.SIX_RUNS;
+
 import com.dugout.dugoutcore.dao.BatsmanViewDao;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
@@ -52,13 +55,13 @@ public class BatsmanViewService implements BallProcessingService<BatsmanViewDto>
   @Override
   public BatsmanViewDto processFourRuns(BallProcessRequestDto request) throws DugoutDataFetchingException {
     // adds 4 runs to the striker runs
-    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), 4);
+    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), FOUR_RUNS);
   }
 
   @Override
   public BatsmanViewDto processSixRuns(BallProcessRequestDto request) throws DugoutDataFetchingException {
     // adds 6 runs to the striker runs
-    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), 6);
+    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), SIX_RUNS);
   }
 
   @Override
