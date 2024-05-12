@@ -3,6 +3,7 @@ package com.dugout.dugoutcore.service.impl;
 import com.dugout.dugoutcore.dao.UserDao;
 import com.dugout.dugoutcore.dto.UserDTO;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
+import com.dugout.dugoutcore.util.CommonUtils;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,8 @@ public class UserService {
   @Transactional
   @SneakyThrows
   public UserDTO updateUser(UserDTO userDto) {
-    return userDao.update(userDto);
+    UserDTO existingUser = userDao.getById(userDto.getId());
+    CommonUtils.copyNonNullProperties(userDto, existingUser);
+    return userDao.update(existingUser);
   }
 }
