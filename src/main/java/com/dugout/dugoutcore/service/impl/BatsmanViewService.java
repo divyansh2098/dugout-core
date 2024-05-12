@@ -1,7 +1,6 @@
 package com.dugout.dugoutcore.service.impl;
 
 import com.dugout.dugoutcore.dao.BatsmanViewDao;
-import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
 import com.dugout.dugoutcore.dto.BatsmanViewDto;
@@ -9,9 +8,8 @@ import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.pojo.enums.BatsmanViewBatsmanStatus;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
-import org.springframework.stereotype.Service;
-
 import java.util.Date;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BatsmanViewService implements BallProcessingService<BatsmanViewDto> {
@@ -272,7 +270,7 @@ public class BatsmanViewService implements BallProcessingService<BatsmanViewDto>
     return batsmanViewDao.update(outPlayerViewDto);
   }
 
-  private BatsmanViewDto removeRunsToPlayer(Long inningId, Long playerId, Integer runs) throws DugoutDataFetchingException {
+  private BatsmanViewDto removeRunsFromPlayer(Long inningId, Long playerId, Integer runs) throws DugoutDataFetchingException {
     BatsmanViewDto strikerBatsmanViewDto = null;
     if (runs != null && runs > 0) {
       strikerBatsmanViewDto =  batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
