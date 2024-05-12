@@ -11,4 +11,8 @@ public class BowlerViewDao extends BaseDao<BowlerView, BowlerViewDto, BowlerView
     BowlerViewDao(BowlerViewRepository bowlerViewRepository) {
         super(bowlerViewRepository, BowlerView.class, BowlerViewDto.class);
     }
+
+    public BowlerViewDto getPlayerBowlerViewFromInningAndPlayer(Long inningId, Long playerId) {
+        return convertToDto(repository.findBowlerViewByInningIdAndPlayerId(inningId, playerId));
+    }
 }

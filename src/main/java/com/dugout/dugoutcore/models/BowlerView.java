@@ -31,6 +31,8 @@ public class BowlerView extends BaseModel {
 
   Integer sixes;
 
+  Integer extras;
+
   @Column(name = "status")
   @Enumerated(EnumType.STRING)
   BowlerViewBowlerStatus status;
