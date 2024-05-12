@@ -10,7 +10,8 @@ create table "user_session"(
     user_agent VARCHAR(255) NULL,
     app_version VARCHAR(255) NULL,
     created_on timestamp default current_timestamp,
-    updated_on timestamp default current_timestamp
+    updated_on timestamp default current_timestamp,
+    expires_on timestamp
 );
 
 CREATE INDEX idx_user_session_auth_token ON "user_session" (auth_token);
