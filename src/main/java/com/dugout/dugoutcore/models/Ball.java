@@ -48,6 +48,9 @@ public class Ball extends BaseModel {
   @Column(name = "batsman_run")
   Long batsmanRuns;
 
+  @Column(name = "bowler_run")
+  Long bowlerRuns;
+
   @Column(name = "is_free_hit")
   Boolean isFreeHit;
 

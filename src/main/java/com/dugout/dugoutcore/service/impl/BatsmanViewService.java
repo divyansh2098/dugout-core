@@ -1,10 +1,7 @@
 package com.dugout.dugoutcore.service.impl;
 
 import com.dugout.dugoutcore.dao.BatsmanViewDao;
-import com.dugout.dugoutcore.dto.BallDto;
-import com.dugout.dugoutcore.dto.BallProcessRequestDto;
-import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
-import com.dugout.dugoutcore.dto.BatsmanViewDto;
+import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.pojo.enums.BatsmanViewBatsmanStatus;
 import com.dugout.dugoutcore.service.BallProcessingService;
@@ -14,234 +11,237 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class BatsmanViewService implements BallProcessingService<BatsmanViewDto> {
+public class BatsmanViewService implements BallProcessingService<BatsmanViewDto, BatsmanViewProcessDto, BatsmanViewUnprocessDto> {
   private BatsmanViewDao batsmanViewDao;
   private UserService userService;
   private BallProcessingUtils ballProcessingUtils;
 
   @Override
-  public BatsmanViewDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processNoBall(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // Batsmen view will only change if there are some runs from batsmen
-    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    return addRunsToPlayer(
+        request.getBallDto().getInnings().getId(),
+        request.getBallDto().getStriker().getId(),
+        request.getBallDto().getBatsmanRuns());
   }
 
   @Override
-  public BatsmanViewDto processNoBallLegBye(BallProcessRequestDto request)
+  public BatsmanViewDto processNoBallLegBye(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // nothing will be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto processNoBallBye(BallProcessRequestDto request)
+  public BatsmanViewDto processNoBallBye(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // nothing will be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processWideBall(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // nothing will be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto processWideBallBye(BallProcessRequestDto request) {
+  public BatsmanViewDto processWideBallBye(BatsmanViewProcessDto request) {
     // nothing will be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto processFourRuns(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processFourRuns(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // adds 4 runs to the striker runs
-    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), 4);
+    return addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), 4);
   }
 
   @Override
-  public BatsmanViewDto processSixRuns(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processSixRuns(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // adds 6 runs to the striker runs
-    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), 6);
+    return addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), 6);
   }
 
   @Override
-  public BatsmanViewDto processRun(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processRun(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // adds given runs to the striker runs
-    return addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    return addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
   }
 
   @Override
-  public BatsmanViewDto processLegBye(BallProcessRequestDto request) {
+  public BatsmanViewDto processLegBye(BatsmanViewProcessDto request) {
     // nothing will be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processWicket(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out and add runs to striker if any
-    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
-    addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+    addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
     return outPlayerViewDto;
   }
 
   @Override
-  public BatsmanViewDto processStumpAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processStumpAndWide(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out
-    return markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
+    return markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
   }
 
   @Override
-  public BatsmanViewDto processRunOut(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processRunOut(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
-    addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+    addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
     return outPlayerViewDto;
   }
 
   @Override
-  public BatsmanViewDto processRunOutAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processRunOutAndWide(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
-    addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+    addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
     return outPlayerViewDto;
   }
 
   @Override
-  public BatsmanViewDto processRunOutAndNoBall(BallProcessRequestDto request)
+  public BatsmanViewDto processRunOutAndNoBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
-    addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+    addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
     return outPlayerViewDto;
   }
 
   @Override
-  public BatsmanViewDto processObstructingTheFieldAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processObstructingTheFieldAndWide(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
-    addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+    addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
     return outPlayerViewDto;
   }
 
   @Override
-  public BatsmanViewDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BatsmanViewDto processObstructingTheFieldAndNoBall(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getInningId(), request.getWicketMeta().getOutPlayerId());
-    addRunsToPlayer(request.getInningId(), request.getStrikerId(), request.getRuns());
+    BatsmanViewDto outPlayerViewDto = markPlayerAsOut(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+    addRunsToPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId(), request.getBallDto().getBatsmanRuns());
     return outPlayerViewDto;
   }
 
   @Override
-  public BatsmanViewDto unprocessNoBall(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessNoBall(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessNoBallLegBye(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessNoBallLegBye(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessNoBallBye(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessNoBallBye(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessWideBall(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessWideBall(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessWideBallBye(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessWideBallBye(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessFourRuns(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessFourRuns(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessSixRuns(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessSixRuns(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessRun(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessRun(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessLegBye(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessLegBye(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessBowled(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessBowled(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessCatch(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessCatch(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessCaughtAndBowled(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessCaughtAndBowled(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessStump(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessStump(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessStumpAndWide(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessStumpAndWide(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessRunOut(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessRunOut(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessRunOutAndWide(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessRunOutAndWide(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessRunOutAndNoBall(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessWideTimedOutWicket(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessObstructingTheField(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessObstructingTheField(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessObstructingTheFieldAndWide(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessObstructingTheFieldAndNoBall(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessCaughtBehind(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessCaughtBehind(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessLegByWicket(BallUnprocessRequestDto request) {
+  public BatsmanViewDto unprocessLegByWicket(BatsmanViewUnprocessDto request) {
     return null;
   }
 

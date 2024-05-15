@@ -19,7 +19,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class BallProcessingServiceImpl implements BallProcessingService<BallDto> {
+public class BallProcessingServiceImpl implements BallProcessingService<BallDto, BallProcessRequestDto, BallUnprocessRequestDto> {
   @NonNull private WicketService wicketService;
   @NonNull private BallDao ballDao;
   @NonNull private BallDtoConverter ballDtoConverter;

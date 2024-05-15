@@ -1,11 +1,9 @@
 package com.dugout.dugoutcore.dto;
 
-import com.dugout.dugoutcore.pojo.enums.BallType;
 import lombok.Data;
 
 @Data
-public class BallProcessRequestDto {
-  BallType ballType;
+public class BallProcessRequestDto extends BallProcessRequest {
   Long inningId;
   Integer ballNumber;
   Long bowlerId;

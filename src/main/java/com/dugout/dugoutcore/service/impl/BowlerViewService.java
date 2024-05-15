@@ -1,131 +1,119 @@
 package com.dugout.dugoutcore.service.impl;
 
 import com.dugout.dugoutcore.dao.BowlerViewDao;
-import com.dugout.dugoutcore.dto.BallProcessRequestDto;
-import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
-import com.dugout.dugoutcore.dto.BowlerViewDto;
+import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BowlerViewService implements BallProcessingService<BowlerViewDto> {
+public class BowlerViewService implements BallProcessingService<BowlerViewDto, BowlerViewProcessDto, BowlerViewUnprocessDto> {
   private BowlerViewDao bowlerViewDao;
   private UserService userService;
   private BallProcessingUtils ballProcessingUtils;
 
   @Override
-  public BowlerViewDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processNoBall(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processNoBallLegBye(BallProcessRequestDto request)
+  public BowlerViewDto processNoBallLegBye(BowlerViewProcessDto request)
       throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
-    }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processNoBallBye(BallProcessRequestDto request)
+  public BowlerViewDto processNoBallBye(BowlerViewProcessDto request)
       throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
-    }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processWideBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processWideBall(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processWideBallBye(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processWideBallBye(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
-    }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processFourRuns(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processFourRuns(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 4);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processSixRuns(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processSixRuns(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 6);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processRun(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processRun(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processLegBye(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processLegBye(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processWicket(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processWicket(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler wickets will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processStumpAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processStumpAndWide(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // bowlers wicket and runs will increase
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
@@ -133,182 +121,182 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto> {
   }
 
   @Override
-  public BowlerViewDto processRunOut(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processRunOut(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowlers wicket will increment and runs will increase if there are any runs
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processRunOutAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processRunOutAndWide(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowlers wicket will increment and runs will increase if there are any runs
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processRunOutAndNoBall(BallProcessRequestDto request)
+  public BowlerViewDto processRunOutAndNoBall(BowlerViewProcessDto request)
       throws DugoutDataFetchingException {
     // Bowlers wicket will increment and runs will increase if there are any runs
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processObstructingTheFieldAndWide(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processObstructingTheFieldAndWide(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowlers wicket will increment and runs will increase if there are any runs
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto processObstructingTheFieldAndNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BowlerViewDto processObstructingTheFieldAndNoBall(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowlers wicket will increment and runs will increase if there are any runs
-    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getInningId(), request.getBowlerId());
+    BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    if (request.getRuns() != null && request.getRuns() > 0) {
-      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
     return bowlerViewDao.update(bowlerViewDto);
   }
 
   @Override
-  public BowlerViewDto unprocessNoBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessNoBall(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessNoBallLegBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessNoBallLegBye(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessNoBallBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessNoBallBye(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessWideBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessWideBall(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessWideBallBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessWideBallBye(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessFourRuns(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessFourRuns(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessSixRuns(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessSixRuns(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessRun(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRun(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessLegBye(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessLegBye(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessBowled(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessBowled(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessCatch(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessCatch(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessCaughtAndBowled(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessCaughtAndBowled(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessStump(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessStump(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessStumpAndWide(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessStumpAndWide(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessRunOut(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRunOut(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessRunOutAndWide(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRunOutAndWide(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessRunOutAndNoBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessRunOutAndNoBall(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessWideTimedOutWicket(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessObstructingTheField(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessObstructingTheField(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessObstructingTheFieldAndWide(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessObstructingTheFieldAndWide(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessObstructingTheFieldAndNoBall(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessObstructingTheFieldAndNoBall(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessCaughtBehind(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessCaughtBehind(BowlerViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BowlerViewDto unprocessLegByWicket(BallUnprocessRequestDto request) {
+  public BowlerViewDto unprocessLegByWicket(BowlerViewUnprocessDto request) {
     return null;
   }
 }

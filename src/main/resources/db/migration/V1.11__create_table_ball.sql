@@ -10,6 +10,7 @@ create table "ball" (
     type VARCHAR(30) NOT NULL,
     ball_number INTEGER NOT NULL,
     batsman_run INTEGER NOT NULL,
+    bowler_run INTEGER NOT NULL,
     is_free_hit BOOLEAN DEFAULT FALSE,
     comment TEXT NULL,
     deleted_on timestamp,
