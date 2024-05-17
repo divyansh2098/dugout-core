@@ -24,6 +24,7 @@ public class BallDto extends BaseDto {
   BallType type;
   Integer ballNumber;
   Integer batsmanRuns;
+  Integer bowlerRuns;
   Boolean isFreeHit;
   String comment;
   Integer nextBallNumber;

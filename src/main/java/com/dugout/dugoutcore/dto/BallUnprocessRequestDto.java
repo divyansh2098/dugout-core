@@ -5,8 +5,7 @@ import com.dugout.dugoutcore.pojo.enums.BallType;
 import lombok.Data;
 
 @Data
-public class BallUnprocessRequestDto {
+public class BallUnprocessRequestDto extends BallUnprocessRequest {
   Long ballId;
-  BallType ballType;
   String requester;
 }
