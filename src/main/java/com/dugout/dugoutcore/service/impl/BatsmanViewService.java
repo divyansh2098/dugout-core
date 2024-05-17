@@ -355,25 +355,4 @@ public class BatsmanViewService
   public BatsmanViewDto unprocessLegByWicket(BatsmanViewUnprocessDto request) {
     return null;
   }
-
-  private BatsmanViewDto markPlayerAsNotOut(Long inningId, Long playerId)
-      throws DugoutDataFetchingException {
-    BatsmanViewDto outPlayerViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(inningId, playerId);
-    outPlayerViewDto.setEndTime(null);
-    outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.PLAYING);
-    return batsmanViewDao.update(outPlayerViewDto);
-  }
-
-  private BatsmanViewDto removeRunsFromPlayer(Long inningId, Long playerId, Integer runs)
-      throws DugoutDataFetchingException {
-    BatsmanViewDto strikerBatsmanViewDto = null;
-    if (runs != null && runs > 0) {
-      strikerBatsmanViewDto =
-          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(inningId, playerId);
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() - runs);
-      strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
-    }
-    return strikerBatsmanViewDto;
-  }
 }

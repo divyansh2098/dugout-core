@@ -7,6 +7,8 @@ import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import org.springframework.stereotype.Service;
 
+import static com.dugout.dugoutcore.ApplicationConstants.*;
+
 @Service
 public class BowlerViewService implements BallProcessingService<BowlerViewDto, BowlerViewProcessDto, BowlerViewUnprocessDto> {
   private BowlerViewDao bowlerViewDao;
@@ -17,8 +19,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
   public BowlerViewDto processNoBall(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
       bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
@@ -30,8 +32,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
       throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
@@ -40,8 +42,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
       throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
@@ -49,8 +51,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
   public BowlerViewDto processWideBall(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
       bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
@@ -61,8 +63,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
   public BowlerViewDto processWideBallBye(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     return bowlerViewDao.update(bowlerViewDto);
   }
 
@@ -70,7 +72,7 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
   public BowlerViewDto processFourRuns(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 4);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + FOUR_RUNS);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
@@ -79,7 +81,7 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
   public BowlerViewDto processSixRuns(BowlerViewProcessDto request) throws DugoutDataFetchingException {
     // Bowler runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 6);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + SIX_RUNS);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
@@ -115,7 +117,7 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
     // bowlers wicket and runs will increase
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
@@ -137,8 +139,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
       bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
@@ -151,8 +153,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
       bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
@@ -164,8 +166,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
       bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
@@ -177,8 +179,8 @@ public class BowlerViewService implements BallProcessingService<BowlerViewDto, B
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto = bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + 1);
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + 1);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
+    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
       bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     }
