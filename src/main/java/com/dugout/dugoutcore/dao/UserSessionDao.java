@@ -13,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -37,14 +39,14 @@ public class UserSessionDao {
     return convertToDto(createdUserSession);
   }
 
-  public UserSessionDTO getUserSessionByAuthToken(String authToken) throws DugoutDataFetchingException {
-    UserSession userSession = userSessionRepository.findByAuthToken(authToken).orElse(null);
+  public UserSessionDTO getUserSessionByAuthToken(String authToken)
+      throws DugoutDataFetchingException {
+    UserSession userSession =
+        userSessionRepository.findByAuthTokenAndExpiresOnGreaterThan(authToken, new Date());
     if (ObjectUtils.isEmpty(userSession)) {
       throw new DugoutDataFetchingException(
-              DugoutError.builder()
-                      .message("Invalid session token. Login again!")
-                      .build(),
-              HttpStatus.UNAUTHORIZED);
+          DugoutError.builder().message("Invalid session token. Login again!").build(),
+          HttpStatus.UNAUTHORIZED);
     }
     return convertToDto(userSession);
   }

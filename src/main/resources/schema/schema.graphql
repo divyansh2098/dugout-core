@@ -18,12 +18,6 @@ type UserPlayer {
   updatedOn: String
 }
 
-type SendOtpResponse {
-  phoneNumber: String
-  message: String
-  isSuccess: Boolean
-}
-
 type Team {
   id: ID!,
   name: String
@@ -42,14 +36,6 @@ type Match {
   status: MatchStatus,
   ground: Ground
   tossWinnerId: Long
-}
-
-type VerifyOtpResponse {
-  isSuccess: Boolean
-  message: String
-  authToken: String
-  user: UserPlayer
-  isNewUser: Boolean
 }
 
 type Tournament {
@@ -94,10 +80,6 @@ input UserPlayerInput {
   updatedOn: String
 }
 
-input SendOtpRequest {
-  phoneNumber: String!
-}
-
 input BallInput {
   ballType: BallType!
   wicketMeta: WicketInfo
@@ -116,18 +98,6 @@ input WicketInfo {
   outPlayerId: Long!
   wicketType: WicketType!
   fielderId: Long
-}
-
-input VerifyOtpRequest {
-  otp: String
-  phoneNumber: String
-  deviceId: String
-  deviceModel: String
-  deviceIp: String
-  deviceOs: String
-  deviceOsVersion: String
-  userAgent: String
-  appVersion: String
 }
 
 input TournamentInput {
@@ -235,12 +205,10 @@ type Query {
 
 type Mutation {
   createPlayer(player: UserPlayerInput!): UserPlayer
-  generateOtp(request: SendOtpRequest!): SendOtpResponse
   updatePlayer(player: UserPlayerInput!): UserPlayer,
   createTournament(tournament: TournamentInput!): Tournament
   createMatch(match: MatchInput!): Match
   createTeam(team: TeamInput): Team
   createGround(ground: GroundInput): Ground
   recordBall(ball: BallInput): RecordBallResponse
-  verifyOtp(request: VerifyOtpRequest): VerifyOtpResponse
 }

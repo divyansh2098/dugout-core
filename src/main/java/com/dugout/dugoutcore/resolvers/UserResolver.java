@@ -14,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 public class UserResolver {
 
-  @Autowired
-  UserService userService;
+  @Autowired UserService userService;
 
   UserResolver() {
     log.info("Called");

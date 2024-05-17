@@ -1,5 +1,8 @@
 package com.dugout.dugoutcore.service.impl;
 
+import static com.dugout.dugoutcore.ApplicationConstants.FOUR_RUNS;
+import static com.dugout.dugoutcore.ApplicationConstants.SIX_RUNS;
+
 import com.dugout.dugoutcore.dao.BatsmanViewDao;
 import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
@@ -64,7 +67,7 @@ public class BatsmanViewService
       throws DugoutDataFetchingException {
     // adds 4 runs to the striker runs and increment num ball
     BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
-    strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + 4);
+    strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + FOUR_RUNS);
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -74,7 +77,7 @@ public class BatsmanViewService
       throws DugoutDataFetchingException {
     // adds 6 runs to the striker runs and increment num ball
     BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
-    strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + 6);
+    strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + SIX_RUNS);
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -362,7 +365,7 @@ public class BatsmanViewService
     return batsmanViewDao.update(outPlayerViewDto);
   }
 
-  private BatsmanViewDto removeRunsToPlayer(Long inningId, Long playerId, Integer runs)
+  private BatsmanViewDto removeRunsFromPlayer(Long inningId, Long playerId, Integer runs)
       throws DugoutDataFetchingException {
     BatsmanViewDto strikerBatsmanViewDto = null;
     if (runs != null && runs > 0) {

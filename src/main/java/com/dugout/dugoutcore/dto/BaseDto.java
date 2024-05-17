@@ -1,10 +1,9 @@
 package com.dugout.dugoutcore.dto;
 
+import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
-
-import java.util.Date;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)

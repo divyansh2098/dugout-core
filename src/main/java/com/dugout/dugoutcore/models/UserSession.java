@@ -7,6 +7,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "user_session")
 @Data
@@ -39,4 +41,7 @@ public class UserSession extends BaseModel {
 
     @Column(name = "app_version")
     String appVersion;
+
+    @Column(name = "expires_on")
+    Date expiresOn;
 }
