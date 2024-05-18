@@ -10,7 +10,6 @@ import com.dugout.dugoutcore.pojo.enums.BatsmanViewBatsmanStatus;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import java.util.Date;
-import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,10 +25,13 @@ public class BatsmanViewService
       throws DugoutDataFetchingException {
     // Batsmen view will only change if there are some runs from batsmen
     BatsmanViewDto strikerBatsmanViewDto = null;
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
       strikerBatsmanViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
       strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
     }
     return strikerBatsmanViewDto;
@@ -66,7 +68,10 @@ public class BatsmanViewService
   public BatsmanViewDto processFourRuns(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds 4 runs to the striker runs and increment num ball
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
     strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + FOUR_RUNS);
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -76,7 +81,10 @@ public class BatsmanViewService
   public BatsmanViewDto processSixRuns(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds 6 runs to the striker runs and increment num ball
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
     strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + SIX_RUNS);
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -86,8 +94,12 @@ public class BatsmanViewService
   public BatsmanViewDto processRun(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds given runs to the striker runs and increment num ball
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
-    strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
+    strikerBatsmanViewDto.setRuns(
+        strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -96,7 +108,8 @@ public class BatsmanViewService
   public BatsmanViewDto processLegBye(BatsmanViewProcessDto request) {
     // nothing will be done here except increasing the num balls
     BatsmanViewDto strikerBatsmanViewDto =
-            batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     return null;
   }
@@ -104,18 +117,31 @@ public class BatsmanViewService
   @Override
   public BatsmanViewDto processWicket(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
-    // marking given player as out and add runs to striker if any and increment num balls for striker
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
+    // marking given player as out and add runs to striker if any and increment num balls for
+    // striker
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     }
-    if (request.getBallDto().getWicket().getOutPlayer().getId().equals(request.getBallDto().getStriker().getId())) {
+    if (request
+        .getBallDto()
+        .getWicket()
+        .getOutPlayer()
+        .getId()
+        .equals(request.getBallDto().getStriker().getId())) {
       strikerBatsmanViewDto.setEndTime(new Date());
       strikerBatsmanViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     } else {
       BatsmanViewDto outPlayerViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getWicket().getOutPlayer().getId());
       outPlayerViewDto.setEndTime(new Date());
       outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
       batsmanViewDao.update(outPlayerViewDto);
@@ -128,7 +154,9 @@ public class BatsmanViewService
       throws DugoutDataFetchingException {
     // marking given player as out
     BatsmanViewDto outPlayerViewDto =
-            batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(),
+            request.getBallDto().getWicket().getOutPlayer().getId());
     outPlayerViewDto.setEndTime(new Date());
     outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     return batsmanViewDao.update(outPlayerViewDto);
@@ -137,18 +165,31 @@ public class BatsmanViewService
   @Override
   public BatsmanViewDto processRunOut(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
-    // marking given player as out and adding runs to striker view if any and incrementing num balls for striker
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
+    // marking given player as out and adding runs to striker view if any and incrementing num balls
+    // for striker
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     }
-    if (request.getBallDto().getWicket().getOutPlayer().getId().equals(request.getBallDto().getStriker().getId())) {
+    if (request
+        .getBallDto()
+        .getWicket()
+        .getOutPlayer()
+        .getId()
+        .equals(request.getBallDto().getStriker().getId())) {
       strikerBatsmanViewDto.setEndTime(new Date());
       strikerBatsmanViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     } else {
       BatsmanViewDto outPlayerViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getWicket().getOutPlayer().getId());
       outPlayerViewDto.setEndTime(new Date());
       outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
       batsmanViewDao.update(outPlayerViewDto);
@@ -160,16 +201,28 @@ public class BatsmanViewService
   public BatsmanViewDto processRunOutAndWide(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     }
-    if (request.getBallDto().getWicket().getOutPlayer().getId().equals(request.getBallDto().getStriker().getId())) {
+    if (request
+        .getBallDto()
+        .getWicket()
+        .getOutPlayer()
+        .getId()
+        .equals(request.getBallDto().getStriker().getId())) {
       strikerBatsmanViewDto.setEndTime(new Date());
       strikerBatsmanViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     } else {
       BatsmanViewDto outPlayerViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getWicket().getOutPlayer().getId());
       outPlayerViewDto.setEndTime(new Date());
       outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
       batsmanViewDao.update(outPlayerViewDto);
@@ -181,16 +234,28 @@ public class BatsmanViewService
   public BatsmanViewDto processRunOutAndNoBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     }
-    if (request.getBallDto().getWicket().getOutPlayer().getId().equals(request.getBallDto().getStriker().getId())) {
+    if (request
+        .getBallDto()
+        .getWicket()
+        .getOutPlayer()
+        .getId()
+        .equals(request.getBallDto().getStriker().getId())) {
       strikerBatsmanViewDto.setEndTime(new Date());
       strikerBatsmanViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     } else {
       BatsmanViewDto outPlayerViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getWicket().getOutPlayer().getId());
       outPlayerViewDto.setEndTime(new Date());
       outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
       batsmanViewDao.update(outPlayerViewDto);
@@ -202,17 +267,29 @@ public class BatsmanViewService
   public BatsmanViewDto processObstructingTheFieldAndWide(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     }
-    if (request.getBallDto().getWicket().getOutPlayer().getId().equals(request.getBallDto().getStriker().getId())) {
+    if (request
+        .getBallDto()
+        .getWicket()
+        .getOutPlayer()
+        .getId()
+        .equals(request.getBallDto().getStriker().getId())) {
       strikerBatsmanViewDto.setEndTime(new Date());
       strikerBatsmanViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     } else {
       BatsmanViewDto outPlayerViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getWicket().getOutPlayer().getId());
       outPlayerViewDto.setEndTime(new Date());
       outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
       batsmanViewDao.update(outPlayerViewDto);
@@ -224,16 +301,28 @@ public class BatsmanViewService
   public BatsmanViewDto processObstructingTheFieldAndNoBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto = batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());;
-    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    BatsmanViewDto strikerBatsmanViewDto =
+        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+    ;
+    if (request.getBallDto().getBatsmanRuns() != null
+        && request.getBallDto().getBatsmanRuns() > 0) {
+      strikerBatsmanViewDto.setRuns(
+          strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     }
-    if (request.getBallDto().getWicket().getOutPlayer().getId().equals(request.getBallDto().getStriker().getId())) {
+    if (request
+        .getBallDto()
+        .getWicket()
+        .getOutPlayer()
+        .getId()
+        .equals(request.getBallDto().getStriker().getId())) {
       strikerBatsmanViewDto.setEndTime(new Date());
       strikerBatsmanViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
     } else {
       BatsmanViewDto outPlayerViewDto =
-              batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(request.getBallDto().getInnings().getId(), request.getBallDto().getWicket().getOutPlayer().getId());
+          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
+              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getWicket().getOutPlayer().getId());
       outPlayerViewDto.setEndTime(new Date());
       outPlayerViewDto.setStatus(BatsmanViewBatsmanStatus.OUT);
       batsmanViewDao.update(outPlayerViewDto);

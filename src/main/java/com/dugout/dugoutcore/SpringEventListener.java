@@ -13,12 +13,13 @@ import java.util.Map;
 @Service
 public class SpringEventListener {
 
-    @EventListener
-    public void handleContextRefresh(ContextRefreshedEvent event) {
-        ApplicationContext applicationContext = event.getApplicationContext();
-        RequestMappingHandlerMapping requestMappingHandlerMapping = applicationContext
-                .getBean("requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
-        Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
-        map.forEach((key, value) -> System.out.printf("%s ::: %s%n", key, value));
-    }
+  @EventListener
+  public void handleContextRefresh(ContextRefreshedEvent event) {
+    ApplicationContext applicationContext = event.getApplicationContext();
+    RequestMappingHandlerMapping requestMappingHandlerMapping =
+        applicationContext.getBean(
+            "requestMappingHandlerMapping", RequestMappingHandlerMapping.class);
+    Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
+    map.forEach((key, value) -> System.out.printf("%s ::: %s%n", key, value));
+  }
 }

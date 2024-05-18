@@ -19,7 +19,8 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class BallProcessingServiceImpl implements BallProcessingService<BallDto, BallProcessRequestDto, BallUnprocessRequestDto> {
+public class BallProcessingServiceImpl
+    implements BallProcessingService<BallDto, BallProcessRequestDto, BallUnprocessRequestDto> {
   @NonNull private WicketService wicketService;
   @NonNull private BallDao ballDao;
   @NonNull private BallDtoConverter ballDtoConverter;
@@ -384,7 +385,8 @@ public class BallProcessingServiceImpl implements BallProcessingService<BallDto,
     return null;
   }
 
-  public BallDto unprocessBall(BallUnprocessRequestDto requestDto) throws DugoutDataFetchingException {
+  public BallDto unprocessBall(BallUnprocessRequestDto requestDto)
+      throws DugoutDataFetchingException {
     BallDto existingBall = ballDao.getById(requestDto.getBallId());
     existingBall.setDeletedOn(new Date());
     existingBall.setDeletedBy(requestDto.getRequester());
