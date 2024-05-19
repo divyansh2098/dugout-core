@@ -2,6 +2,7 @@ create table "batsman_view" (
     id SERIAL PRIMARY KEY,
     inning_id INTEGER references "innings" (id) NOT NULL,
     player_id INTEGER references "user" (id) NOT NULL,
+    wicket_id INTEGER references "wicket" (id),
     runs INTEGER DEFAULT 0,
     num_balls INTEGER DEFAULT 0,
     fours INTEGER DEFAULT 0,

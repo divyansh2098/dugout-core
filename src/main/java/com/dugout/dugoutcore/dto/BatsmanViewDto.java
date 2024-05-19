@@ -17,14 +17,16 @@ import java.util.Date;
 @AllArgsConstructor
 public class BatsmanViewDto extends BaseDto {
 
-    Innings innings;
-    User player;
-    Long runs;
-    Long numBalls;
-    Integer fours;
-    Integer sixes;
-    BatsmanViewBatsmanStatus status;
-    Boolean isStriker;
-    Date startTime;
-    Date endTime;
+  Innings innings;
+  User player;
+  Long runs;
+  Long numBalls;
+  Integer fours;
+  Integer sixes;
+  BatsmanViewBatsmanStatus status;
+
+  WicketDto wicket;
+  Boolean isStriker;
+  Date startTime;
+  Date endTime;
 }

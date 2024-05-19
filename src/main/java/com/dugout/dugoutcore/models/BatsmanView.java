@@ -30,6 +30,10 @@ public class BatsmanView extends BaseModel {
 
   Integer sixes;
 
+  @OneToOne
+  @JoinColumn(name = "wicket")
+  Wicket wicket;
+
   @Column(name = "status")
   @Enumerated(EnumType.STRING)
   BatsmanViewBatsmanStatus status;

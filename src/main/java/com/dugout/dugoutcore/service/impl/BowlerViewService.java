@@ -318,11 +318,6 @@ public class BowlerViewService
   }
 
   @Override
-  public BowlerViewDto unprocessWideTimedOutWicket(BowlerViewUnprocessDto request) {
-    return null;
-  }
-
-  @Override
   public BowlerViewDto unprocessObstructingTheField(BowlerViewUnprocessDto request) {
     return null;
   }
@@ -343,7 +338,7 @@ public class BowlerViewService
   }
 
   @Override
-  public BowlerViewDto unprocessLegByWicket(BowlerViewUnprocessDto request) {
+  public BowlerViewDto unprocessLegBeforeWicket(BowlerViewUnprocessDto request) {
     return null;
   }
 }
