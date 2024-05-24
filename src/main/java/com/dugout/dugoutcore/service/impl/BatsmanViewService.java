@@ -551,6 +551,7 @@ public class BatsmanViewService
 
   @Override
   public BatsmanViewDto unprocessLegBeforeWicket(BatsmanViewUnprocessDto request) {
+    // No need
     return null;
   }
 }
