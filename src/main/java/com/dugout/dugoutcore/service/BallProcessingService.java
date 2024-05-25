@@ -4,7 +4,8 @@ import com.dugout.dugoutcore.dto.BallProcessRequest;
 import com.dugout.dugoutcore.dto.BallUnprocessRequest;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 
-public interface BallProcessingService<T, R extends BallProcessRequest, S extends BallUnprocessRequest> {
+public interface BallProcessingService<
+    T, R extends BallProcessRequest, S extends BallUnprocessRequest> {
 
   T processNoBall(R request) throws DugoutDataFetchingException;
 
@@ -34,15 +35,13 @@ public interface BallProcessingService<T, R extends BallProcessRequest, S extend
 
   T processRunOutAndNoBall(R request) throws DugoutDataFetchingException;
 
-  T processObstructingTheFieldAndWide(R request)
-      throws DugoutDataFetchingException;
+  T processObstructingTheFieldAndWide(R request) throws DugoutDataFetchingException;
 
-  T processObstructingTheFieldAndNoBall(R request)
-      throws DugoutDataFetchingException;
+  T processObstructingTheFieldAndNoBall(R request) throws DugoutDataFetchingException;
 
-  T unprocessNoBall(S request);
+  T unprocessNoBall(S request) throws DugoutDataFetchingException;
 
-  T unprocessNoBallLegBye(S request);
+  T unprocessNoBallLegBye(S request) throws DugoutDataFetchingException;
 
   T unprocessNoBallBye(S request);
 
@@ -50,15 +49,15 @@ public interface BallProcessingService<T, R extends BallProcessRequest, S extend
 
   T unprocessWideBallBye(S request);
 
-  T unprocessFourRuns(S request);
+  T unprocessFourRuns(S request) throws DugoutDataFetchingException;
 
   T unprocessSixRuns(S request);
 
-  T unprocessRun(S request);
+  T unprocessRun(S request) throws DugoutDataFetchingException;
 
-  T unprocessLegBye(S request);
+  T unprocessLegBye(S request) throws DugoutDataFetchingException;
 
-  T unprocessBowled(S request);
+  T unprocessBowled(S request) throws DugoutDataFetchingException;
 
   T unprocessCatch(S request);
 
@@ -66,25 +65,23 @@ public interface BallProcessingService<T, R extends BallProcessRequest, S extend
 
   T unprocessStump(S request);
 
-  T unprocessStumpAndWide(S request);
+  T unprocessStumpAndWide(S request) throws DugoutDataFetchingException;
 
-  T unprocessRunOut(S request);
+  T unprocessRunOut(S request) throws DugoutDataFetchingException;
 
-  T unprocessRunOutAndWide(S request);
+  T unprocessRunOutAndWide(S request) throws DugoutDataFetchingException;
 
   T unprocessRunOutAndNoBall(S request);
 
-  T unprocessWideTimedOutWicket(S request);
+  T unprocessObstructingTheField(S request) throws DugoutDataFetchingException;
 
-  T unprocessObstructingTheField(S request);
+  T unprocessObstructingTheFieldAndWide(S request) throws DugoutDataFetchingException;
 
-  T unprocessObstructingTheFieldAndWide(S request);
-
-  T unprocessObstructingTheFieldAndNoBall(S request);
+  T unprocessObstructingTheFieldAndNoBall(S request) throws DugoutDataFetchingException;
 
   T unprocessCaughtBehind(S request);
 
-  T unprocessLegByWicket(S request);
+  T unprocessLegBeforeWicket(S request);
 
   /**
    * @param {BaseBallProcessRequest} request record Ball request
@@ -108,8 +105,7 @@ public interface BallProcessingService<T, R extends BallProcessRequest, S extend
     };
   }
 
-  default T unprocessBall(S requestDto)
-      throws DugoutDataFetchingException {
+  default T unprocessBall(S requestDto) throws DugoutDataFetchingException {
     return switch (requestDto.getBallType()) {
       case NO_BALL -> unprocessNoBall(requestDto);
       default -> null;

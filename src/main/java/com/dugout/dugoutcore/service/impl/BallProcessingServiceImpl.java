@@ -356,11 +356,6 @@ public class BallProcessingServiceImpl
   }
 
   @Override
-  public BallDto unprocessWideTimedOutWicket(BallUnprocessRequestDto request) {
-    return null;
-  }
-
-  @Override
   public BallDto unprocessObstructingTheField(BallUnprocessRequestDto request) {
     return null;
   }
@@ -381,7 +376,7 @@ public class BallProcessingServiceImpl
   }
 
   @Override
-  public BallDto unprocessLegByWicket(BallUnprocessRequestDto request) {
+  public BallDto unprocessLegBeforeWicket(BallUnprocessRequestDto request) {
     return null;
   }
 
