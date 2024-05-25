@@ -28,8 +28,7 @@ public class BaseDao<E extends BaseModel, T extends BaseDto, R extends JpaReposi
 
   @SneakyThrows
   protected E convertToEntity(T dto) {
-    E entity = modelMapper.map(dto, entityClass);
-    return entity;
+    return modelMapper.map(dto, entityClass);
   }
 
   @SneakyThrows

@@ -24,8 +24,7 @@ public class TeamResolver {
 
   @DgsQuery
   public TeamDto getTeamById(@InputArgument Long id) {
-    TeamDto teamDto = teamService.getTeamById(id);
-    return teamDto;
+    return teamService.getTeamById(id);
   }
 
   @DgsMutation
