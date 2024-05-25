@@ -28,7 +28,8 @@ public class BaseDao<E extends BaseModel, T extends BaseDto, R extends JpaReposi
 
   @SneakyThrows
   protected E convertToEntity(T dto) {
-    return modelMapper.map(dto, entityClass);
+    E entity = modelMapper.map(dto, entityClass);
+    return entity;
   }
 
   @SneakyThrows
@@ -43,6 +44,9 @@ public class BaseDao<E extends BaseModel, T extends BaseDto, R extends JpaReposi
   }
 
   public T getById(Long id) {
+    if (id == null) {
+      return null;
+    }
     Optional<E> entity = repository.findById(id);
     return entity.map(this::convertToDto).orElse(null);
   }
