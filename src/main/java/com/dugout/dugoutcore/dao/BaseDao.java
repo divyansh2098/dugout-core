@@ -43,6 +43,9 @@ public class BaseDao<E extends BaseModel, T extends BaseDto, R extends JpaReposi
   }
 
   public T getById(Long id) {
+    if (id == null) {
+      return null;
+    }
     Optional<E> entity = repository.findById(id);
     return entity.map(this::convertToDto).orElse(null);
   }

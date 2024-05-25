@@ -1,8 +1,12 @@
 package com.dugout.dugoutcore.dto;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserDTO extends BaseDto {
   String firstName;
   String lastName;
@@ -16,4 +20,6 @@ public class UserDTO extends BaseDto {
   String specialisation;
   String battingStyle;
   String bowlingStyle;
+  @JsonIgnoreProperties("player")
+  List<TeamPlayerDto> teams;
 }

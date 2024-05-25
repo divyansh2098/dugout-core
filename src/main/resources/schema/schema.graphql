@@ -22,10 +22,18 @@ type Team {
   id: ID!,
   name: String
   createdOn: String,
-  updatedOn: String
+  updatedOn: String,
+  players: [TeamPlayer]
+}
+
+type TeamPlayer {
+  id: ID!,
+  player: UserPlayer,
+  teamRole: TeamPlayerRole
 }
 
 type Match {
+  id: ID!,
   name: String,
   overs: Int,
   city: String,
@@ -54,6 +62,7 @@ type RecordBallResponse {
 }
 
 type Ground {
+  id: ID!
   name: String,
   lat: String,
   lon: String,
@@ -131,6 +140,12 @@ input GroundInput {
   address: String!
 }
 
+input AddPlayerToTeamInput {
+  teamId: Long!,
+  playerId: Long!,
+  teamPlayerRole: TeamPlayerRole
+}
+
 enum Gender {
   MALE,
   FEMALE,
@@ -158,6 +173,11 @@ enum TournamentStatus {
   UPCOMING,
   IN_PROGRESS,
   COMPLETED
+}
+
+enum TeamPlayerRole {
+  CAPTAIN,
+  VICE_CAPTAIN
 }
 
 enum MatchStatus {
@@ -201,6 +221,7 @@ enum WicketType {
 type Query {
   getPlayerById(id: ID!): UserPlayer
   getGroundById(id: ID!): Ground
+  getTeamById(id: ID!): Team
 }
 
 type Mutation {
@@ -211,4 +232,5 @@ type Mutation {
   createTeam(team: TeamInput): Team
   createGround(ground: GroundInput): Ground
   recordBall(ball: BallInput): RecordBallResponse
+  addPlayerToTeam(addPlayerToTeamInput: AddPlayerToTeamInput): Team
 }

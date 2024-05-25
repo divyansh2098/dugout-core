@@ -1,18 +1,24 @@
 package com.dugout.dugoutcore.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "team")
-@Data
+@Getter
+@Setter
 public class Team extends BaseModel {
   String name;
 
-  @OneToMany(mappedBy = "team")
+  @OneToMany
+  @JoinColumn(name = "team_id")
   List<TournamentTeam> tournaments;
+
+  @OneToMany(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "team_id")
+  @JsonIgnoreProperties("team")
+  List<TeamPlayer> players;
 }
