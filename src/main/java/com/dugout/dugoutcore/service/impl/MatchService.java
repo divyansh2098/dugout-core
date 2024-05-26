@@ -1,13 +1,16 @@
 package com.dugout.dugoutcore.service.impl;
 
-import com.dugout.dugoutcore.dao.GroundDao;
-import com.dugout.dugoutcore.dao.MatchDao;
-import com.dugout.dugoutcore.dao.TeamDao;
-import com.dugout.dugoutcore.dao.TournamentDao;
+import com.dugout.dugoutcore.dao.*;
 import com.dugout.dugoutcore.dto.*;
+import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
+import com.dugout.dugoutcore.pojo.DugoutError;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +20,8 @@ public class MatchService {
   @NonNull TeamDao teamDao;
   @NonNull TournamentDao tournamentDao;
   @NonNull GroundDao groundDao;
+
+  @NonNull UserDao userDao;
 
   public MatchDto createMatch(MatchRequestDto matchRequestDto) {
     MatchDto match = new MatchDto();
@@ -30,5 +35,34 @@ public class MatchService {
     match.setTeam2(team2);
     match.setTournament(tournamentDto);
     return matchDao.create(match);
+  }
+
+  public MatchDto addSquad(AddSquadToMatchRequestDto addSquadToMatchRequestDto)
+      throws DugoutDataFetchingException {
+    MatchDto matchDto = matchDao.getById(addSquadToMatchRequestDto.getMatchId());
+    List<UserDTO> users = userDao.getByIdIn(addSquadToMatchRequestDto.getPlayerIds());
+    List<SquadPlayerDto> squadPlayers =
+        users.stream()
+            .map(
+                user ->
+                    SquadPlayerDto.builder()
+                        .teamId(addSquadToMatchRequestDto.getTeamId())
+                        .matchId(addSquadToMatchRequestDto.getMatchId())
+                        .player(user)
+                        .build())
+                .collect(Collectors.toList());
+    if (ObjectUtils.isEmpty(matchDto.getSquad1Players())) {
+      matchDto.setSquad1Players(squadPlayers);
+    } else if (ObjectUtils.isEmpty(matchDto.getSquad2Players())) {
+      matchDto.setSquad2Players(squadPlayers);
+    } else {
+      throw new DugoutDataFetchingException(
+          DugoutError.builder()
+              .message("Failed to add Squad")
+              .debug("Both squads already exist")
+              .build(),
+          HttpStatus.BAD_REQUEST);
+    }
+    return matchDao.update(matchDto);
   }
 }

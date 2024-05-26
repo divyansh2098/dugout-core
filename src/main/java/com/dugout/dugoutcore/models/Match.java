@@ -4,12 +4,15 @@ import com.dugout.dugoutcore.pojo.enums.MatchStatus;
 import com.dugout.dugoutcore.pojo.enums.TossDecision;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "`match`")
-@Data
+@Getter
+@Setter
 public class Match extends BaseModel {
   String name;
   Integer overs;
@@ -45,4 +48,14 @@ public class Match extends BaseModel {
   @ManyToOne
   @JoinColumn(name = "ground_id")
   Ground ground;
+
+  @OneToMany(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "match_id", referencedColumnName = "id")
+  @JoinColumn(name = "team_id", referencedColumnName = "team1_id")
+  List<SquadPlayer> squad1Players;
+
+  @OneToMany(cascade = CascadeType.MERGE)
+  @JoinColumn(name = "match_id", referencedColumnName = "id")
+  @JoinColumn(name = "team_id", referencedColumnName = "team2_id")
+  List<SquadPlayer> squad2Players;
 }

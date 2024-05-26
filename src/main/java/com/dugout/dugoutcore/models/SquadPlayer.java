@@ -1,14 +1,19 @@
 package com.dugout.dugoutcore.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Table(name = "squad_player")
 @Data
 public class SquadPlayer extends BaseModel {
+  @Column(name = "team_id")
   Long teamId;
+
+  @Column(name = "match_id")
   Long matchId;
-  Long playerId;
+
+  @ManyToOne
+  @JoinColumn(name = "player_id")
+  User player;
 }

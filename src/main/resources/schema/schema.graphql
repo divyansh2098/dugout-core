@@ -32,6 +32,12 @@ type TeamPlayer {
   teamRole: TeamPlayerRole
 }
 
+type SquadPlayer {
+  matchId: Long,
+  teamId: Long,
+  player: UserPlayer
+}
+
 type Match {
   id: ID!,
   name: String,
@@ -44,6 +50,8 @@ type Match {
   status: MatchStatus,
   ground: Ground
   tossWinnerId: Long
+  squad1Players: [SquadPlayer]
+  squad2Players: [SquadPlayer]
 }
 
 type Tournament {
@@ -146,6 +154,12 @@ input AddPlayerToTeamInput {
   teamPlayerRole: TeamPlayerRole
 }
 
+input AddSquadToMatchInput {
+  teamId: Long!,
+  matchId: Long!,
+  playerIds: [Long]!
+}
+
 enum Gender {
   MALE,
   FEMALE,
@@ -233,4 +247,5 @@ type Mutation {
   createGround(ground: GroundInput): Ground
   recordBall(ball: BallInput): RecordBallResponse
   addPlayerToTeam(addPlayerToTeamInput: AddPlayerToTeamInput): Team
+  addSquadToMatch(addSquadInput: AddSquadToMatchInput): Match
 }
