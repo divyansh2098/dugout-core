@@ -1,10 +1,13 @@
 package com.dugout.dugoutcore.dto;
 
 import com.dugout.dugoutcore.pojo.enums.MatchStatus;
-import lombok.Data;
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-public class MatchDto extends BaseDto{
+@Getter
+@Setter
+public class MatchDto extends BaseDto {
   String name;
   String city;
   String country;
@@ -15,4 +18,6 @@ public class MatchDto extends BaseDto{
   TeamDto team2;
   GroundDto ground;
   MatchStatus status;
+  List<SquadPlayerDto> squad1Players;
+  List<SquadPlayerDto> squad2Players;
 }

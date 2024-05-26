@@ -4,7 +4,10 @@ import com.dugout.dugoutcore.dto.BaseDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.models.BaseModel;
 import com.dugout.dugoutcore.pojo.DugoutError;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
@@ -48,6 +51,14 @@ public class BaseDao<E extends BaseModel, T extends BaseDto, R extends JpaReposi
     }
     Optional<E> entity = repository.findById(id);
     return entity.map(this::convertToDto).orElse(null);
+  }
+  
+  public List<T> getByIdIn(List<Long> ids) {
+    if (ObjectUtils.isEmpty(ids)) {
+      return Collections.emptyList();
+    }
+    List<E> entities = repository.findAllById(ids);
+    return entities.stream().map(this::convertToDto).collect(Collectors.toList());
   }
 
   public T update(T dto) throws DugoutDataFetchingException {
