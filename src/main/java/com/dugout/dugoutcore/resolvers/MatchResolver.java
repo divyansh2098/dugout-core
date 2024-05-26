@@ -4,6 +4,7 @@ import com.dugout.dugoutcore.dto.AddSquadToMatchRequestDto;
 import com.dugout.dugoutcore.dto.MatchRequestDto;
 import com.dugout.dugoutcore.dto.MatchDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
+import com.dugout.dugoutcore.pojo.enums.TossDecision;
 import com.dugout.dugoutcore.service.impl.MatchService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
@@ -27,5 +28,12 @@ public class MatchResolver {
       @InputArgument("addSquadInput") AddSquadToMatchRequestDto addSquadToMatchRequestDto)
       throws DugoutDataFetchingException {
     return matchService.addSquad(addSquadToMatchRequestDto);
+  }
+
+  @DgsMutation
+  public MatchDto recordToss(
+      @InputArgument Long tossWinnerId, @InputArgument TossDecision tossDecision)
+      throws DugoutDataFetchingException {
+    return matchService.recordToss(tossWinnerId, tossDecision);
   }
 }

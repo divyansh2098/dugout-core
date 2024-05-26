@@ -4,6 +4,7 @@ import com.dugout.dugoutcore.dao.*;
 import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.pojo.DugoutError;
+import com.dugout.dugoutcore.pojo.enums.TossDecision;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -50,7 +51,7 @@ public class MatchService {
                         .matchId(addSquadToMatchRequestDto.getMatchId())
                         .player(user)
                         .build())
-                .collect(Collectors.toList());
+            .collect(Collectors.toList());
     if (ObjectUtils.isEmpty(matchDto.getSquad1Players())) {
       matchDto.setSquad1Players(squadPlayers);
     } else if (ObjectUtils.isEmpty(matchDto.getSquad2Players())) {
@@ -63,6 +64,14 @@ public class MatchService {
               .build(),
           HttpStatus.BAD_REQUEST);
     }
+    return matchDao.update(matchDto);
+  }
+
+  public MatchDto recordToss(Long tossWinnerId, TossDecision tossDecision)
+      throws DugoutDataFetchingException {
+    MatchDto matchDto = matchDao.getById(tossWinnerId);
+    matchDto.setTossWinnerId(tossWinnerId);
+    matchDto.setTossDecision(tossDecision);
     return matchDao.update(matchDto);
   }
 }
