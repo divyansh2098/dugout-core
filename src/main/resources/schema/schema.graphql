@@ -41,6 +41,7 @@ type SquadPlayer {
 type Match {
   id: ID!,
   name: String,
+  tossDecision: TossDecision,
   overs: Int,
   city: String,
   country: String,
@@ -173,6 +174,11 @@ enum Specialization {
   SPIN_BOWLER
 }
 
+enum TossDecision {
+  BAT_FIRST,
+  BOWL_FIRST
+}
+
 enum BattingStyle {
   LEFT
   RIGHT
@@ -248,4 +254,5 @@ type Mutation {
   recordBall(ball: BallInput): RecordBallResponse
   addPlayerToTeam(addPlayerToTeamInput: AddPlayerToTeamInput): Team
   addSquadToMatch(addSquadInput: AddSquadToMatchInput): Match
+  recordToss(tossWinnerId: Long, tossDecision: TossDecision): Match
 }
