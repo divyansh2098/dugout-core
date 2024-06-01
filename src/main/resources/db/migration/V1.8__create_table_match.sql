@@ -11,7 +11,7 @@ create table "match" (
   city VARCHAR(255) NULL, -- Change to cityId eventually
   country VARCHAR(255) NULL, -- Change to countryId eventually
   match_date DATE NULL,
-  status VARCHAR(10) NOT NULL,
+  status VARCHAR(16) NOT NULL,
   meta json NULL,
   winner INTEGER references "team" (id) NULL,
   created_on timestamp default CURRENT_TIMESTAMP,

@@ -1,7 +1,7 @@
 create table "tournament" (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NULL,
-  status VARCHAR(10) NOT NULL,
+  status VARCHAR(16) NOT NULL,
   city VARCHAR(255) NULL,
   country VARCHAR(255) NULL,
   created_on timestamp default current_timestamp,

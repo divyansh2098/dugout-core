@@ -1,5 +1,6 @@
 package com.dugout.dugoutcore.dto;
 
+import com.dugout.dugoutcore.pojo.enums.InningStatus;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -14,5 +15,10 @@ public class InningsDto extends BaseDto {
   Integer inningNumber;
   Date startTime;
   Date endTime;
-  String scoreAgg;
+  InningStatus status;
+  Integer score;
+  Integer wickets;
+  Integer numBalls;
+  Integer target;
+  Integer extras;
 }

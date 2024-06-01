@@ -5,7 +5,7 @@ create table "innings" (
   inning_number INTEGER NOT NULL,
   start_time timestamp default CURRENT_TIMESTAMP,
   end_time timestamp default CURRENT_TIMESTAMP,
-  status VARCHAR(30) NOT NULL,
+  status VARCHAR(16) NOT NULL,
   score INTEGER NOT NULL DEFAULT 0,
   wickets INTEGER NOT NULL DEFAULT 0,
   num_balls INTEGER NOT NULL DEFAULT 0,

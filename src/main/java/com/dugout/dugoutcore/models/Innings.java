@@ -1,5 +1,6 @@
 package com.dugout.dugoutcore.models;
 
+import com.dugout.dugoutcore.pojo.enums.InningStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,6 +24,17 @@ public class Innings extends BaseModel {
   Date startTime;
   Date endTime;
 
-  @Column(name = "score_agg")
-  String scoreAgg;
+  @Enumerated(value = EnumType.STRING)
+  InningStatus status;
+
+  Integer score;
+
+  Integer wickets;
+
+  @Column(name = "num_balls")
+  Integer numBalls;
+
+  Integer target;
+
+  Integer extras;
 }
