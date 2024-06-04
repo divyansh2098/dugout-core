@@ -53,6 +53,22 @@ type Match {
   tossWinnerId: Long
   squad1Players: [SquadPlayer]
   squad2Players: [SquadPlayer]
+  innings: [Inning]
+}
+
+type Inning {
+  id: ID,
+  matchId: Long,
+  team: Team,
+  startTime: String,
+  endTime: String,
+  inningNumber: Int,
+  score: Int,
+  wickets: Int,
+  target: Int
+  extras: Int,
+  numBalls: Int,
+  status: InningStatus
 }
 
 type Tournament {
@@ -238,6 +254,11 @@ enum WicketType {
   LEG_BY_WICKET
 }
 
+enum InningStatus {
+  IN_PROGRESS
+  COMPLETED
+}
+
 type Query {
   getPlayerById(id: ID!): UserPlayer
   getGroundById(id: ID!): Ground
@@ -254,5 +275,6 @@ type Mutation {
   recordBall(ball: BallInput): RecordBallResponse
   addPlayerToTeam(addPlayerToTeamInput: AddPlayerToTeamInput): Team
   addSquadToMatch(addSquadInput: AddSquadToMatchInput): Match
-  recordToss(tossWinnerId: Long, tossDecision: TossDecision): Match
+  recordToss(matchId: Long, tossWinnerId: Long, tossDecision: TossDecision): Match
+  createMatchInnings(matchId: Long!, teamId: Long!, inningNumber: Int!): Match
 }

@@ -32,8 +32,17 @@ public class MatchResolver {
 
   @DgsMutation
   public MatchDto recordToss(
-      @InputArgument Long tossWinnerId, @InputArgument TossDecision tossDecision)
+      @InputArgument Long matchId,
+      @InputArgument Long tossWinnerId,
+      @InputArgument TossDecision tossDecision)
       throws DugoutDataFetchingException {
-    return matchService.recordToss(tossWinnerId, tossDecision);
+    return matchService.recordToss(matchId, tossWinnerId, tossDecision);
+  }
+
+  @DgsMutation
+  public MatchDto createMatchInnings(
+      @InputArgument Long matchId, @InputArgument Integer inningNumber, @InputArgument Long teamId)
+      throws DugoutDataFetchingException {
+    return matchService.createMatchInnings(matchId, inningNumber, teamId);
   }
 }

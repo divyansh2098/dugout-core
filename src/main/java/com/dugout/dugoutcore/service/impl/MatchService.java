@@ -4,7 +4,10 @@ import com.dugout.dugoutcore.dao.*;
 import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.pojo.DugoutError;
+import com.dugout.dugoutcore.pojo.enums.InningStatus;
+import com.dugout.dugoutcore.pojo.enums.MatchStatus;
 import com.dugout.dugoutcore.pojo.enums.TossDecision;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -13,6 +16,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +28,7 @@ public class MatchService {
 
   @NonNull UserDao userDao;
 
+  @Transactional
   public MatchDto createMatch(MatchRequestDto matchRequestDto) {
     MatchDto match = new MatchDto();
     BeanUtils.copyProperties(matchRequestDto, match);
@@ -38,6 +43,7 @@ public class MatchService {
     return matchDao.create(match);
   }
 
+  @Transactional
   public MatchDto addSquad(AddSquadToMatchRequestDto addSquadToMatchRequestDto)
       throws DugoutDataFetchingException {
     MatchDto matchDto = matchDao.getById(addSquadToMatchRequestDto.getMatchId());
@@ -67,11 +73,37 @@ public class MatchService {
     return matchDao.update(matchDto);
   }
 
-  public MatchDto recordToss(Long tossWinnerId, TossDecision tossDecision)
+  @Transactional
+  public MatchDto recordToss(Long matchId, Long tossWinnerId, TossDecision tossDecision)
       throws DugoutDataFetchingException {
-    MatchDto matchDto = matchDao.getById(tossWinnerId);
+    MatchDto matchDto = matchDao.getById(matchId);
     matchDto.setTossWinnerId(tossWinnerId);
     matchDto.setTossDecision(tossDecision);
+    return matchDao.update(matchDto);
+  }
+
+  @Transactional
+  public MatchDto createMatchInnings(Long matchId, Integer inningNumber, Long teamId)
+      throws DugoutDataFetchingException {
+    MatchDto matchDto = matchDao.getById(matchId);
+    TeamDto teamDto = teamDao.getById(teamId);
+    Date currDate = new Date();
+    InningDto inningDto =
+        InningDto.builder()
+            .team(teamDto)
+            .matchId(matchDto.getId())
+            .inningNumber(inningNumber)
+            .startTime(currDate)
+            .status(InningStatus.IN_PROGRESS)
+            .score(0)
+            .extras(0)
+            .numBalls(0)
+            .wickets(0)
+            .build();
+    matchDto.getInnings().add(inningDto);
+    if (inningNumber == 1) {
+      matchDto.setStatus(MatchStatus.IN_PROGRESS);
+    }
     return matchDao.update(matchDto);
   }
 }

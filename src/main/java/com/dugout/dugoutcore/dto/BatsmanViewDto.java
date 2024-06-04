@@ -1,6 +1,6 @@
 package com.dugout.dugoutcore.dto;
 
-import com.dugout.dugoutcore.models.Innings;
+import com.dugout.dugoutcore.models.Inning;
 import com.dugout.dugoutcore.models.User;
 import com.dugout.dugoutcore.pojo.enums.BatsmanViewBatsmanStatus;
 import lombok.AccessLevel;
@@ -17,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class BatsmanViewDto extends BaseDto {
 
-  Innings innings;
+  Inning inning;
   User player;
   Long runs;
   Long numBalls;

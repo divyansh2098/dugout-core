@@ -14,7 +14,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class BallDto extends BaseDto {
-  InningsDto innings;
+  InningDto innings;
   UserDTO striker;
   UserDTO nonStriker;
   UserDTO bowler;

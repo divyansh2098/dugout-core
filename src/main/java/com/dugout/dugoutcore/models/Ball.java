@@ -16,7 +16,7 @@ public class Ball extends BaseModel {
 
   @ManyToOne
   @JoinColumn(name = "inning_id")
-  Innings innings;
+  Inning inning;
 
   @ManyToOne
   @JoinColumn(name = "striker")

@@ -12,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 public class WicketDto extends BaseDto {
-  InningsDto innings;
+  InningDto innings;
   BallDto ball;
   UserDTO outPlayer;
   UserDTO fielder;
