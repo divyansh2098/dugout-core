@@ -7,7 +7,7 @@ create table "batsman_view" (
     num_balls INTEGER DEFAULT 0,
     fours INTEGER DEFAULT 0,
     sixes INTEGER DEFAULT 0,
-    status VARCHAR(10) NOT NULL DEFAULT 'UPCOMING',
+    status VARCHAR(16) NOT NULL DEFAULT 'UPCOMING',
     is_striker BOOLEAN,
     start_time timestamp,
     end_time timestamp,

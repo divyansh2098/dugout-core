@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+import static com.dugout.dugoutcore.ApplicationConstants.AUTH_TOKEN_HEADER;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -19,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
   @Override
   public UserSessionDTO checkTokenValidity(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
-    String authToken = request.getHeader("auth_token");
+    String authToken = request.getHeader(AUTH_TOKEN_HEADER);
     try {
       return userSessionService.authenticateRequest(authToken);
     } catch (DugoutDataFetchingException e) {
