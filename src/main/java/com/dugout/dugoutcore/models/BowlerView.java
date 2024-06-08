@@ -1,9 +1,7 @@
 package com.dugout.dugoutcore.models;
 
-import com.dugout.dugoutcore.pojo.enums.BatsmanViewBatsmanStatus;
 import com.dugout.dugoutcore.pojo.enums.BowlerViewBowlerStatus;
 import jakarta.persistence.*;
-import java.util.Date;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +14,7 @@ public class BowlerView extends BaseModel {
 
   @ManyToOne
   @JoinColumn(name = "inning_id")
-  Innings innings;
+  Inning inning;
 
   @ManyToOne
   @JoinColumn(name = "player_id")

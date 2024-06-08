@@ -15,7 +15,7 @@ public class BatsmanView extends BaseModel {
 
   @ManyToOne
   @JoinColumn(name = "inning_id")
-  Innings innings;
+  Inning inning;
 
   @ManyToOne
   @JoinColumn(name = "player_id")

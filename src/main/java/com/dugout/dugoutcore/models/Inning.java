@@ -9,10 +9,9 @@ import java.util.Date;
 @Entity
 @Table(name = "innings")
 @Data
-public class Innings extends BaseModel {
-  @ManyToOne
-  @JoinColumn(name = "match_id")
-  Match match;
+public class Inning extends BaseModel {
+  @Column(name = "match_id")
+  Long matchId;
 
   @ManyToOne
   @JoinColumn(name = "team_id")
@@ -24,14 +23,12 @@ public class Innings extends BaseModel {
   Date startTime;
   Date endTime;
 
-  @Enumerated(value = EnumType.STRING)
+  @Enumerated(EnumType.STRING)
   InningStatus status;
 
   Integer score;
 
   Integer wickets;
-
-  @Column(name = "num_balls")
   Integer numBalls;
 
   Integer target;

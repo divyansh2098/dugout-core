@@ -1,6 +1,6 @@
 package com.dugout.dugoutcore.dto;
 
-import com.dugout.dugoutcore.models.Innings;
+import com.dugout.dugoutcore.models.Inning;
 import com.dugout.dugoutcore.models.User;
 import com.dugout.dugoutcore.pojo.enums.BowlerViewBowlerStatus;
 import lombok.AccessLevel;
@@ -14,7 +14,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @AllArgsConstructor
 public class BowlerViewDto extends BaseDto {
-    Innings innings;
+    Inning inning;
     User player;
     Long runs;
     Long numBalls;

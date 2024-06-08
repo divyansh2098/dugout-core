@@ -13,7 +13,7 @@ import lombok.experimental.FieldDefaults;
 public class Wicket extends BaseModel {
   @ManyToOne
   @JoinColumn(name = "inning_id")
-  Innings innings;
+  Inning inning;
 
   @OneToOne
   @JoinColumn(name = "ball_id")

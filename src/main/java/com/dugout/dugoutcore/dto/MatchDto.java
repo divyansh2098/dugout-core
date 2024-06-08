@@ -3,6 +3,7 @@ package com.dugout.dugoutcore.dto;
 import com.dugout.dugoutcore.pojo.enums.MatchStatus;
 import com.dugout.dugoutcore.pojo.enums.TossDecision;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ public class MatchDto extends BaseDto {
   String country;
   Integer overs;
   Long tossWinnerId;
-  
+  Set<InningDto> innings;
   TossDecision tossDecision;
   TournamentDto tournament;
   TeamDto team1;

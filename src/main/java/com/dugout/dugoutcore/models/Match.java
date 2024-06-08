@@ -36,8 +36,9 @@ public class Match extends BaseModel {
 
   Date matchDate;
 
-  @OneToMany(mappedBy = "match")
-  Set<Innings> innings;
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "match_id")
+  Set<Inning> innings;
 
   @Enumerated(EnumType.STRING)
   MatchStatus status;
@@ -49,12 +50,12 @@ public class Match extends BaseModel {
   @JoinColumn(name = "ground_id")
   Ground ground;
 
-  @OneToMany(cascade = CascadeType.MERGE)
+  @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "match_id", referencedColumnName = "id")
   @JoinColumn(name = "team_id", referencedColumnName = "team1_id")
   List<SquadPlayer> squad1Players;
 
-  @OneToMany(cascade = CascadeType.MERGE)
+  @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "match_id", referencedColumnName = "id")
   @JoinColumn(name = "team_id", referencedColumnName = "team2_id")
   List<SquadPlayer> squad2Players;
