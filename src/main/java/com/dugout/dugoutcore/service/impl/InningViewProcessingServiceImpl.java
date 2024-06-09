@@ -10,205 +10,205 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class InningViewProcessingServiceImpl
-    implements BallProcessingService<InningsDto, InningViewProcessDto, InningViewUnprocessDto> {
+    implements BallProcessingService<InningDto, InningViewProcessDto, InningViewUnprocessDto> {
 
   @NonNull private UserService userService;
 
   @Override
-  public InningsDto processNoBall(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processNoBall(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processNoBallLegBye(InningViewProcessDto request)
+  public InningDto processNoBallLegBye(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processNoBallBye(InningViewProcessDto request)
+  public InningDto processNoBallBye(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processWideBall(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processWideBall(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processWideBallBye(InningViewProcessDto request)
+  public InningDto processWideBallBye(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processFourRuns(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processFourRuns(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processSixRuns(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processSixRuns(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processRun(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processRun(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processLegBye(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processLegBye(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processWicket(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processWicket(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processStumpAndWide(InningViewProcessDto request)
+  public InningDto processStumpAndWide(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processRunOut(InningViewProcessDto request) throws DugoutDataFetchingException {
+  public InningDto processRunOut(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processRunOutAndWide(InningViewProcessDto request)
+  public InningDto processRunOutAndWide(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processRunOutAndNoBall(InningViewProcessDto request)
+  public InningDto processRunOutAndNoBall(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processObstructingTheFieldAndWide(InningViewProcessDto request)
+  public InningDto processObstructingTheFieldAndWide(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto processObstructingTheFieldAndNoBall(InningViewProcessDto request)
+  public InningDto processObstructingTheFieldAndNoBall(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
   }
 
   @Override
-  public InningsDto unprocessNoBall(InningViewUnprocessDto request) {
+  public InningDto unprocessNoBall(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessNoBallLegBye(InningViewUnprocessDto request) {
+  public InningDto unprocessNoBallLegBye(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessNoBallBye(InningViewUnprocessDto request) {
+  public InningDto unprocessNoBallBye(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessWideBall(InningViewUnprocessDto request) {
+  public InningDto unprocessWideBall(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessWideBallBye(InningViewUnprocessDto request) {
+  public InningDto unprocessWideBallBye(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessFourRuns(InningViewUnprocessDto request) {
+  public InningDto unprocessFourRuns(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessSixRuns(InningViewUnprocessDto request) {
+  public InningDto unprocessSixRuns(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessRun(InningViewUnprocessDto request) {
+  public InningDto unprocessRun(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessLegBye(InningViewUnprocessDto request) {
+  public InningDto unprocessLegBye(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessBowled(InningViewUnprocessDto request) {
+  public InningDto unprocessBowled(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessCatch(InningViewUnprocessDto request) {
+  public InningDto unprocessCatch(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessCaughtAndBowled(InningViewUnprocessDto request) {
+  public InningDto unprocessCaughtAndBowled(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessStump(InningViewUnprocessDto request) {
+  public InningDto unprocessStump(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessStumpAndWide(InningViewUnprocessDto request) {
+  public InningDto unprocessStumpAndWide(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessRunOut(InningViewUnprocessDto request) {
+  public InningDto unprocessRunOut(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessRunOutAndWide(InningViewUnprocessDto request) {
+  public InningDto unprocessRunOutAndWide(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessRunOutAndNoBall(InningViewUnprocessDto request) {
+  public InningDto unprocessRunOutAndNoBall(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessObstructingTheField(InningViewUnprocessDto request) {
+  public InningDto unprocessObstructingTheField(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessObstructingTheFieldAndWide(InningViewUnprocessDto request) {
+  public InningDto unprocessObstructingTheFieldAndWide(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessObstructingTheFieldAndNoBall(InningViewUnprocessDto request) {
+  public InningDto unprocessObstructingTheFieldAndNoBall(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessCaughtBehind(InningViewUnprocessDto request) {
+  public InningDto unprocessCaughtBehind(InningViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public InningsDto unprocessLegBeforeWicket(InningViewUnprocessDto request) {
+  public InningDto unprocessLegBeforeWicket(InningViewUnprocessDto request) {
     return null;
   }
 }
