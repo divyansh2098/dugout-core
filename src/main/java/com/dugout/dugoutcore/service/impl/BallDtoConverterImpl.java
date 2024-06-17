@@ -18,11 +18,11 @@ public class BallDtoConverterImpl implements BallDtoConverter {
   public BallDto convertBallRequestToBallDto(BallProcessRequestDto request) throws DugoutDataFetchingException {
     return BallDto.builder()
         .ballNumber(request.getBallNumber())
-        .innings(inningService.getInningById(request.getInningId()))
+        .inning(inningService.getInningById(request.getInningId()))
         .striker(userService.getUser(request.getStrikerId()))
         .nonStriker(userService.getUser(request.getNonStrikerId()))
         .bowler(userService.getUser(request.getBowlerId()))
-        .wicketKeeper(userService.getUser(request.getWicketkeeperId()))
+        .wicketKeeper(userService.getUser(request.getWicketKeeperId()))
         .type(request.getBallType())
         .isFreeHit(request.getIsFreeHit())
         .comment(request.getComment())

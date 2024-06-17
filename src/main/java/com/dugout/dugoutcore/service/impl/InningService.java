@@ -13,8 +13,7 @@ public class InningService {
     @NonNull InningDao inningDao;
 
     public InningDto getInningById(Long id) {
-        //TODO complete this
-        return null;
+        return inningDao.getById(id);
     }
 
 }

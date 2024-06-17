@@ -34,7 +34,7 @@ public class BatsmanViewService
         && request.getBallDto().getBatsmanRuns() > 0) {
       strikerBatsmanViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+              request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
       batsmanViewUtils.increaseBatsmanRuns(
           strikerBatsmanViewDto, request.getBallDto().getBatsmanRuns());
       batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
@@ -49,7 +49,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -60,7 +60,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -84,7 +84,7 @@ public class BatsmanViewService
     // adds 4 runs to the striker runs and increment num ball
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     batsmanViewUtils.increaseBatsmanRuns(strikerBatsmanViewDto, FOUR_RUNS);
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
@@ -97,7 +97,7 @@ public class BatsmanViewService
     // adds 6 runs to the striker runs and increment num ball
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + SIX_RUNS);
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
@@ -110,7 +110,7 @@ public class BatsmanViewService
     // adds given runs to the striker runs and increment num ball
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     strikerBatsmanViewDto.setRuns(
         strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
@@ -123,7 +123,7 @@ public class BatsmanViewService
     // nothing will be done here except increasing the num balls
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -135,7 +135,7 @@ public class BatsmanViewService
     // striker
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
@@ -153,7 +153,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
       batsmanViewDao.update(outPlayerViewDto);
@@ -167,7 +167,7 @@ public class BatsmanViewService
     // marking given player as out
     BatsmanViewDto outPlayerViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(),
+            request.getBallDto().getInning().getId(),
             request.getBallDto().getWicket().getOutPlayer().getId());
     batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
     return batsmanViewDao.update(outPlayerViewDto);
@@ -180,7 +180,7 @@ public class BatsmanViewService
     // for striker
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
@@ -198,7 +198,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
       batsmanViewDao.update(outPlayerViewDto);
@@ -212,7 +212,7 @@ public class BatsmanViewService
     // marking given player as out and adding runs to striker view if any
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     if (request
         .getBallDto()
         .getWicket()
@@ -223,7 +223,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
       batsmanViewDao.update(outPlayerViewDto);
@@ -237,7 +237,7 @@ public class BatsmanViewService
     // marking given player as out and adding runs to striker view if any
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
@@ -254,7 +254,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
       batsmanViewDao.update(outPlayerViewDto);
@@ -268,7 +268,7 @@ public class BatsmanViewService
     // marking given player as out and adding runs to striker view if any
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
@@ -286,7 +286,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
       batsmanViewDao.update(outPlayerViewDto);
@@ -300,7 +300,7 @@ public class BatsmanViewService
     // marking given player as out and adding runs to striker view if any
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getStriker().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
     ;
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
@@ -317,7 +317,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInnings().getId(),
+              request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
       batsmanViewDao.update(outPlayerViewDto);
@@ -331,7 +331,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() - 1);
     strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() - ballDto.getBatsmanRuns());
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -343,7 +343,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -382,7 +382,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(
         strikerBatsmanViewDto, request.getBallDto().getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
@@ -395,7 +395,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -406,7 +406,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -436,7 +436,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
     return batsmanViewDao.update(strikerBatsmanViewDto);
   }
@@ -447,7 +447,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(strikerBatsmanViewDto, ballDto.getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
@@ -455,7 +455,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              ballDto.getInnings().getId(), ballDto.getWicket().getOutPlayer().getId());
+              ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
     }
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -467,13 +467,13 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
       batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              ballDto.getInnings().getId(), ballDto.getWicket().getOutPlayer().getId());
+              ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
     }
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -491,7 +491,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(strikerBatsmanViewDto, ballDto.getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
@@ -499,7 +499,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              ballDto.getInnings().getId(), ballDto.getWicket().getOutPlayer().getId());
+              ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
     }
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -511,13 +511,13 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
       batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              ballDto.getInnings().getId(), ballDto.getWicket().getOutPlayer().getId());
+              ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
     }
     return batsmanViewDao.update(strikerBatsmanViewDto);
@@ -529,7 +529,7 @@ public class BatsmanViewService
     BallDto ballDto = request.getBallDto();
     BatsmanViewDto strikerBatsmanViewDto =
         batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getStriker().getId());
+            ballDto.getInning().getId(), ballDto.getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(strikerBatsmanViewDto, ballDto.getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
@@ -537,7 +537,7 @@ public class BatsmanViewService
     } else {
       BatsmanViewDto outPlayerViewDto =
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              ballDto.getInnings().getId(), ballDto.getWicket().getOutPlayer().getId());
+              ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
     }
     return batsmanViewDao.update(strikerBatsmanViewDto);

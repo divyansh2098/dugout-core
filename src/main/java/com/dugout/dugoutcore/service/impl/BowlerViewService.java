@@ -27,7 +27,7 @@ public class BowlerViewService
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
@@ -42,7 +42,7 @@ public class BowlerViewService
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     return bowlerViewDao.update(bowlerViewDto);
@@ -54,7 +54,7 @@ public class BowlerViewService
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     return bowlerViewDao.update(bowlerViewDto);
@@ -66,7 +66,7 @@ public class BowlerViewService
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
@@ -81,7 +81,7 @@ public class BowlerViewService
     // Bowler's extras and runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     return bowlerViewDao.update(bowlerViewDto);
@@ -93,7 +93,7 @@ public class BowlerViewService
     // Bowler runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + FOUR_RUNS);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
@@ -105,7 +105,7 @@ public class BowlerViewService
     // Bowler runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + SIX_RUNS);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
@@ -116,7 +116,7 @@ public class BowlerViewService
     // Bowler runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
@@ -128,7 +128,7 @@ public class BowlerViewService
     // Bowler runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
   }
@@ -139,7 +139,7 @@ public class BowlerViewService
     // Bowler wickets will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     return bowlerViewDao.update(bowlerViewDto);
@@ -151,7 +151,7 @@ public class BowlerViewService
     // bowlers wicket and runs will increase
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
@@ -164,7 +164,7 @@ public class BowlerViewService
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setNumBalls(bowlerViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
@@ -179,7 +179,7 @@ public class BowlerViewService
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
@@ -195,7 +195,7 @@ public class BowlerViewService
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
@@ -211,7 +211,7 @@ public class BowlerViewService
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
@@ -227,7 +227,7 @@ public class BowlerViewService
     // Bowlers wicket will increment and runs will increase if there are any runs
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInnings().getId(), request.getBallDto().getBowler().getId());
+            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
     bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() + request.getBallDto().getBowlerRuns());
@@ -243,7 +243,7 @@ public class BowlerViewService
     BallDto ballDto = request.getBallDto();
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getBowler().getId());
+            ballDto.getInning().getId(), ballDto.getBowler().getId());
     bowlerViewDto.setRuns(bowlerViewDto.getRuns() - ballDto.getBowlerRuns());
     bowlerViewDto.setExtras(bowlerViewDto.getExtras() - (ONE_RUN + ballDto.getBowlerRuns()));
     return bowlerViewDao.update(bowlerViewDto);
@@ -285,7 +285,7 @@ public class BowlerViewService
     BallDto ballDto = request.getBallDto();
     BowlerViewDto bowlerViewDto =
         bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            ballDto.getInnings().getId(), ballDto.getBowler().getId());
+            ballDto.getInning().getId(), ballDto.getBowler().getId());
     bowlerViewUtils.decreaseBowlerRuns(bowlerViewDto, ballDto.getBowlerRuns());
     bowlerViewUtils.reduceBalls(bowlerViewDto);
     return bowlerViewDao.update(bowlerViewDto);

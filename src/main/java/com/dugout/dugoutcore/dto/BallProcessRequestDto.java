@@ -7,7 +7,7 @@ public class BallProcessRequestDto extends BallProcessRequest {
   Long inningId;
   Integer ballNumber;
   Long bowlerId;
-  Long wicketkeeperId;
+  Long wicketKeeperId;
   Long strikerId;
   Long nonStrikerId;
   Integer runs;

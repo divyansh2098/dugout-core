@@ -99,6 +99,7 @@ public class BallProcessingServiceImpl
     ballDto.setNextBallNumber(request.getBallNumber() + 1);
     ballDto.setIsValid(true);
     ballDto.setBatsmanRuns(ApplicationConstants.FOUR_RUNS);
+    ballDto.setBowlerRuns(ApplicationConstants.FOUR_RUNS);
     ballDto.setIsNextFreeHit(false);
     ballDto.setIsOverComplete(ballProcessingUtils.getIsOverComplete(request.getBallNumber()));
     return ballDao.create(ballDto);

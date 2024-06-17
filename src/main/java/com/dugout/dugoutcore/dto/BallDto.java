@@ -1,10 +1,9 @@
 package com.dugout.dugoutcore.dto;
 
 import com.dugout.dugoutcore.pojo.enums.BallType;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Date;
@@ -13,8 +12,9 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class BallDto extends BaseDto {
-  InningDto innings;
+  InningDto inning;
   UserDTO striker;
   UserDTO nonStriker;
   UserDTO bowler;
@@ -30,6 +30,7 @@ public class BallDto extends BaseDto {
   Integer nextBallNumber;
   Boolean isNextFreeHit;
   Boolean isOverComplete;
+  @JsonIgnoreProperties("ball")
   WicketDto wicket;
   Date deletedOn;
   String deletedBy;
