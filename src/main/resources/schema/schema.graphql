@@ -18,6 +18,12 @@ type UserPlayer {
   updatedOn: String
 }
 
+type Ball {
+  id: ID!,
+  keeper: UserPlayer
+  striker: UserPlayer
+}
+
 type Team {
   id: ID!,
   name: String
@@ -79,6 +85,7 @@ type Tournament {
 }
 
 type RecordBallResponse {
+  id: ID!
   strikerId: Long,
   nonStrikerId: Long,
   success: Boolean,
@@ -263,6 +270,7 @@ type Query {
   getPlayerById(id: ID!): UserPlayer
   getGroundById(id: ID!): Ground
   getTeamById(id: ID!): Team
+  getBallById(id: ID!): Ball
 }
 
 type Mutation {

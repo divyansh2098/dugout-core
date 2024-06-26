@@ -2,15 +2,16 @@ package com.dugout.dugoutcore.models;
 
 import com.dugout.dugoutcore.pojo.enums.BallType;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.experimental.FieldDefaults;
-
 import java.util.Date;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "ball")
-@Data
+@Getter
+@Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Ball extends BaseModel {
 
@@ -32,7 +33,7 @@ public class Ball extends BaseModel {
 
   @ManyToOne
   @JoinColumn(name = "wicket_keeper")
-  User wicketKeeper;
+  User keeper;
 
   @Column(name = "is_valid")
   Boolean isValid;
