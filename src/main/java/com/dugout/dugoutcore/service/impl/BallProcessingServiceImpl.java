@@ -121,6 +121,7 @@ public class BallProcessingServiceImpl
   public BallDto processRun(BallProcessRequestDto request) throws DugoutDataFetchingException {
     BallDto ballDto = ballDtoConverter.convertBallRequestToBallDto(request);
     ballDto.setBatsmanRuns(request.getRuns());
+    ballDto.setBowlerRuns(request.getRuns());
     ballDto.setRuns(request.getRuns());
     ballDto.setIsValid(true);
     ballDto.setIsNextFreeHit(false);

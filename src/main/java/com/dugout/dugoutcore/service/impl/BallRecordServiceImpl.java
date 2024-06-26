@@ -1,16 +1,17 @@
 package com.dugout.dugoutcore.service.impl;
 
+import com.dugout.dugoutcore.dao.BallDao;
 import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.RecordBallResponseDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
-import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.service.BallRecordService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -19,7 +20,10 @@ public class BallRecordServiceImpl implements BallRecordService {
   @NonNull ModelMapper modelMapper;
   @NonNull BallProcessingServiceImpl ballProcessingService;
 
+  @NonNull BallDao ballDao;
+
   @Override
+  @Transactional
   public RecordBallResponseDto recordBall(BallProcessRequestDto ballRequestDto)
       throws DugoutDataFetchingException {
     try {
@@ -39,5 +43,10 @@ public class BallRecordServiceImpl implements BallRecordService {
           ballRequestDto.getBallNumber());
       throw exception;
     }
+  }
+
+  @Override
+  public BallDto getBallById(Long id) {
+    return ballDao.getById(id);
   }
 }

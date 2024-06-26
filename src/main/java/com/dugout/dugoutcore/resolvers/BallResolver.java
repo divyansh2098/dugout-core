@@ -1,11 +1,13 @@
 package com.dugout.dugoutcore.resolvers;
 
+import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.RecordBallResponseDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.impl.BallRecordServiceImpl;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsMutation;
+import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +22,11 @@ public class BallResolver {
       @InputArgument("ball") BallProcessRequestDto ballRequestDto)
       throws DugoutDataFetchingException {
     return ballRecordService.recordBall(ballRequestDto);
+  }
+
+  @DgsQuery
+  public BallDto getBallById(@InputArgument Long id) {
+    BallDto ballDto = ballRecordService.getBallById(id);
+    return ballDto;
   }
 }
