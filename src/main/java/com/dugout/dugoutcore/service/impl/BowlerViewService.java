@@ -206,6 +206,20 @@ public class BowlerViewService
   }
 
   @Override
+  public BowlerViewDto processObstructingTheField(BowlerViewProcessDto request) throws DugoutDataFetchingException {
+    // Bowlers wicket will increment and runs will increase if there are any runs
+    BowlerViewDto bowlerViewDto =
+            bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
+                    request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
+    bowlerViewDto.setWickets(bowlerViewDto.getWickets() + 1);
+    bowlerViewDto.setRuns(bowlerViewDto.getRuns());
+    if (request.getBallDto().getBowlerRuns() != null && request.getBallDto().getBowlerRuns() > 0) {
+      bowlerViewDto.setRuns(bowlerViewDto.getRuns() + request.getBallDto().getBowlerRuns());
+    }
+    return bowlerViewDao.update(bowlerViewDto);
+  }
+
+  @Override
   public BowlerViewDto processObstructingTheFieldAndWide(BowlerViewProcessDto request)
       throws DugoutDataFetchingException {
     // Bowlers wicket will increment and runs will increase if there are any runs
