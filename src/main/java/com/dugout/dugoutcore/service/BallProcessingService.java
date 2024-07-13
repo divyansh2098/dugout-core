@@ -35,6 +35,8 @@ public interface BallProcessingService<
 
   T processRunOutAndNoBall(R request) throws DugoutDataFetchingException;
 
+  T processObstructingTheField(R request) throws DugoutDataFetchingException;
+
   T processObstructingTheFieldAndWide(R request) throws DugoutDataFetchingException;
 
   T processObstructingTheFieldAndNoBall(R request) throws DugoutDataFetchingException;
