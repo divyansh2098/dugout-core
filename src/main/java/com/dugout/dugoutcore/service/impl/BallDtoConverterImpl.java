@@ -23,6 +23,7 @@ public class BallDtoConverterImpl implements BallDtoConverter {
         .nonStriker(userService.getUser(request.getNonStrikerId()))
         .bowler(userService.getUser(request.getBowlerId()))
         // .wicketKeeper(userService.getUser(request.getWicketKeeperId()))
+        .keeper(userService.getUser(request.getWicketKeeperId()))
         .type(request.getBallType())
         .isFreeHit(request.getIsFreeHit())
         .comment(request.getComment())

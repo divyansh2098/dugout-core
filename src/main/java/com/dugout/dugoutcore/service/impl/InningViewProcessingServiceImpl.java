@@ -91,6 +91,11 @@ public class InningViewProcessingServiceImpl
   }
 
   @Override
+  public InningDto processObstructingTheField(InningViewProcessDto request) throws DugoutDataFetchingException {
+    return null;
+  }
+
+  @Override
   public InningDto processObstructingTheFieldAndWide(InningViewProcessDto request)
       throws DugoutDataFetchingException {
     return null;
