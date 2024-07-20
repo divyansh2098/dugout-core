@@ -1,9 +1,10 @@
-package com.dugout.dugoutcore.service.impl;
+package com.dugout.dugoutcore.service.impl.views;
 
 import com.dugout.dugoutcore.dao.BowlerViewDao;
 import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallProcessingService;
+import com.dugout.dugoutcore.service.impl.UserService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import com.dugout.dugoutcore.util.BowlerViewUtils;
 import lombok.NonNull;
@@ -14,7 +15,7 @@ import static com.dugout.dugoutcore.ApplicationConstants.*;
 
 @Service
 @RequiredArgsConstructor
-public class BowlerViewService
+public class BowlerViewServiceImpl
     implements BallProcessingService<BowlerViewDto, BowlerViewProcessDto, BowlerViewUnprocessDto> {
   @NonNull private BowlerViewDao bowlerViewDao;
   @NonNull private UserService userService;

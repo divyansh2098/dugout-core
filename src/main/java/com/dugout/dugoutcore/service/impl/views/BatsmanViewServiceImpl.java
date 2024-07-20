@@ -1,4 +1,4 @@
-package com.dugout.dugoutcore.service.impl;
+package com.dugout.dugoutcore.service.impl.views;
 
 import static com.dugout.dugoutcore.ApplicationConstants.FOUR_RUNS;
 import static com.dugout.dugoutcore.ApplicationConstants.SIX_RUNS;
@@ -7,6 +7,7 @@ import com.dugout.dugoutcore.dao.BatsmanViewDao;
 import com.dugout.dugoutcore.dto.*;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallProcessingService;
+import com.dugout.dugoutcore.service.impl.UserService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import com.dugout.dugoutcore.util.BatsmanViewUtils;
 import java.util.Objects;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class BatsmanViewService
+public class BatsmanViewServiceImpl
     implements BallProcessingService<
         BatsmanViewDto, BatsmanViewProcessDto, BatsmanViewUnprocessDto> {
   @NonNull private BatsmanViewDao batsmanViewDao;

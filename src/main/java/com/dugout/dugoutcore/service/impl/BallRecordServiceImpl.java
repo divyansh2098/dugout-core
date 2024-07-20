@@ -6,6 +6,7 @@ import com.dugout.dugoutcore.dto.BallProcessRequestDto;
 import com.dugout.dugoutcore.dto.RecordBallResponseDto;
 import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallRecordService;
+import com.dugout.dugoutcore.service.impl.views.BallViewServiceImpl;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BallRecordServiceImpl implements BallRecordService {
   @NonNull ModelMapper modelMapper;
-  @NonNull BallProcessingServiceImpl ballProcessingService;
+  @NonNull BallViewServiceImpl ballProcessingService;
 
   @NonNull BallDao ballDao;
 
