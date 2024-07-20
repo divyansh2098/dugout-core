@@ -10,14 +10,12 @@ import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallDtoConverter;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.service.WicketDtoConverter;
-import com.dugout.dugoutcore.service.impl.UserService;
 import com.dugout.dugoutcore.service.impl.WicketService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
+import java.util.Date;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +26,6 @@ public class BallViewServiceImpl
   @NonNull private BallDtoConverter ballDtoConverter;
   @NonNull private WicketDtoConverter wicketDtoConverter;
   @NonNull private BallProcessingUtils ballProcessingUtils;
-
-  @NonNull private UserService userService;
 
   @Override
   public BallDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
