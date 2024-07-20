@@ -20,7 +20,7 @@ type UserPlayer {
 
 type Ball {
   id: ID!,
-  keeper: UserPlayer
+  wicketKeeper: UserPlayer
   striker: UserPlayer
 }
 

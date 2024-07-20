@@ -33,7 +33,7 @@ public class Ball extends BaseModel {
 
   @ManyToOne
   @JoinColumn(name = "wicket_keeper")
-  User keeper;
+  User wicketKeeper;
 
   @Column(name = "is_valid")
   Boolean isValid;

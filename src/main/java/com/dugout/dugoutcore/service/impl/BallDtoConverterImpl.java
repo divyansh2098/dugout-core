@@ -15,15 +15,15 @@ public class BallDtoConverterImpl implements BallDtoConverter {
   @NonNull UserService userService;
 
   @Override
-  public BallDto convertBallRequestToBallDto(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BallDto convertBallRequestToBallDto(BallProcessRequestDto request)
+      throws DugoutDataFetchingException {
     return BallDto.builder()
         .ballNumber(request.getBallNumber())
         .inning(inningService.getInningById(request.getInningId()))
         .striker(userService.getUser(request.getStrikerId()))
         .nonStriker(userService.getUser(request.getNonStrikerId()))
         .bowler(userService.getUser(request.getBowlerId()))
-        // .wicketKeeper(userService.getUser(request.getWicketKeeperId()))
-        .keeper(userService.getUser(request.getWicketKeeperId()))
+        .wicketKeeper(userService.getUser(request.getWicketKeeperId()))
         .type(request.getBallType())
         .isFreeHit(request.getIsFreeHit())
         .comment(request.getComment())
