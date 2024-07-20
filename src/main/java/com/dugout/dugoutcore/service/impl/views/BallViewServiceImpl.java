@@ -1,4 +1,4 @@
-package com.dugout.dugoutcore.service.impl;
+package com.dugout.dugoutcore.service.impl.views;
 
 import com.dugout.dugoutcore.ApplicationConstants;
 import com.dugout.dugoutcore.dao.BallDao;
@@ -10,6 +10,8 @@ import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallDtoConverter;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.service.WicketDtoConverter;
+import com.dugout.dugoutcore.service.impl.UserService;
+import com.dugout.dugoutcore.service.impl.WicketService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class BallProcessingServiceImpl
+public class BallViewServiceImpl
     implements BallProcessingService<BallDto, BallProcessRequestDto, BallUnprocessRequestDto> {
   @NonNull private WicketService wicketService;
   @NonNull private BallDao ballDao;
