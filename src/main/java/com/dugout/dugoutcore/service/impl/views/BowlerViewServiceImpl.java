@@ -77,18 +77,6 @@ public class BowlerViewServiceImpl
   }
 
   @Override
-  public BowlerViewDto processWideBallBye(BowlerViewProcessDto request)
-      throws DugoutDataFetchingException {
-    // Bowler's extras and runs will increase
-    BowlerViewDto bowlerViewDto =
-        bowlerViewDao.getPlayerBowlerViewFromInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getBowler().getId());
-    bowlerViewDto.setExtras(bowlerViewDto.getExtras() + ONE_RUN);
-    bowlerViewDto.setRuns(bowlerViewDto.getRuns() + ONE_RUN);
-    return bowlerViewDao.update(bowlerViewDto);
-  }
-
-  @Override
   public BowlerViewDto processFourRuns(BowlerViewProcessDto request)
       throws DugoutDataFetchingException {
     // Bowler runs will increase

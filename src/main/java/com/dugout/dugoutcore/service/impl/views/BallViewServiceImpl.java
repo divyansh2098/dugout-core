@@ -10,14 +10,12 @@ import com.dugout.dugoutcore.exceptions.DugoutDataFetchingException;
 import com.dugout.dugoutcore.service.BallDtoConverter;
 import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.service.WicketDtoConverter;
-import com.dugout.dugoutcore.service.impl.UserService;
 import com.dugout.dugoutcore.service.impl.WicketService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
+import java.util.Date;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -28,8 +26,6 @@ public class BallViewServiceImpl
   @NonNull private BallDtoConverter ballDtoConverter;
   @NonNull private WicketDtoConverter wicketDtoConverter;
   @NonNull private BallProcessingUtils ballProcessingUtils;
-
-  @NonNull private UserService userService;
 
   @Override
   public BallDto processNoBall(BallProcessRequestDto request) throws DugoutDataFetchingException {
@@ -80,20 +76,6 @@ public class BallViewServiceImpl
     ballDto.setNextBallNumber(request.getBallNumber());
     ballDto.setIsValid(false);
     ballDto.setIsNextFreeHit(request.getIsFreeHit());
-    ballDto.setIsOverComplete(false);
-    ballDto.setBatsmanRuns(ApplicationConstants.ZERO_RUNS);
-    return ballDao.create(ballDto);
-  }
-
-  @Override
-  public BallDto processWideBallBye(BallProcessRequestDto request)
-      throws DugoutDataFetchingException {
-    BallDto ballDto = ballDtoConverter.convertBallRequestToBallDto(request);
-    ballDto.setRuns(1 + request.getRuns());
-    ballDto.setBowlerRuns(1 + request.getRuns());
-    ballDto.setNextBallNumber(request.getBallNumber());
-    ballDto.setIsNextFreeHit(request.getIsFreeHit());
-    ballDto.setIsValid(false);
     ballDto.setIsOverComplete(false);
     ballDto.setBatsmanRuns(ApplicationConstants.ZERO_RUNS);
     return ballDao.create(ballDto);
@@ -257,7 +239,7 @@ public class BallViewServiceImpl
     ballDto.setIsOverComplete(ballProcessingUtils.getIsOverComplete(request.getBallNumber()));
     ballDto.setRuns(request.getRuns());
     ballDto.setBowlerRuns(request.getRuns());
-    ballDto.setBatsmanRuns(ApplicationConstants.ZERO_RUNS);
+    ballDto.setBatsmanRuns(request.getRuns());
     ballDto.setIsNextFreeHit(request.getIsFreeHit());
     ballDto.setIsValid(true);
     BallDto createdBall = ballDao.create(ballDto);
@@ -298,7 +280,7 @@ public class BallViewServiceImpl
     ballDto.setRuns(request.getRuns() + 1);
     ballDto.setBowlerRuns(request.getRuns() + 1);
     ballDto.setBatsmanRuns(request.getRuns());
-    ballDto.setIsNextFreeHit(request.getIsFreeHit());
+    ballDto.setIsNextFreeHit(true);
     ballDto.setIsValid(false);
     BallDto createdBall = ballDao.create(ballDto);
     wicketDto.setBall(createdBall);

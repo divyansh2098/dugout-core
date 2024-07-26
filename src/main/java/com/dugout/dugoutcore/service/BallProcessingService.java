@@ -15,8 +15,6 @@ public interface BallProcessingService<
 
   T processWideBall(R request) throws DugoutDataFetchingException;
 
-  T processWideBallBye(R request) throws DugoutDataFetchingException;
-
   T processFourRuns(R request) throws DugoutDataFetchingException;
 
   T processSixRuns(R request) throws DugoutDataFetchingException;
@@ -97,8 +95,7 @@ public interface BallProcessingService<
       case NO_BALL_BYE -> processNoBallBye(request);
       case NO_BALL_LEG_BYE -> processNoBallLegBye(request);
       case NO_BALL_RUN_OUT -> processRunOutAndNoBall(request);
-      case WIDE -> processWideBall(request);
-      case WIDE_BYE -> processWideBallBye(request);
+      case WIDE_BYE, WIDE -> processWideBall(request);
       case FOUR -> processFourRuns(request);
       case SIX -> processSixRuns(request);
       case RUN -> processRun(request);

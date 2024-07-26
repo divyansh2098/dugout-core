@@ -38,12 +38,6 @@ public class InningViewProcessingServiceImpl
   }
 
   @Override
-  public InningDto processWideBallBye(InningViewProcessDto request)
-      throws DugoutDataFetchingException {
-    return null;
-  }
-
-  @Override
   public InningDto processFourRuns(InningViewProcessDto request) throws DugoutDataFetchingException {
     return null;
   }

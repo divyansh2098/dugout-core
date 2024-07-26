@@ -74,12 +74,6 @@ public class BatsmanViewServiceImpl
   }
 
   @Override
-  public BatsmanViewDto processWideBallBye(BatsmanViewProcessDto request) {
-    // nothing will be done here
-    return null;
-  }
-
-  @Override
   public BatsmanViewDto processFourRuns(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds 4 runs to the striker runs and increment num ball
