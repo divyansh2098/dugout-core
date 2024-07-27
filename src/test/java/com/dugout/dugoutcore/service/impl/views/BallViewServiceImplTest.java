@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import com.dugout.dugoutcore.dao.BallDao;
 import com.dugout.dugoutcore.dto.BallDto;
 import com.dugout.dugoutcore.dto.BallProcessRequestDto;
+import com.dugout.dugoutcore.dto.BallUnprocessRequestDto;
 import com.dugout.dugoutcore.dto.WicketDto;
 import com.dugout.dugoutcore.pojo.enums.WicketType;
 import com.dugout.dugoutcore.service.BallDtoConverter;
@@ -332,71 +333,16 @@ class BallViewServiceImplTest extends BaseViewServiceTest {
   }
 
   @Test
-  void unprocessNoBall() {}
-
-  @Test
-  void unprocessNoBallLegBye() {}
-
-  @Test
-  void unprocessNoBallBye() {}
-
-  @Test
-  void unprocessWideBall() {}
-
-  @Test
-  void unprocessWideBallBye() {}
-
-  @Test
-  void unprocessFourRuns() {}
-
-  @Test
-  void unprocessSixRuns() {}
-
-  @Test
-  void unprocessRun() {}
-
-  @Test
-  void unprocessLegBye() {}
-
-  @Test
-  void unprocessBowled() {}
-
-  @Test
-  void unprocessCatch() {}
-
-  @Test
-  void unprocessCaughtAndBowled() {}
-
-  @Test
-  void unprocessStump() {}
-
-  @Test
-  void unprocessStumpAndWide() {}
-
-  @Test
-  void unprocessRunOut() {}
-
-  @Test
-  void unprocessRunOutAndWide() {}
-
-  @Test
-  void unprocessRunOutAndNoBall() {}
-
-  @Test
-  void unprocessObstructingTheField() {}
-
-  @Test
-  void unprocessObstructingTheFieldAndWide() {}
-
-  @Test
-  void unprocessObstructingTheFieldAndNoBall() {}
-
-  @Test
-  void unprocessCaughtBehind() {}
-
-  @Test
-  void unprocessLegBeforeWicket() {}
-
-  @Test
-  void unprocessBall() {}
+  @SneakyThrows
+  void unprocessBall() {
+    BallDto ballDto = getSampleBallDto();
+    when(ballDao.getById(anyLong())).thenReturn(ballDto);
+    when(ballDao.update(any())).thenReturn(ballDto);
+    BallUnprocessRequestDto ballUnprocessRequestDto = new BallUnprocessRequestDto();
+    ballUnprocessRequestDto.setBallId(1L);
+    ballUnprocessRequestDto.setRequester("TestUser");
+    BallDto responseBallDto = ballViewService.unprocessBall(ballUnprocessRequestDto);
+    assertEquals("TestUser", responseBallDto.getDeletedBy());
+    assertNotNull(responseBallDto.getDeletedOn());
+  }
 }
