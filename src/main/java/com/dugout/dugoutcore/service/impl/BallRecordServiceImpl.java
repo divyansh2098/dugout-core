@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class BallRecordServiceImpl implements BallRecordService {
   @NonNull ModelMapper modelMapper;
-  @NonNull BallViewServiceImpl ballProcessingService;
+  @NonNull BallViewServiceImpl ballViewService;
 
   @NonNull BallDao ballDao;
 
@@ -28,7 +28,7 @@ public class BallRecordServiceImpl implements BallRecordService {
   public RecordBallResponseDto recordBall(BallProcessRequestDto ballRequestDto)
       throws DugoutDataFetchingException {
     try {
-      BallDto ballDto = ballProcessingService.processBall(ballRequestDto);
+      BallDto ballDto = ballViewService.processBall(ballRequestDto);
       return RecordBallResponseDto.builder()
           .strikerId(ballDto.getStriker().getId())
           .nonStrikerId(ballDto.getNonStriker().getId())

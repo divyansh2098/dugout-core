@@ -231,9 +231,10 @@ public class BallViewServiceImpl
   }
 
   @Override
-  public BallDto processObstructingTheField(BallProcessRequestDto request) throws DugoutDataFetchingException {
+  public BallDto processObstructingTheField(BallProcessRequestDto request)
+      throws DugoutDataFetchingException {
     WicketDto wicketDto =
-            wicketDtoConverter.convertToWicketDto(request.getWicketMeta(), request.getInningId());
+        wicketDtoConverter.convertToWicketDto(request.getWicketMeta(), request.getInningId());
     BallDto ballDto = ballDtoConverter.convertBallRequestToBallDto(request);
     ballDto.setNextBallNumber(request.getBallNumber());
     ballDto.setIsOverComplete(ballProcessingUtils.getIsOverComplete(request.getBallNumber()));
