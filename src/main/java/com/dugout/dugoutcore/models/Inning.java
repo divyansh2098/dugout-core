@@ -2,13 +2,14 @@ package com.dugout.dugoutcore.models;
 
 import com.dugout.dugoutcore.pojo.enums.InningStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-
 import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "innings")
-@Data
+@Getter
+@Setter
 public class Inning extends BaseModel {
   @Column(name = "match_id")
   Long matchId;
