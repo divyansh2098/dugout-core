@@ -7,6 +7,7 @@ create table "match" (
   ground_id INTEGER references "ground" (id) NULL,
   team1_id INTEGER references "team" (id) NULL,
   team2_id INTEGER references "team" (id) NULL,
+  type VARCHAR(16) NULL,
   overs INTEGER NULL,
   city VARCHAR(255) NULL, -- Change to cityId eventually
   country VARCHAR(255) NULL, -- Change to countryId eventually

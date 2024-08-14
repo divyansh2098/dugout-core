@@ -1,13 +1,17 @@
 package com.dugout.dugoutcore.models;
 
+import com.dugout.dugoutcore.dto.PowerPlay;
 import com.dugout.dugoutcore.pojo.enums.MatchStatus;
+import com.dugout.dugoutcore.pojo.enums.MatchType;
 import com.dugout.dugoutcore.pojo.enums.TossDecision;
+import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "`match`")
@@ -42,6 +46,13 @@ public class Match extends BaseModel {
 
   @Enumerated(EnumType.STRING)
   MatchStatus status;
+
+  @Enumerated(EnumType.STRING)
+  MatchType type;
+
+  @Type(JsonType.class)
+  @Column(columnDefinition = "json")
+  List<PowerPlay> powerplay;
 
   @Enumerated(EnumType.STRING)
   TossDecision tossDecision;
