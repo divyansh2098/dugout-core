@@ -48,6 +48,8 @@ type Match {
   id: ID!,
   name: String,
   tossDecision: TossDecision,
+  type: MatchType,
+  matchDate: String,
   overs: Int,
   city: String,
   country: String,
@@ -60,6 +62,7 @@ type Match {
   squad1Players: [SquadPlayer]
   squad2Players: [SquadPlayer]
   innings: [Inning]
+  powerplay: [PowerPlay]
 }
 
 type Inning {
@@ -91,6 +94,11 @@ type RecordBallResponse {
   success: Boolean,
   isNextFreeHit: Boolean
   nextBallNumber: Boolean
+}
+
+type PowerPlay {
+  start: Long!,
+  end: Long!
 }
 
 type Ground {
@@ -210,6 +218,13 @@ enum BattingStyle {
 enum BowlingStyle {
   LEFT
   RIGHT
+}
+
+enum MatchType {
+  T20
+  ONE_DAY
+  TEST
+  CUSTOM
 }
 
 enum TournamentStatus {

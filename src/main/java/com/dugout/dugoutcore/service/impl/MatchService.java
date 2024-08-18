@@ -40,6 +40,12 @@ public class MatchService {
     match.setTeam1(team1);
     match.setTeam2(team2);
     match.setTournament(tournamentDto);
+    switch (matchRequestDto.getType()) {
+      case T20 -> match.setOvers(20);
+      case ONE_DAY -> match.setOvers(50);
+      case TEST -> match.setOvers(90);
+      default -> match.setOvers(matchRequestDto.getOvers());
+    }
     return matchDao.create(match);
   }
 
