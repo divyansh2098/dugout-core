@@ -10,6 +10,8 @@ import com.dugout.dugoutcore.service.BallProcessingService;
 import com.dugout.dugoutcore.service.impl.UserService;
 import com.dugout.dugoutcore.util.BallProcessingUtils;
 import com.dugout.dugoutcore.util.BatsmanViewUtils;
+
+import java.util.List;
 import java.util.Objects;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BatsmanViewServiceImpl
     implements BallProcessingService<
-        BatsmanViewDto, BatsmanViewProcessDto, BatsmanViewUnprocessDto> {
+        BatsmanViewResponseDto, BatsmanViewProcessDto, BatsmanViewUnprocessDto> {
   @NonNull private BatsmanViewDao batsmanViewDao;
   @NonNull private UserService userService;
   @NonNull private BallProcessingUtils ballProcessingUtils;
@@ -27,111 +29,112 @@ public class BatsmanViewServiceImpl
   @NonNull private BatsmanViewUtils batsmanViewUtils;
 
   @Override
-  public BatsmanViewDto processNoBall(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processNoBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // Batsmen view will only change if there are some runs from batsmen
+    List<BatsmanViewDto> batsmanViewDtoList = null;
     BatsmanViewDto strikerBatsmanViewDto = null;
-    if (request.getBallDto().getBatsmanRuns() != null
-        && request.getBallDto().getBatsmanRuns() > 0) {
-      strikerBatsmanViewDto =
-          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-      batsmanViewUtils.increaseBatsmanRuns(
-          strikerBatsmanViewDto, request.getBallDto().getBatsmanRuns());
+    if (request.getBallDto().getBatsmanRuns() != null && request.getBallDto().getBatsmanRuns() > 0) {
+      batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+      strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
+      batsmanViewUtils.increaseBatsmanRuns(strikerBatsmanViewDto, request.getBallDto().getBatsmanRuns());
       batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
       strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
     }
-    return strikerBatsmanViewDto;
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processNoBallLegBye(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processNoBallLegBye(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, ballDto.getStriker().getId());
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processNoBallBye(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processNoBallBye(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, ballDto.getStriker().getId());
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processWideBall(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processWideBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // nothing will be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto processFourRuns(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processFourRuns(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds 4 runs to the striker runs and increment num ball
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.increaseBatsmanRuns(strikerBatsmanViewDto, FOUR_RUNS);
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processSixRuns(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processSixRuns(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds 6 runs to the striker runs and increment num ball
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + SIX_RUNS);
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processRun(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processRun(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // adds given runs to the striker runs and increment num ball
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    strikerBatsmanViewDto.setRuns(
-        strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
+    strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() + request.getBallDto().getBatsmanRuns());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processLegBye(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processLegBye(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // nothing will be done here except increasing the num balls
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.incrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processWicket(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processWicket(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and add runs to striker if any and increment num balls for
     // striker
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
+
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
@@ -146,37 +149,36 @@ public class BatsmanViewServiceImpl
         .equals(request.getBallDto().getStriker().getId())) {
       batsmanViewUtils.markBatsmanOut(strikerBatsmanViewDto, request.getBallDto().getWicket());
     } else {
-      BatsmanViewDto outPlayerViewDto =
-          batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-              request.getBallDto().getInning().getId(),
-              request.getBallDto().getWicket().getOutPlayer().getId());
+      BatsmanViewDto outPlayerViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processStumpAndWide(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processStumpAndWide(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out
-    BatsmanViewDto outPlayerViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(),
-            request.getBallDto().getWicket().getOutPlayer().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto outPlayerViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getWicket().getOutPlayer().getId());
     batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-    return batsmanViewDao.update(outPlayerViewDto);
+    outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processRunOut(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processRunOut(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any and incrementing num balls
     // for striker
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
+
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
@@ -196,18 +198,20 @@ public class BatsmanViewServiceImpl
               request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processRunOutAndWide(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processRunOutAndWide(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     if (request
         .getBallDto()
         .getWicket()
@@ -221,19 +225,20 @@ public class BatsmanViewServiceImpl
               request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processRunOutAndNoBall(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processRunOutAndNoBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
       batsmanViewUtils.increaseBatsmanRuns(
@@ -252,18 +257,19 @@ public class BatsmanViewServiceImpl
               request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processObstructingTheField(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
+  public BatsmanViewResponseDto processObstructingTheField(BatsmanViewProcessDto request) throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto =
-            batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-                    request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
             && request.getBallDto().getBatsmanRuns() > 0) {
@@ -283,19 +289,20 @@ public class BatsmanViewServiceImpl
                       request.getBallDto().getInning().getId(),
                       request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processObstructingTheFieldAndWide(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processObstructingTheFieldAndWide(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() + 1);
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
@@ -315,19 +322,20 @@ public class BatsmanViewServiceImpl
               request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto processObstructingTheFieldAndNoBall(BatsmanViewProcessDto request)
+  public BatsmanViewResponseDto processObstructingTheFieldAndNoBall(BatsmanViewProcessDto request)
       throws DugoutDataFetchingException {
     // marking given player as out and adding runs to striker view if any
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            request.getBallDto().getInning().getId(), request.getBallDto().getStriker().getId());
-    ;
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     if (request.getBallDto().getBatsmanRuns() != null
         && request.getBallDto().getBatsmanRuns() > 0) {
       batsmanViewUtils.increaseBatsmanRuns(
@@ -346,134 +354,137 @@ public class BatsmanViewServiceImpl
               request.getBallDto().getInning().getId(),
               request.getBallDto().getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanOut(outPlayerViewDto, request.getBallDto().getWicket());
-      batsmanViewDao.update(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessNoBall(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessNoBall(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, ballDto.getStriker().getId());
     strikerBatsmanViewDto.setNumBalls(strikerBatsmanViewDto.getNumBalls() - 1);
     strikerBatsmanViewDto.setRuns(strikerBatsmanViewDto.getRuns() - ballDto.getBatsmanRuns());
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessNoBallLegBye(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessNoBallLegBye(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
-    BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessNoBallBye(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessNoBallBye(BatsmanViewUnprocessDto request) {
     // Nothing to be updated here
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessWideBall(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessWideBall(BatsmanViewUnprocessDto request) {
     // Nothing to be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessWideBallBye(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessWideBallBye(BatsmanViewUnprocessDto request) {
     // nothing to be done here
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessFourRuns(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessFourRuns(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessSixRuns(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessSixRuns(BatsmanViewUnprocessDto request) {
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessRun(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessRun(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
-    BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(
         strikerBatsmanViewDto, request.getBallDto().getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessLegBye(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessLegBye(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
-    BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessBowled(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessBowled(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
-    BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessCatch(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessCatch(BatsmanViewUnprocessDto request) {
     // Not used
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessCaughtAndBowled(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessCaughtAndBowled(BatsmanViewUnprocessDto request) {
     // Not used
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessStump(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessStump(BatsmanViewUnprocessDto request) {
     // Not used
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessStumpAndWide(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessStumpAndWide(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
-    BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessRunOut(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessRunOut(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, ballDto.getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(strikerBatsmanViewDto, ballDto.getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
@@ -483,17 +494,20 @@ public class BatsmanViewServiceImpl
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
               ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessRunOutAndWide(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessRunOutAndWide(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, ballDto.getStriker().getId());
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
       batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
     } else {
@@ -501,23 +515,26 @@ public class BatsmanViewServiceImpl
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
               ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessRunOutAndNoBall(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessRunOutAndNoBall(BatsmanViewUnprocessDto request) {
     // Not used. un process run out covers all the cases
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessObstructingTheField(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessObstructingTheField(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(strikerBatsmanViewDto, ballDto.getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
@@ -527,17 +544,20 @@ public class BatsmanViewServiceImpl
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
               ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessObstructingTheFieldAndWide(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessObstructingTheFieldAndWide(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
       batsmanViewUtils.markBatsmanAsNotOut(strikerBatsmanViewDto);
     } else {
@@ -545,17 +565,20 @@ public class BatsmanViewServiceImpl
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
               ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessObstructingTheFieldAndNoBall(BatsmanViewUnprocessDto request)
+  public BatsmanViewResponseDto unprocessObstructingTheFieldAndNoBall(BatsmanViewUnprocessDto request)
       throws DugoutDataFetchingException {
     BallDto ballDto = request.getBallDto();
-    BatsmanViewDto strikerBatsmanViewDto =
-        batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
-            ballDto.getInning().getId(), ballDto.getStriker().getId());
+    List<BatsmanViewDto> batsmanViewDtoList = batsmanViewDao.getAllBatsmanViewForInning(request.getBallDto().getInning().getId());
+    BatsmanViewDto strikerBatsmanViewDto = batsmanViewUtils.getPlayerBatsmanViewDtoFromAllBatsmanViewDtos(batsmanViewDtoList, request.getBallDto().getStriker().getId());
     batsmanViewUtils.decreaseBatsmanRuns(strikerBatsmanViewDto, ballDto.getBatsmanRuns());
     batsmanViewUtils.decrementBallsFaced(strikerBatsmanViewDto);
     if (Objects.equals(ballDto.getWicket().getOutPlayer().getId(), ballDto.getStriker().getId())) {
@@ -565,18 +588,22 @@ public class BatsmanViewServiceImpl
           batsmanViewDao.getPlayerBatsmanViewForInningAndPlayer(
               ballDto.getInning().getId(), ballDto.getWicket().getOutPlayer().getId());
       batsmanViewUtils.markBatsmanAsNotOut(outPlayerViewDto);
+      outPlayerViewDto = batsmanViewDao.update(outPlayerViewDto);
+      batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, outPlayerViewDto);
     }
-    return batsmanViewDao.update(strikerBatsmanViewDto);
+    strikerBatsmanViewDto = batsmanViewDao.update(strikerBatsmanViewDto);
+    batsmanViewUtils.replaceBatsmanViewDtoInBatsmanViewDtoList(batsmanViewDtoList, strikerBatsmanViewDto);
+    return BatsmanViewResponseDto.builder().batsmanViewDtoList(batsmanViewDtoList).build();
   }
 
   @Override
-  public BatsmanViewDto unprocessCaughtBehind(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessCaughtBehind(BatsmanViewUnprocessDto request) {
     // No need
     return null;
   }
 
   @Override
-  public BatsmanViewDto unprocessLegBeforeWicket(BatsmanViewUnprocessDto request) {
+  public BatsmanViewResponseDto unprocessLegBeforeWicket(BatsmanViewUnprocessDto request) {
     // No need
     return null;
   }
