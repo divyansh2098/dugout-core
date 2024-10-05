@@ -4,5 +4,5 @@ spring:
     password: dugout
   flyway:
     locations:
-      - classpath:db/migration
+      - classpath:db/migration/prod
       - classpath:db/migration/test
