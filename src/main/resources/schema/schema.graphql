@@ -1,4 +1,5 @@
 scalar Long
+scalar JSON
 
 type UserPlayer {
   id: ID
@@ -109,6 +110,12 @@ type Ground {
   address: String
   createdOn: String,
   updatedOn: String
+}
+
+type FormConfig {
+  id: ID!
+  configName: String!
+  config: JSON
 }
 
 input UserPlayerInput {
@@ -286,6 +293,7 @@ type Query {
   getGroundById(id: ID!): Ground
   getTeamById(id: ID!): Team
   getBallById(id: ID!): Ball
+  getFormConfig(configName: String!): FormConfig
 }
 
 type Mutation {
