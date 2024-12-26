@@ -11,11 +11,11 @@ import org.hibernate.annotations.Type;
 import java.util.Map;
 
 @Entity
-@Table(name = "dugout_cache")
+@Table(name = "dugout_config")
 @Getter
 @Setter
 public class Config extends BaseModel {
   @Type(JsonType.class)
   @Column(columnDefinition = "json")
-  Map<String, Object> cache;
+  Map<String, Object> config;
 }

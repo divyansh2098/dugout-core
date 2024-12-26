@@ -22,12 +22,14 @@ public class DugoutConfigCache {
 
   @PostConstruct
   private void init() {
+    logger.info("Loading Initial Cache");
     refreshCache();
   }
 
   public Object getFormConfig(String formName) {
     if (config == null) {
       logger.error("Config not loaded");
+      return null;
     }
     return config.get(formName);
   }
@@ -37,7 +39,7 @@ public class DugoutConfigCache {
     try {
       logger.info("Refreshing Cache");
       List<Config> configList = dugoutConfigRepository.findAll();
-      config = configList.get(0).getCache();
+      config = configList.get(0).getConfig();
     } catch (Exception e) {
       logger.error("Refresh Cache Failed, will retry in 30 minutes");
     }
