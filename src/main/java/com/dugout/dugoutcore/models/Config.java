@@ -18,4 +18,7 @@ public class Config extends BaseModel {
   @Type(JsonType.class)
   @Column(columnDefinition = "json")
   Map<String, Object> config;
+
+  @Column(name = "name")
+  String configName;
 }

@@ -1,6 +1,7 @@
 package com.dugout.dugoutcore.resolvers;
 
 import com.dugout.dugoutcore.cache.DugoutConfigCache;
+import com.dugout.dugoutcore.models.Config;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
@@ -14,7 +15,7 @@ public class ConfigResolver {
   @NonNull DugoutConfigCache dugoutConfigCache;
 
   @DgsQuery
-  public Object getFormConfig(@InputArgument String formName) {
-    return dugoutConfigCache.getFormConfig(formName);
+  public Config getFormConfig(@InputArgument String configName) {
+    return dugoutConfigCache.getFormConfig(configName);
   }
 }

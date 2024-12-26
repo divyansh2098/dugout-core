@@ -112,6 +112,12 @@ type Ground {
   updatedOn: String
 }
 
+type FormConfig {
+  id: ID!
+  configName: String!
+  config: JSON
+}
+
 input UserPlayerInput {
   id: Long
   firstName: String
@@ -287,7 +293,7 @@ type Query {
   getGroundById(id: ID!): Ground
   getTeamById(id: ID!): Team
   getBallById(id: ID!): Ball
-  getFormConfig(formName: String!): JSON
+  getFormConfig(configName: String!): FormConfig
 }
 
 type Mutation {
